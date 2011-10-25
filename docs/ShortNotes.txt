@@ -1,0 +1,275 @@
+        FairyJS. Your personal Javascript fairy for the website.
+
+FairyJS is kind of framework helping you to serve rich features to your website
+visitors easily and with no hassle. By default it doesn't require you to even
+know JavaScript in order to make it working.
+
+Let's take a look on how it's all made.
+
+1. HTML integration - FJS namespace
+
+FairyJS works in separate XHTML namespace which makes it transparent to your
+markup and any other things you can do with your HTML. 
+To declare the namespace consider using the following syntax:
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fjs="https://github.com/zysoft/FairyJS">
+
+2. Supported attributes
+   
+2.1. Localization plugin
+
+   fjs:lang                     - Page default language
+                                  Applicable to: html
+                                  Value: language code (example: en-us)
+   
+   fjs:localizable              - Localizable entity
+                                  Applicable to: any
+                                  Value: Entity text (example: login
+                                                      example: Login box)
+
+2.2. Validation plugin
+
+   fjs:validate                 - Validation method
+                                  Applicable to: form input fields
+                                  Value: blur|keypress
+
+   fjs:required                 - Indicates required field
+                                  Applicable to: form input fields
+                                  Value: true|any
+
+   fjs:validator                - List of validators to apply
+                                  Applicable to: form input fields
+                                  Value: comma separated list of validators
+                                         (example: int,regexp)
+
+   fjs:validator_param          - Validator parameter
+                                  Applicable to: form input fields
+                                  Value: depending on parameter meaning
+                                         (exmaple: fjs:regexp_regex="\d{4}")
+
+   fjs:validator_error_message  - Validator error message
+                                  Applicable to: form input fields
+                                  Value: string
+                                         (example: fjs:int_error_message="Oops")
+
+3. JavaScript interface
+
+3.1. Core object
+
+    Core object is named $$.fjs. FairyJS depends on jQuery and provides a 
+shortcut for jQuery object named $$. This helps keeping shortcut short in case
+when jQuery is used in non conflicting mode.
+    Core object is nothing but container for plugins which build the core as of
+your needs. Every plugin can be added or removed without breaking up things.
+Except the plugins that have requirements on other plugins.
+
+3.2. FairyJS configuration
+    
+    FairyJS has minimum configuration options by default. However configuration
+can be extended by plugins. Here are the default set of options:
+    
+    debugMode           - Debug mode
+                          Provides some useful information on runtime in 
+                          browser console.
+                          Default: false
+    verboseMode         - Verbose mode
+                          Provides some internal debug information and activates
+                          $$.fjs.log function
+                          Default: false
+    
+3.2.1 Localization plugin options
+    
+    Localization plugin extends the core configuration with following options:
+
+    langFile            - Language file template
+                          Defines the mask of the file containing language data
+                          Default: fjs_%@.js
+
+    langPath            - Path to language files
+                          Defines the place language files can be accessed at
+                          Default: lang/ (Trailing slash is required)
+
+    defaultLang         - Default language to use if no language is specified
+                          Default: en-us
+
+
+3.3. Core object interface methods:
+
+    configure(configuration)                    - Sets configuration options
+                                                  Overrides default values for
+                                                  given options.
+                                                  Example:
+                                                    $$.fjs.configure({
+                                                        debugMode: true
+                                                    });
+
+    log(message)                                - Logs message to console
+                                                  Used for some verbose output.
+                                                  Controlled by verboseMode
+                                                  config option.
+
+    warn(message)                               - Logs warning to console
+                                                  Used to warn user about some
+                                                  non-critical situations.
+                                                  Controlled by debugMode
+                                                  config option.
+
+    error(message)                              - Logs error to console
+                                                  Used to notify user about some
+                                                  critical error.
+                                                  Controlled by debugMode
+                                                  config option.
+
+    plugin(name, definition, requiredPlugins)   - Registers plugin
+                                                  name - Plugin name
+                                                  definition - Plugin object
+                                                  requiredPlugins - list of
+                                                  required plugins to start.
+                                                  Plugin object is accessible
+                                                  via $$.fjs.name
+
+    hasPlugin(name)                             - Checks if plugin with given
+                                                  name is loaded and registered
+
+
+3.3.1. Localization plugin interface methods
+    
+    $$_(entity)                                 - Shortcut for translation
+                                                  Translates given entity to
+                                                  currently active language
+
+    set(lang)                                   - Activates given language
+                                                  Loads language file if needed,
+                                                  then translates all applicable
+                                                  entities to the given language
+                                                  lang - Language code
+                                                         (example: en-us)
+
+    addEntity(langName, entity, translation)    - Adds localizable entity
+                                                  langName - Language code
+                                                  entity - Entity code
+                                                  translation - Entity for given
+                                                  langName
+                                                  Example: 
+                                                  $$.fjs.lang.addEntity(
+                                                    'en-us',
+                                                    'Test',
+                                                    'This is a test'
+                                                  );
+
+    add(langName, definition)                   - Registers language
+                                                  Used by language files to 
+                                                  claim their load.
+                                                  langName - Language code
+                                                  definition - Language object
+                                                  Example:
+                                                  $$.fjs.lang.add('en-us', {
+                                                    'entity' : 'Translation'
+                                                  });
+
+3.3.2. Validation plugin interface methods
+
+    add(name, definition, defaultConfig)       - Registers validator
+                                                 Every validatior has to be
+                                                 registered before use.
+                                                 name - Validator name
+                                                 definition - Validation func
+                                                 defaultConfig - Object
+                                                 Example:
+                                                 $$.fjs.validate.add(
+                                                    'foo',
+                                                    function(value, config) {
+                                                     return value==config.param;
+                                                    },
+                                                    {
+                                                        param: 1
+                                                    }
+                                                 );
+                                                 Params can be set with 
+                                                 fjs:validator_param as 
+                                                 described in 2.2
+
+    field($input)                              - Validates the field
+                                                 $input - jQuery object matching
+                                                 :input selector
+                                                 Returns true if field is valid
+                                                 or false otherwise
+
+    fieldError($input)                         - Returns field validation error
+                                                 $input - jQuery object matching
+                                                 :input selector
+
+4. Building language files for localization plugin
+    
+    Making language file is easy as you only need to specify the entities and 
+translations for them.
+    Example:
+    $$.fjs.lang.add('en-en', {
+        'Entity' : 'Test translation'
+    });
+
+After this language file is loaded you will get "Test translation" in response
+to $$_('Entity') or other translation methods.
+
+
+5. Extending FairyJS
+
+   As told before, FairyJS is a set of plugins. Writing plugin is easy as never!
+You can to provide an object defining a set of functions and you're ready to go.
+Default plugin is:
+
+$$.fjsPlugin = {
+    register: function() {
+        
+    }
+}
+
+Your plugins extend this options by default. Let's imagine you need a plugin for
+alerting text on clicks to objects tagged with fjs:alert attribute. 
+Here's how you can make it:
+
+$$.fjs.plugin('alertPlugin', {
+    register: function() {
+        $$('fjs\\:alert').click(function() {
+            alert($$(this).attr('fjs:alert');
+        });
+    }
+});
+
+Simple, isn't it?
+Method "register" is called on page load for all registered plugins.
+If your plugin needs to provide some methods for outer code, just describe them:
+
+$$.fjs.plugin('alertPlugin', {
+    register: function() {
+        $$('fjs\\:alert').click(function() {
+            alert($$(this).attr('fjs:alert');
+        });
+    },
+
+    alert: function(message) {
+        alert(message);
+    }
+});
+
+Now you can access it via $$.fjs.alertPlugin.alert('Something');
+
+6. Extending validation
+
+    Each validator is a single standalone entity. You can add any validators you 
+need if FairyJS doesn't provide ones.
+Example: Validating value against another value
+
+$$.fjs.validate.add('against', function(value, params) {
+    return value == params.value;
+},
+{
+    value: 0
+});
+
+To use the validator, simply assign it to the form field:
+
+<input type="text" name="some" value="" fjs:validate="blur" 
+fjs:validator="against" fjs:against_value="Test" 
+fjs:against_error_message="Please enter 'Test'" />
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fjs="https://github.com/zysoft/FairyJS" fjs:lang="en-us">
+    <head>
+        <title>FairyJS Demo Page</title>
+        <style type="text/css">
+            body {
+                font-size: 14px;
+            }
+            .error {
+                color:red;
+                font-size: 12px;
+            }
+        </style>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <!-- Core -->
+        <script type="text/javascript" src="../src/fjs_core.js"></script>
+        <script type="text/javascript">
+            $$.fjs.configure({
+               debugMode: true,
+//             verboseMode: true,
+                langPath: '../src/lang/'
+            });
+        </script>
+        <!-- Plugins -->
+        <script type="text/javascript" src="../src/fjs_validate.js"></script>
+        <script type="text/javascript" src="../src/fjs_forms.js"></script>
+        <script type="text/javascript" src="../src/fjs_lang.js"></script>
+        <script type="text/javascript">
+            $$.fjs.validate.add('foo', function(value, params) {
+                return value == params.param;
+            },
+            {
+                param: '1'
+            });
+            $$.fjs.lang
+                .addEntity('en-us', 'Please enter digit \'2\'','Please enter digit \'2\'')
+                .addEntity('ru-ru', 'Please enter digit \'2\'','Введите цифру \'2\'');
+        </script>
+    </head>
+    <body>
+        <div>
+            <h1 fjs:localizable="Test form">Test form</h1>
+            <form action="" method="post" onsubmit="alert($$_('Form is valid'));return false;">
+                <div>
+                    <label for="test1" fjs:localizable="Required, Integer">Required, Integer</label>
+                    <input type="text" id="test1" name="test1" value="" fjs:validate="blur" fjs:required="true" fjs:validator="int" fjs:int_error_message="Value must be integer" />
+                    <div class="error" fjs:error_for="test1"></div>
+                </div>
+                <div>
+                    <label for="test2" fjs:localizable="Not required, regexp /^.{4}$/, integer">Not required, regexp /^.{4}$/, integer</label>
+                    <input type="text" id="test2" name="test2" value="" fjs:validate="keypress" fjs:validator="regexp,int" fjs:regexp_regex="^.{4}$" fjs:regexp_error_message="Value should be 4 characters" fjs:int_error_message="Value must be integer"/>
+                    <div class="error" fjs:error_for="test2"></div>
+                </div>
+                <div>
+                    <label for="test3" fjs:localizable="Custom validator 'foo'">Custom validator 'foo'</label>
+                    <input type="text" id="test3" name="test3" value="" fjs:validate="blur" fjs:validator="foo" fjs:foo_param="2" fjs:foo_error_message="Please enter digit '2'"/>
+                    <div class="error" fjs:error_for="test3"></div>
+                </div>
+                <div>
+                    <label for="test4" fjs:localizable="Required, Email">Required, Email</label>
+                    <input type="text" id="test4" name="test4" value="" fjs:validate="blur" fjs:required="true" fjs:validator="email" fjs:email_error_message="Please enter valid email"/>
+                    <div class="error" fjs:error_for="test4"></div>
+                </div>
+                <div>
+                    <input type="submit" value="Submit" fjs:localizable="Submit"/>
+                </div>
+            </form>
+        </div>
+        <div>
+            <h1 fjs:localizable="Localization">Localization</h1>
+            <select id="lang" onchange="$$.fjs.lang.set($(this).val())">
+                <option value="en-us">English</option>
+                <option value="ru-ru">Russian</option>
+            </select>
+            <a href="#" onclick="alert($$_('Test string'));return false;" fjs:localizable="Runtime example">Runtime example</a>
+        </div>
+    </body>
+</html>
