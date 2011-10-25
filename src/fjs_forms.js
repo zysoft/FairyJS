@@ -46,8 +46,8 @@ $$.fjs.plugin('forms', {
         //Assign onSubmit handler to all forms
         $$('form').submit(function() {
             var isFormValid = true;
-            $(this).find(':input').each(function() {
-                isFormValid = isFormValid && singleFieldValidate($$(this));
+            $$(this).find(':input').each(function() {
+                isFormValid = singleFieldValidate($$(this)) && isFormValid;
             });
             return isFormValid;
         });

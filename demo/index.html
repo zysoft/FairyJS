@@ -41,7 +41,7 @@
     <body>
         <div>
             <h1 fjs:localizable="Test form">Test form</h1>
-            <form action="" method="post" onsubmit="alert($$_('Form is valid'));return false;">
+            <form action="" method="post">
                 <div>
                     <label for="test1" fjs:localizable="Required, Integer">Required, Integer</label>
                     <input type="text" id="test1" name="test1" value="" fjs:validate="blur" fjs:required="true" fjs:validator="int" fjs:int_error_message="Value must be integer" />
