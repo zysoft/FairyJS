@@ -68,7 +68,7 @@ $$.fjs.plugin('validate',{
                 return fieldValidationResult;
             }
             var validatorConfig = validatorInfo.config;
-            //Go throught the config given and extract appropriate options from fjs:validator_option attributes
+            //Go throught the config given and extract appropriate options from data-fjs-validator_option attributes
             $$.each(validatorInfo.config, function(pName){
                 var paramName = 'data-fjs-'+validatorName+'_'+pName;
                 if ($input.attr(paramName)) {

@@ -28,7 +28,7 @@ $$.fjs.plugin('forms', {
         //Handler to process single field validation
         var singleFieldValidate = function($input) {
             //Clear error
-            $$('*[fjs\\:error_for="'+$input.attr('name')+'"]').html('');
+            $$('*[data-fjs-error_for="'+$input.attr('name')+'"]').html('');
             //If validation failed
             if (!$$.fjs.validate.field($input)) {
                 //Highlight error

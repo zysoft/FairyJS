@@ -30,7 +30,7 @@ String.prototype.withVal = function(value) {
 //Extends Array prototype to add indexOf method
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function(value, fromIndex) {
-        fromIndex = parseInt(fromIndex);
+        fromIndex = fromIndex ? parseInt(fromIndex) : 0;
         for (var i=0,c=this.length;i<c;i++) {
             if (i>=fromIndex && this[i] == value)
                 return i;
