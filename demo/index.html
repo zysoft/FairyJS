@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fjs="https://github.com/zysoft/FairyJS" fjs:lang="en-us">
+<html xmlns="http://www.w3.org/1999/xhtml" data-fjs-lang="en-us">
     <head>
         <title>FairyJS Demo Page</title>
-        <meta http-equiv="Content-Type" content="application/xhtml; charset=utf-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <style type="text/css">
             body {
                 font-size: 14px;
@@ -41,40 +40,40 @@
     </head>
     <body>
         <div>
-            <h1 fjs:localizable="Test form">Test form</h1>
-            <form action="" method="post">
+            <h1 data-fjs-localizable="Test form">Test form</h1>
+            <form action="index.html" method="post">
                 <div>
-                    <label for="test1" fjs:localizable="Required, Integer">Required, Integer</label>
-                    <input type="text" id="test1" name="test1" value="" fjs:validate="blur" fjs:required="true" fjs:validator="int" fjs:int_error_message="Value must be integer" />
-                    <div class="error" fjs:error_for="test1"></div>
+                    <label for="test1" data-fjs-localizable="Required, Integer">Required, Integer</label>
+                    <input type="text" id="test1" name="test1" value="" data-fjs-validate="blur" data-fjs-required="true" data-fjs-validator="int" data-fjs-int_error_message="Value must be integer" />
+                    <div class="error" data-fjs-error_for="test1"></div>
                 </div>
                 <div>
-                    <label for="test2" fjs:localizable="Not required, regexp /^.{4}$/, integer">Not required, regexp /^.{4}$/, integer</label>
-                    <input type="text" id="test2" name="test2" value="" fjs:validate="keypress" fjs:validator="regexp,int" fjs:regexp_regex="^.{4}$" fjs:regexp_error_message="Value should be 4 characters" fjs:int_error_message="Value must be integer"/>
-                    <div class="error" fjs:error_for="test2"></div>
+                    <label for="test2" data-fjs-localizable="Not required, regexp /^.{4}$/, integer">Not required, regexp /^.{4}$/, integer</label>
+                    <input type="text" id="test2" name="test2" value="" data-fjs-validate="keypress" data-fjs-validator="regexp,int" data-fjs-regexp_regex="^.{4}$" data-fjs-regexp_error_message="Value should be 4 characters" data-fjs-int_error_message="Value must be integer"/>
+                    <div class="error" data-fjs-error_for="test2"></div>
                 </div>
                 <div>
-                    <label for="test3" fjs:localizable="Custom validator 'foo'">Custom validator 'foo'</label>
-                    <input type="text" id="test3" name="test3" value="" fjs:validate="blur" fjs:validator="foo" fjs:foo_param="2" fjs:foo_error_message="Please enter digit '2'"/>
-                    <div class="error" fjs:error_for="test3"></div>
+                    <label for="test3" data-fjs-localizable="Custom validator 'foo'">Custom validator 'foo'</label>
+                    <input type="text" id="test3" name="test3" value="" data-fjs-validate="blur" data-fjs-validator="foo" data-fjs-foo_param="2" data-fjs-foo_error_message="Please enter digit '2'"/>
+                    <div class="error" data-fjs-error_for="test3"></div>
                 </div>
                 <div>
-                    <label for="test4" fjs:localizable="Required, Email">Required, Email</label>
-                    <input type="text" id="test4" name="test4" value="" fjs:validate="blur" fjs:required="true" fjs:validator="email" fjs:email_error_message="Please enter valid email"/>
-                    <div class="error" fjs:error_for="test4"></div>
+                    <label for="test4" data-fjs-localizable="Required, Email">Required, Email</label>
+                    <input type="text" id="test4" name="test4" value="" data-fjs-validate="blur" data-fjs-required="true" data-fjs-validator="email" data-fjs-email_error_message="Please enter valid email"/>
+                    <div class="error" data-fjs-error_for="test4"></div>
                 </div>
                 <div>
-                    <input type="submit" value="Submit" fjs:localizable="Submit"/>
+                    <input type="submit" value="Submit" data-fjs-localizable="Submit"/>
                 </div>
             </form>
         </div>
         <div>
-            <h1 fjs:localizable="Localization">Localization</h1>
+            <h1 data-fjs-localizable="Localization">Localization</h1>
             <select id="lang" onchange="$$.fjs.lang.set($(this).val())">
                 <option value="en-us">English</option>
                 <option value="ru-ru">Russian</option>
             </select>
-            <a href="#" onclick="alert($$_('Test string'));return false;" fjs:localizable="Runtime example">Runtime example</a>
+            <a href="#" onclick="alert($$_('Test string'));return false;" data-fjs-localizable="Runtime example">Runtime example</a>
         </div>
     </body>
 </html>

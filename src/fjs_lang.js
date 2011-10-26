@@ -26,7 +26,7 @@ $$.fjs.plugin('lang', {
     knownLangs : [],
     //Plugin registration handler
     register: function() {
-        var lang = $$('html').attr('fjs:lang');
+        var lang = $$('html').attr('data-fjs-lang');
         if (!lang)
             lang = $$.fjs.config.defaultLang;
         this.set(lang);
@@ -63,11 +63,11 @@ $$.fjs.plugin('lang', {
     },
     //Loclizes entry page according to fjs:localizable attribute
     localizePage: function() {
-        $$('*[fjs\\:localizable]').each(function() {
+        $$('*[data-fjs-localizable]').each(function() {
             if ($$(this).is(':input'))
-                $$(this).val($$_($$(this).attr('fjs:localizable')));
+                $$(this).val($$_($$(this).attr('data-fjs-localizable')));
             else
-                $$(this).html($$_($$(this).attr('fjs:localizable')));
+                $$(this).html($$_($$(this).attr('data-fjs-localizable')));
         });
     }
 });

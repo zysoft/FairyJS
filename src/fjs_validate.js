@@ -38,22 +38,22 @@ $$.fjs.plugin('validate',{
     //Validates field ($input is a jQuery object matching :input selector)
     field: function($input) {
         //Check if the field is NOT required and empty
-        if (!$input.attr('fjs:required') && $$.trim($input.val()).length == 0)
+        if (!$input.attr('data-fjs-required') && $$.trim($input.val()).length == 0)
             return true;
         
         //Check if the field is REQUIRED and empty
-        if ($input.attr('fjs:required') && $$.trim($input.val()).length == 0) {
+        if ($input.attr('data-fjs-required') && $$.trim($input.val()).length == 0) {
             this.fieldErrors[$input.attr('name')] = 'This field is required';
             return false;
         }
         
         //Do other validation
-        if (!$input.attr('fjs:validator')) {
+        if (!$input.attr('data-fjs-validator')) {
             return true;
         }
         var fieldValidationResult = true;
         //Getting the list of validators
-        var validators = $input.attr('fjs:validator').split(',');
+        var validators = $input.attr('data-fjs-validator').split(',');
         //Go over all assigned validators
         for (var i=0,c=validators.length; i<c; i++) {
             var validatorName = validators[i];
@@ -70,7 +70,7 @@ $$.fjs.plugin('validate',{
             var validatorConfig = validatorInfo.config;
             //Go throught the config given and extract appropriate options from fjs:validator_option attributes
             $$.each(validatorInfo.config, function(pName){
-                var paramName = 'fjs:'+validatorName+'_'+pName;
+                var paramName = 'data-fjs-'+validatorName+'_'+pName;
                 if ($input.attr(paramName)) {
                     validatorConfig[pName] = $input.attr(paramName);
                 }

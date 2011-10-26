@@ -34,15 +34,15 @@ $$.fjs.plugin('forms', {
                 //Highlight error
                 var error = $$.fjs.validate.fieldError($input);
                 var errorText = $$.fjs.hasPlugin('lang') ? $$_(error) : error;
-                $$('*[fjs\\:error_for="'+$input.attr('name')+'"]').html(errorText).attr('fjs:localizable', error);
+                $$('*[data-fjs-error_for="'+$input.attr('name')+'"]').html(errorText).attr('data-fjs-localizable', error);
                 return false;
             }
             return true;
         };
         //Assign onBlur validatio
-        $$(':input[fjs\\:validate="blur"]').blur(function() {singleFieldValidate($$(this));});
+        $$(':input[data-fjs-validate="blur"]').blur(function() {singleFieldValidate($$(this));});
         //Assign onKeypress validation (which is onKeyUp)
-        $$(':input[fjs\\:validate="keypress"]').keyup(function() {singleFieldValidate($$(this));});
+        $$(':input[data-fjs-validate="keypress"]').keyup(function() {singleFieldValidate($$(this));});
         //Assign onSubmit handler to all forms
         $$('form').submit(function() {
             var isFormValid = true;

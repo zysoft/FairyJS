@@ -6,51 +6,49 @@ know JavaScript in order to make it working.
 
 Let's take a look on how it's all made.
 
-1. HTML integration - FJS namespace
+1. HTML integration
 
-FairyJS works in separate XHTML namespace which makes it transparent to your
-markup and any other things you can do with your HTML. 
-To declare the namespace consider using the following syntax:
-
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fjs="https://github.com/zysoft/FairyJS">
+FairyJS is transparent to your markup and any other things you can do with your 
+HTML. It uses data-* attributes that are valid in HTML5.
 
 2. Supported attributes
    
 2.1. Localization plugin
 
-   fjs:lang                     - Page default language
+   data-fjs-lang                - Page default language
                                   Applicable to: html
                                   Value: language code (example: en-us)
    
-   fjs:localizable              - Localizable entity
+   data-fjs-localizable         - Localizable entity
                                   Applicable to: any
                                   Value: Entity text (example: login
                                                       example: Login box)
 
 2.2. Validation plugin
 
-   fjs:validate                 - Validation method
+   data-fjs-validate            - Validation method
                                   Applicable to: form input fields
                                   Value: blur|keypress
 
-   fjs:required                 - Indicates required field
+   data-fjs-required            - Indicates required field
                                   Applicable to: form input fields
                                   Value: true|any
 
-   fjs:validator                - List of validators to apply
+   data-fjs-validator           - List of validators to apply
                                   Applicable to: form input fields
                                   Value: comma separated list of validators
                                          (example: int,regexp)
 
-   fjs:validator_param          - Validator parameter
+   data-fjs-validator_param     - Validator parameter
                                   Applicable to: form input fields
                                   Value: depending on parameter meaning
-                                         (exmaple: fjs:regexp_regex="\d{4}")
+                                        (exmaple: data-fjs-regexp_regex="\d{4}")
 
-   fjs:validator_error_message  - Validator error message
+   data-fjs-validator_error_message  
+                                - Validator error message
                                   Applicable to: form input fields
                                   Value: string
-                                         (example: fjs:int_error_message="Oops")
+                                    (example: data-fjs-int_error_message="Oops")
 
 3. JavaScript interface
 
@@ -186,7 +184,7 @@ can be extended by plugins. Here are the default set of options:
                                                     }
                                                  );
                                                  Params can be set with 
-                                                 fjs:validator_param as 
+                                                 data-fjs-validator_param as 
                                                  described in 2.2
 
     field($input)                              - Validates the field
@@ -225,13 +223,13 @@ $$.fjsPlugin = {
 }
 
 Your plugins extend this options by default. Let's imagine you need a plugin for
-alerting text on clicks to objects tagged with fjs:alert attribute. 
+alerting text on clicks to objects tagged with data-fjs-alert attribute. 
 Here's how you can make it:
 
 $$.fjs.plugin('alertPlugin', {
     register: function() {
-        $$('fjs\\:alert').click(function() {
-            alert($$(this).attr('fjs:alert');
+        $$('data-fjs-alert').click(function() {
+            alert($$(this).attr('data-fjs-alert');
         });
     }
 });
@@ -242,8 +240,8 @@ If your plugin needs to provide some methods for outer code, just describe them:
 
 $$.fjs.plugin('alertPlugin', {
     register: function() {
-        $$('fjs\\:alert').click(function() {
-            alert($$(this).attr('fjs:alert');
+        $$('data-fjs-alert').click(function() {
+            alert($$(this).attr('data-fjs-alert');
         });
     },
 
@@ -269,7 +267,7 @@ $$.fjs.validate.add('against', function(value, params) {
 
 To use the validator, simply assign it to the form field:
 
-<input type="text" name="some" value="" fjs:validate="blur" 
-fjs:validator="against" fjs:against_value="Test" 
-fjs:against_error_message="Please enter 'Test'" />
+<input type="text" name="some" value="" data-fjs-validate="blur" 
+data-fjs-validator="against" data-fjs-against_value="Test" 
+data-fjs-against_error_message="Please enter 'Test'" />
 
