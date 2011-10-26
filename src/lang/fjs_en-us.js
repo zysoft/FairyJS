@@ -33,5 +33,10 @@ $$.fjs.lang.add('en-us', {
     'Value must be integer'                     : 'Value must be integer',
     'Custom validator \'foo\''                  : 'Custom validator \'foo\'',
     'Required, Email'                           : 'Required, Email',
-    'Please enter valid email'                  : 'Please enter valid email'
+    'Please enter valid email'                  : 'Please enter valid email',
+    'Drag me'                                   : 'Drag me',
+    'Drop it here'                              : 'Drop here',
+    'Cool!'                                     : 'Cool!',
+    'Just dragging'                             : 'Just dragging',
+    'Dragging and dropping'                     : 'Dragging and dropping'
 });

@@ -11,11 +11,29 @@
                 color:red;
                 font-size: 12px;
             }
+            .ui-container {
+                width: 100%;
+                height: 200px;
+            }
+            .ui-element {
+                width: 50px;
+                height: 50px;
+                background-color: #EEEEEE;
+                border: 1px solid black;
+            }
+            .ui-state-highlight {
+                background-color: yellow;
+            }
+            .ui-dropped {
+                float:left;
+            }
         </style>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
         <!-- Core -->
         <script type="text/javascript" src="../src/fjs_core.js"></script>
         <script type="text/javascript">
+            //Configuring FairyJS according to our needs
             $$.fjs.configure({
                debugMode: true,
 //             verboseMode: true,
@@ -26,16 +44,26 @@
         <script type="text/javascript" src="../src/fjs_validate.js"></script>
         <script type="text/javascript" src="../src/fjs_forms.js"></script>
         <script type="text/javascript" src="../src/fjs_lang.js"></script>
+        <script type="text/javascript" src="../src/fjs_dragndrop.js"></script>
         <script type="text/javascript">
+            //Adding custom validator
             $$.fjs.validate.add('foo', function(value, params) {
                 return value == params.param;
             },
             {
                 param: '1'
             });
+            //Adding localization data for validator
             $$.fjs.lang
                 .addEntity('en-us', 'Please enter digit \'2\'','Please enter digit \'2\'')
                 .addEntity('ru-ru', 'Please enter digit \'2\'','Введите цифру \'2\'');
+            
+            //Subscribing for drop event
+            $$.fjs.subscribe('org.fjs.dragndrop.drop', function($ev, $what, $where) {
+                $what.attr('style','').clone().prependTo($where.parent()).makeDraggable();
+                $what.addClass('ui-dropped').appendTo($where);
+                $$.fjs.dragndrop.disableDragFor($what);
+            });
         </script>
     </head>
     <body>
@@ -74,6 +102,26 @@
                 <option value="ru-ru">Russian</option>
             </select>
             <a href="#" onclick="alert($$_('Test string'));return false;" data-fjs-localizable="Runtime example">Runtime example</a>
+        </div>
+        <div>
+            <fieldset>
+                <legend data-fjs-localizable="Just dragging">Just dragging</legend>
+            <div class="ui-container">
+                <div class="ui-element" data-fjs-localizable="Drag me" data-fjs-draggable="parent" data-fjs-draggable-cursor="pointer"></div>
+            </div>
+            </fieldset>
+        </div>
+        <div>
+            <fieldset>
+                <legend data-fjs-localizable="Dragging and dropping">Dragging and dropping</legend>
+            <div class="ui-container">
+                <div class="ui-element" data-fjs-localizable="Drag me" data-fjs-draggable="window" data-fjs-draggable-cursor="pointer" data-fjs-drop-to="Droppable1"></div>
+            </div>
+            <div data-fjs-localizable="Drop it here"></div>
+            <div class="ui-container droppable" data-fjs-droppable="Droppable1" data-fjs-highlight-class="ui-state-highlight" data-fjs-ondrop="$what.attr('data-fjs-localizable','Cool!');$what.text($$_('Cool!'));">
+                
+            </div>
+            </fieldset>
         </div>
     </body>
 </html>

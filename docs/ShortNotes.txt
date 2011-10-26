@@ -50,6 +50,40 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                   Value: string
                                     (example: data-fjs-int_error_message="Oops")
 
+2.3. Drag and Drop plugin
+
+   data-fjs-draggable           - Indicates that the item can be dragged
+                                  Applicable to: any
+                                  Value: containment
+                  (see: http://jqueryui.com/demos/draggable/#option-containment)
+
+
+   data-fjs-draggable-cursor    - Sets cursor for object while dragging
+                                  Applicable to: data-fjs-draggable
+                                  Value: CSS curson definition
+
+   data-fjs-drop-to             - Sets the container to drop to
+                                  Applicable to: data-fjs-draggable
+                                  Value: Container ID (see: data-fjs-droppable)
+
+   data-fjs-droppable           - Indicates container to drop items to
+                                  Applicable to: any
+                                  Value: any (defines container ID for
+                                  data-fjs-drop-to)
+
+   data-fjs-highlight-class     - Sets the CSS class to highlight container
+                                  while dragging
+                                  Applicable to: data-fjs-droppable
+                                  Value: CSS class name
+
+   data-fjs-ondrop              - JavaScript to execute on drop event
+                                  Applicable to: data-fjs-droppable
+                                  Value: Valid JavaScript code
+                                  Code can use the following variables:
+                                    $ev     - jQuery event
+                                    $what   - The item dropped
+                                    $where  - The container object
+
 3. JavaScript interface
 
 3.1. Core object
@@ -197,7 +231,76 @@ can be extended by plugins. Here are the default set of options:
                                                  $input - jQuery object matching
                                                  :input selector
 
-4. Building language files for localization plugin
+3.3.3. Drag and Drop plugin interface methods
+
+   setDraggable([$object])                    - Initializes object as draggable
+                                                $object - jQuery object to act 
+                                                on, acts on all 
+                                                data-fjs-draggable if not set.
+                                                
+
+   setDroppable([$object])                    - Initializes object as droppable
+                                                $object - jQuery object to act 
+                                                on, acts on all 
+                                                data-fjs-droppable if not set.
+
+   disableDragFor($object)                    - Disables dragging for $object
+                                                $object - jQuery object
+
+   enableDragFor($object)                     - Enables dragging for $object
+                                                $object - jQuery object
+
+   disableDropFor($object)                    - Disables dropping for $object
+                                                $object - jQuery object
+
+   enableDropFor($object)                     - Enables dropping for $object
+                                                $object - jQuery object
+
+   jQuery.fn.makeDraggable                    - Handy jQuery extention which is
+                                                an alias to 
+                                                $$.fjs.dragndrop.setDraggable
+
+   jQuery.fn.makeDroppable                    - Handy jQuery extention which is
+                                                an alias to 
+                                                $$.fjs.dragndrop.setDroppable
+
+
+4. Events in FairyJS
+
+   FairyJS provides simplified mechanisms of working with events subsystem. Of
+course it's built over jQuery events, however it provides you the easiest way of
+handling it.
+
+    $$.fjs.subscribe(event, callback)         - Subscribes for the given event
+                                                event    - Event name
+                                                callback - Callback func
+                                                Example:
+                                                $$.fjs.subscribe(
+                                                   'org.fjs.testEvent',
+                                                    function($ev, p1, p2, p3) {
+                                                        alert(p2);
+                                                    }
+                                                );
+
+
+    $$.fjs.fire(event, [param1, ... , paramN] - Fires event with parameters
+                                                event  - Event name
+                                                paramX - Data parameter
+                                                Example:
+                                         $$.fjs.fire('org.fjs.testEvent',1,2,3);
+                                                
+
+4.1. Events from Drag and Drop plugin
+    
+    org.fjs.dragndrop.drop                    - Gets fired when some object is
+                                                dropped to a container
+                                                Parameters:
+                                                $ev    - Event
+                                                $what  - What was dropped
+                                                $where - Container $what was
+                                                         dropped to
+
+5. Building language files for localization plugin
     
     Making language file is easy as you only need to specify the entities and 
 translations for them.
@@ -210,7 +313,7 @@ After this language file is loaded you will get "Test translation" in response
 to $$_('Entity') or other translation methods.
 
 
-5. Extending FairyJS
+6. Extending FairyJS
 
    As told before, FairyJS is a set of plugins. Writing plugin is easy as never!
 You can to provide an object defining a set of functions and you're ready to go.

@@ -95,22 +95,31 @@ $$.fjs = {
     //Logs message according to verboseMode setting
     //@see $$.fjs.config.verboseMode
     log: function(message) {
-        if (this.config.verboseMode)
-            console.log('['+new Date().toString('YYYY-mm-dd')+'] '+message);
+        if (this.config.verboseMode) {
+            if (typeof(message) == 'string')
+                message = '['+new Date()+'] '+message;
+            console.log(message);
+        }
         return this;
     },
     //Outputs warning according to debugMode setting
     //@see $$.fjs.config.debugMode
-    warn: function() {
-        if (this.config.debugMode)
-            console.warn('['+new Date()+'] '+message);
+    warn: function(message) {
+        if (this.config.debugMode) {
+            if (typeof(message) == 'string')
+                message = '['+new Date()+'] '+message;
+            console.warn(message);
+        }
         return this;
     },
     //Outputs error according to debugMode setting
     //@see $$.fjs.config.debugMode
-    error: function() {
-        if (this.config.debugMode)
-            console.error('['+new Date()+'] '+message);
+    error: function(message) {
+        if (this.config.debugMode) {
+            if (typeof(message) == 'string')
+                message = '['+new Date()+'] '+message;
+            console.error(message);
+        }
         return this;
     },
     //Registers plugin
@@ -135,6 +144,18 @@ $$.fjs = {
     //Checks if plugin with given name is registered and available
     hasPlugin: function(name) {
         return $$.fjs.plugins.indexOf(name) != -1;
+    },
+    subscribe: function(event, callback) {
+        $$(document).bind(event, callback);
+        $$.fjs.log('Got subscribtion to "'+event+'"');
+    },
+    //Fires event with params
+    fire: function(event) {
+        var fireArgs = [];
+        for (var i=1,c=arguments.length; i<c; i++)
+            fireArgs.push(arguments[i]);
+        $$.fjs.log('Firing "'+event+'"');
+        $$(document).trigger(event, fireArgs);
     }
 };
 
