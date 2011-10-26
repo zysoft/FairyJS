@@ -27,6 +27,18 @@ String.prototype.withVal = function(value) {
     return this.replace(/%@/, value);
 }
 
+//Extends Array prototype to add indexOf method
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function(value, fromIndex) {
+        fromIndex = parseInt(fromIndex);
+        for (var i=0,c=this.length;i<c;i++) {
+            if (i>=fromIndex && this[i] == value)
+                return i;
+        }
+        return -1;
+    }
+}
+
 /**
 * Make sure that Console.method()'s don't trigger errors
 * without firebug in major browsers
