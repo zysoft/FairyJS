@@ -28,7 +28,7 @@ HTML. It uses data-* attributes that are valid in HTML5.
 
    data-fjs-validate            - Validation method
                                   Applicable to: form input fields
-                                  Value: blur|keypress
+                                  Value: blur|keypress|click
 
    data-fjs-required            - Indicates required field
                                   Applicable to: form input fields

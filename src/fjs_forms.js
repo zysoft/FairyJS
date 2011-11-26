@@ -43,6 +43,8 @@ $$.fjs.plugin('forms', {
         $$(':input[data-fjs-validate="blur"]').blur(function() {singleFieldValidate($$(this));});
         //Assign onKeypress validation (which is onKeyUp)
         $$(':input[data-fjs-validate="keypress"]').keyup(function() {singleFieldValidate($$(this));});
+        //Assign onClick validation
+        $$(':input[data-fjs-validate="click"]').click(function() {singleFieldValidate($$(this));});
         //Assign onSubmit handler to all forms
         $$('form').submit(function() {
             var isFormValid = true;

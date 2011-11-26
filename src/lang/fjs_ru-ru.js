@@ -33,6 +33,7 @@ $$.fjs.lang.add('ru-ru', {
     'Value must be integer'                     : 'Требуется целое число',
     'Custom validator \'foo\''                  : 'Дополнительный валидатор \'foo\'',
     'Required, Email'                           : 'Обязательное, Email адрес',
+    'Required'                                  : 'Обязательное',
     'Please enter valid email'                  : 'Введите правильный e-mail',
     'Drag me'                                   : 'Тяни',
     'Drop it here'                              : 'Кидай сюда',
