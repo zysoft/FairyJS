@@ -69,6 +69,19 @@ $$.fjs.plugin('dragndrop', {
             var cursor = $$(this).attr('data-fjs-draggable-cursor');
             if (cursor) 
                 dragArgs.cursor = cursor;
+            var revertPosition = $$(this).attr('data-fjs-draggable-revert');
+            if (revertPosition)
+                dragArgs.revert = true;
+            dragArgs.start = function($ev, $ui) {
+                $$.fjs.fire('org.fjs.dragndrop.drag.start', $$(this), $ui);
+            };
+            dragArgs.stop = function($ev, $ui) {
+                $$.fjs.fire('org.fjs.dragndrop.drag.stop', $$(this), $ui);
+            };
+            var doClone = $$(this).attr('data-fjs-draggable-clone');
+            if (doClone) {
+                dragArgs = $$.extend(dragArgs, {opacity: 0.5, helper:'clone'});
+            }
             $$(this).draggable(dragArgs);
         });
     },
@@ -80,7 +93,7 @@ $$.fjs.plugin('dragndrop', {
             var onDropCode = $$(this).attr('data-fjs-ondrop');
             var activeClass = $$(this).attr('data-fjs-highlight-class');
             var selector = '*[data-fjs-drop-to="'+acceptedDroppables.join(',*[data-fjs-drop-to="')+'"]';
-            $$.fjs.log('Item set to accept: '+selector);
+            $$.fjs.log('Item set to accept: '+selector+'. Matched items: '+$$(selector).length);
             droppableArgs.accept = selector;
             droppableArgs.drop = function($ev, $ui) {
                 $$.fjs.fire('org.fjs.dragndrop.drop', $ui.draggable, $$(this));

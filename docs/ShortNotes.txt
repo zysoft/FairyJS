@@ -62,6 +62,15 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                   Applicable to: data-fjs-draggable
                                   Value: CSS curson definition
 
+   data-fjs-draggable-revert    - Sets item to restore its position after it is
+                                  dragged.
+                                  Applicable to: data-fjs-draggable
+                                  Value: any
+
+   data-fjs-draggable-clone     - Sets options to clone draggable item on drag
+                                  Applicable to: data-fjs-draggable
+                                  Value: any
+
    data-fjs-drop-to             - Sets the container to drop to
                                   Applicable to: data-fjs-draggable
                                   Value: Container ID (see: data-fjs-droppable)
@@ -300,6 +309,19 @@ handling it.
                                                 $where - Container $what was
                                                          dropped to
 
+    org.fjs.dragndrop.drag.start              - Gets fired when dragging starts
+                                                Parameters:
+                                                $ev    - Event
+                                                $what  - What was dropped
+                                                $ui    - jQuery ui parameter
+
+    org.fjs.dragndrop.drag.stop               - Gets fired when dragging stops
+                                                Parameters:
+                                                $ev    - Event
+                                                $what  - What was dropped
+                                                $ui    - jQuery ui parameter
+
+
 5. Building language files for localization plugin
     
     Making language file is easy as you only need to specify the entities and 
@@ -362,15 +384,15 @@ need if FairyJS doesn't provide ones.
 Example: Validating value against another value
 
 $$.fjs.validate.add('against', function(value, params) {
-    return value == params.value;
+    return value == params.anotherValue;
 },
 {
-    value: 0
+    anotherValue: 0
 });
 
 To use the validator, simply assign it to the form field:
 
 <input type="text" name="some" value="" data-fjs-validate="blur" 
-data-fjs-validator="against" data-fjs-against_value="Test" 
+data-fjs-validator="against" data-fjs-against_anotherValue="Test" 
 data-fjs-against_error_message="Please enter 'Test'" />
 
