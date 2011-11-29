@@ -63,9 +63,9 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                   Value: CSS curson definition
 
    data-fjs-draggable-revert    - Sets item to restore its position after it is
-                                  dragged.
+                                  dragged to droppable container.
                                   Applicable to: data-fjs-draggable
-                                  Value: any
+                                  Value: valid|invalid|true (true = "always")
 
    data-fjs-draggable-clone     - Sets options to clone draggable item on drag
                                   Applicable to: data-fjs-draggable

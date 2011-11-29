@@ -70,8 +70,9 @@ $$.fjs.plugin('dragndrop', {
             if (cursor) 
                 dragArgs.cursor = cursor;
             var revertPosition = $$(this).attr('data-fjs-draggable-revert');
-            if (revertPosition)
-                dragArgs.revert = true;
+            var availableRevert = {valid:'valid',invalid:'invalid','true':true};
+            if (revertPosition && availableRevert[revertPosition])
+                dragArgs.revert = availableRevert[revertPosition];
             dragArgs.start = function($ev, $ui) {
                 $$.fjs.fire('org.fjs.dragndrop.drag.start', $$(this), $ui);
             };
