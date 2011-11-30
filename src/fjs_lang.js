@@ -42,7 +42,7 @@ $$.fjs.plugin('lang', {
         var script = document.createElement('SCRIPT');
         script.src = $$.fjs.config.langPath+$$.fjs.config.langFile.withVal(this.currentLang)+'?r='+Math.random();
         script.type = 'text/javascript';
-        document.getElementsByTagName('HEAD')[0].appendChild(script);
+        $$('head')[0].appendChild(script);
         return this;
     },
     //Adds entity to the translation table for the given language
