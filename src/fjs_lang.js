@@ -29,7 +29,8 @@ $$.fjs.plugin('lang', {
         var lang = $$('html').attr('data-fjs-lang');
         if (!lang)
             lang = $$.fjs.config.defaultLang;
-        this.set(lang);
+        if (lang)
+            this.set(lang);
     },
     //Activate language (by lang code)
     //Loads appropriate lang file if needed
@@ -75,7 +76,7 @@ $$.fjs.plugin('lang', {
 $$.fjs.extendConfiguration({
        langFile: 'fjs_%@.js',   //Filename template
        langPath: 'lang/',       //Path to lang files
-    defaultLang: 'en-us'        //Default language
+    defaultLang: null          //Default language NULL means no default
 });
 
 
