@@ -1,0 +1,30 @@
+#!/bin/bash
+
+echo
+echo "FairyJS compressed version builder Copyright (C) 2011  Yuriy Zisn"
+echo "This program comes with ABSOLUTELY NO WARRANTY."
+echo "This is free software, and you are welcome to redistribute it"
+echo "under certain conditions."
+
+echo
+
+echo -ne "Bulding separate minified files..."
+
+if [ ! -d "../min" ];
+then
+  mkdir "../min";
+fi;
+
+java -jar yuicompressor/build/yuicompressor*.jar -o ".js$:-min.js" ../src/fjs*
+
+echo "Done"
+echo -ne "Bulding All-In-One module...."
+
+mv ../src/*-min.js ../min/
+
+rm ../min/fjs-min.js
+
+cat ../min/* >> ../min/fjs-min.js
+
+echo "Done"
+echo
