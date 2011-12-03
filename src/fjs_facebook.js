@@ -139,6 +139,8 @@ $$.fjs.plugin('facebook', {
     //@param string scope Comma separated list of extended permissions
     //@see https://developers.facebook.com/docs/reference/api/permissions/
     login: function(scope) {
+        if (scope == 'basic')
+            scope = '';
         FB.login(function(response) {
             $$.fjs.facebook.userLoggedIn = response.authResponse ? true : false;
             $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn);

@@ -103,7 +103,8 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                   or similar
 
    data-fjs-fb-login            - Makes element triggering Facebook Login.
-                                  Value: List of extended permissions to require
+                                  Value: "basic" or comma separated list of 
+                                  extended permissions to require
                                   (see https://developers.facebook.com/docs/reference/api/permissions/)
 
    data-fjs-fb-feed-link        - Makes element triggering Feed publishing dialog
