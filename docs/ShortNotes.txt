@@ -147,6 +147,10 @@ HTML. It uses data-* attributes that are valid in HTML5.
   data-fjs-fb-apprequest-title  - Sets title for the request popup
                                   Value: any, 50 chars max
 
+   data-fjs-fb-autosize         - Tells FairyJS to autosize Facebook Canvas to
+                                  fit your app page as much as possible
+                                  Value: any
+
 3. JavaScript interface
 
 3.1. Core object

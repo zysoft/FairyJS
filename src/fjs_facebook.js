@@ -101,7 +101,11 @@ $$.fjs.plugin('facebook', {
         FB.UIServer.setLoadedNode = function (a, b) {
             FB.UIServer._loadedNodes[a.id] = b;
         };
-       
+        
+        if ($html.attr('data-fjs-fb-autosize')) {
+            FB.Canvas.setAutoGrow();
+        }
+        
         //Requesting login status
         this.userLoggedIn = false;
         FB.getLoginStatus(function(response) {
