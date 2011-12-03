@@ -104,7 +104,6 @@ $$.fjs.plugin('facebook', {
        
         //Requesting login status
         this.userLoggedIn = false;
-        $$.fjs.fire('org.fjs.facebook.login_status.change', false);
         FB.getLoginStatus(function(response) {
             $$.fjs.facebook.userLoggedIn = response.status == 'connected';
             if ($$.fjs.facebook.userLoggedIn) {
