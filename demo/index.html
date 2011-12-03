@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" data-fjs-lang="en-us">
+<html xmlns="http://www.w3.org/1999/xhtml" data-fjs-lang="en-us" data-fjs-fb-appid="266369793411335" data-fjs-fb-xd="xd_receiver.html">
     <head>
         <title>FairyJS Demo Page</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -31,7 +31,9 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
         <!-- Core -->
+        
         <script type="text/javascript" src="../min/fjs-min.js"></script>
+        
         <script type="text/javascript">
             //Configuring FairyJS according to our needs
             $$.fjs.configure({
@@ -60,6 +62,21 @@
                 $what.addClass('ui-dropped').appendTo($where);
                 $$.fjs.dragndrop.disableDragFor($what);
             });
+        
+            //Subscibing to Facebook events
+            $$.fjs.subscribe('org.fjs.facebook.login_status.change', function($ev, isLoggedIn) {
+                if (isLoggedIn) {
+                    $('#login_status').html('Getting profile for user '+$$.fjs.facebook.getUserId());
+                    $$.fjs.facebook.requestProfile();
+                } else {
+                    $('#login_status').html('Not logged in');
+                }
+            });
+            
+            $$.fjs.subscribe('org.fjs.facebook.profile_request.complete', function($ev, response) {
+                $('#login_status').html('Welcome, '+response.name+'!');
+            });
+        
         </script>
     </head>
     <body>
@@ -123,6 +140,29 @@
                 
             </div>
             </fieldset>
+        </div>
+        <hr/>
+        
+        <div>
+            <h1>Facebook integration</h1>
+            <div id="login_status">Estimating</div>
+            <a href="#" id="login" data-fjs-fb-login="">Login with Facebook</a>
+        </div>
+        <div>
+            <a href="#" 
+               data-fjs-fb-feed-name="FairyJS on Github"
+               data-fjs-fb-feed-link="http://github.com/zysoft/FairyJS"
+               data-fjs-fb-feed-picture="http://a248.e.akamai.net/assets.github.com/images/modules/header/logov6.png"
+               data-fjs-fb-feed-caption="Javascript fairy for the website"
+               data-fjs-fb-feed-description="FairyJS is kind of framework helping you to serve rich features to your website visitors easily and with no hassle. By default it doesn't require you to even know JavaScript in order to make it working."
+            >Publish a story</a>
+        </div>
+        <div>
+            <a href="#" 
+               data-fjs-fb-apprequest-message="Go see FairyJS demo!"
+               data-fjs-fb-apprequest-filter="app_non_users"
+               data-fjs-fb-apprequest-title="Tell your friends about FairyJS!"
+            >Share the app!</a>
         </div>
     </body>
 </html>

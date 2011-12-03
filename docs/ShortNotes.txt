@@ -92,6 +92,59 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                     $ev     - jQuery event
                                     $what   - The item dropped
                                     $where  - The container object
+2.4. Facebook integration plugin
+
+   data-fjs-fb-appid            - Facebook Application ID
+                                  Value: Application ID given by Facebook
+
+   data-fjs-fb-xd               - Path to Cross-Domain receiver script needed by
+                                  IE in order to work.
+                                  Value: Fully qualified URL to xd_receiver.html
+                                  or similar
+
+   data-fjs-fb-login            - Makes element triggering Facebook Login.
+                                  Value: List of extended permissions to require
+                                  (see https://developers.facebook.com/docs/reference/api/permissions/)
+
+   data-fjs-fb-feed-link        - Makes element triggering Feed publishing dialog
+                                  and specifies the link to be shared.
+                                  Value: Must be fully qualified URL
+
+   data-fjs-fb-feed-name        - Sets the name for Feed dialog.
+                                  Value: Any
+
+   data-fjs-fb-feed-picture     - Sets the image for Feed dialog.
+                                  Value: Must be fully qualified URL
+
+   data-fjs-fb-feed-caption     - Sets the caption for the link in Feed dialog.
+                                  Value: any
+
+   data-fjs-fb-feed-description - Sets the description for the link in Feed dialog.
+                                  Value: any
+
+  data-fjs-fb-apprequest-message -Makes element triggering AppRequest dialog and
+                                  specifies a message for request.
+                                  Value: any
+
+   data-fjs-fb-apprequest-to    - Sets target Facebook User IDs (FBUUIDs) to send
+                                  AppRequest to. Used in addition to
+                                  data-fjs-fb-apprequest-message
+                                  Value: Comma separated list of FBUUIDs
+
+  data-fjs-fb-apprequest-filters -Sets filters for AppRequest dialog
+                                  Value: all,app_users,app_non_users
+   
+  data-fjs-fb-apprequest-exclude -Sets list of FBUUIDs to exlude from selector
+                                  Value: Comma separated list of FBUUID
+
+   data-fjs-fb-apprequest-max   - Sets maximum available recipients for the request
+                                  Value: integer
+
+   data-fjs-fb-apprequest-data  - Sets user data to AppRequest for further track
+                                  Value: any, 255 chars max
+
+  data-fjs-fb-apprequest-title  - Sets title for the request popup
+                                  Value: any, 50 chars max
 
 3. JavaScript interface
 
@@ -273,6 +326,33 @@ can be extended by plugins. Here are the default set of options:
                                                 an alias to 
                                                 $$.fjs.dragndrop.setDroppable
 
+3.3.4. Facebook integration plugin interface methods
+   
+    isLoggedIn()                              - Tells if user is logged in to
+                                                Facebook
+
+    getUserId()                               - Return Facebook User ID (FBUUID)
+                                                if logged in, or NULL if not
+
+    requestProfile()                          - Starts asynchronous user profile
+                                                request
+
+    login(scope)                              - Performs user login and permissions
+                                                request.
+                                                scope - Extended pemissions list
+                                                as of https://developers.facebook.com/docs/reference/api/permissions/
+
+    publish(name, link, picture, caption, description)
+                                              - Performs Feed dialog with given 
+                                                parameters.
+
+    sendAppRequest(message, userIds, filters, excludeIds, maxRecpt, data, title)
+                                              - Performs AppRequest dialog with
+                                                given parameters
+
+    sendAdvancedAppRequest(params)            - Performs AppRequest dialog with
+                                                advanced parameters (object which
+                                                is passed directly to FB.ui)
 
 4. Events in FairyJS
 
@@ -321,6 +401,33 @@ handling it.
                                                 $what  - What was dropped
                                                 $ui    - jQuery ui parameter
 
+4.2. Events from Facebook plugin
+
+    org.fjs.facebook.login_status.change      - Gets fired when Facebook login
+                                                status changes
+                                                Parameters:
+                                                $ev         - Event
+                                                isLoggedIn  - Current login status
+
+    org.fjs.facebook.profile_request.complete - Gets fired when Facebook user
+                                                profile request is finished
+                                                Parameters:
+                                                $ev         - Event
+                                                profile     - FB.api('/me') response
+                                                              with user profile
+
+    org.fjs.facebook.publish.complete         - Gets fired when Facebook Feed
+                                                dialog completes.
+                                                Parameters:
+                                                $ev         - Event
+                                                response    - Facebook response
+
+    org.fjs.facebook.apprequest.complete      - Gets fired when Facebook AppRequest
+                                                dialog completes
+                                                Parameters:
+                                                $ev         - Event
+                                                response    - Facebook response
+                                                    
 
 5. Building language files for localization plugin
     
