@@ -413,6 +413,8 @@ handling it.
                                                 Parameters:
                                                 $ev         - Event
                                                 isLoggedIn  - Current login status
+                                                isUser      - Tells if triggered
+                                                              by user
 
     org.fjs.facebook.profile_request.complete - Gets fired when Facebook user
                                                 profile request is finished

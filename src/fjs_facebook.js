@@ -113,7 +113,7 @@ $$.fjs.plugin('facebook', {
             if ($$.fjs.facebook.userLoggedIn) {
                 $$.fjs.facebook.userId = response.authResponse.userID;
             }
-            $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn);
+            $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn, false);
         });
     },
     //Returns user login status
@@ -146,7 +146,10 @@ $$.fjs.plugin('facebook', {
             scope = '';
         FB.login(function(response) {
             $$.fjs.facebook.userLoggedIn = response.authResponse ? true : false;
-            $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn);
+            if ($$.fjs.facebook.userLoggedIn) {
+                $$.fjs.facebook.userId = response.authResponse.userID;
+            }
+            $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn, true);
         }, {
             scope: scope
         });
