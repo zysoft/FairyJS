@@ -48,10 +48,39 @@ $$.fjs.plugin('forms', {
         //Assign onSubmit handler to all forms
         $$('form').submit(function() {
             var isFormValid = true;
-            $$(this).find(':input').each(function() {
+            var $form = $$(this);
+            $form.find(':input').each(function() {
                 isFormValid = singleFieldValidate($$(this)) && isFormValid;
             });
+            if (isFormValid && $form.attr('data-fjs-form-ajax')) {
+                $$.fjs.forms.ajaxSubmit($form);
+                return false;
+            }
             return isFormValid;
         });
+    },
+    //Performs Ajax form submission
+    //
+    //@param $form jQuery from object to submit
+    ajaxSubmit: function($form) {
+        var method = $form.attr('method');
+        var successFunc = function($form) {
+            return function(response) {
+                $$.fjs.fire('org.fjs.form.submit.success', $form, response);
+            }
+        }($form);
+        var failFunc = function($form) {
+            return function(response) {
+                $$.fjs.fire('org.fjs.form.submit.error', $form, response);
+            }
+        }($form);
+        $.ajax({
+           url: $form.attr('action'),
+           type: method ? method : 'get',
+           data: $form.serialize(),
+           success: successFunc,
+           error: failFunc
+        });
+        return this;
     }
 });

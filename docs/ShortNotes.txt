@@ -24,7 +24,13 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                   Value: Entity text (example: login
                                                       example: Login box)
 
-2.2. Validation plugin
+2.2. Forms plugin
+
+   data-fjs-form-ajax           - Tells to use Ajax for form submission
+                                  Applicable to: form
+                                  Value: any
+
+2.3. Validation plugin
 
    data-fjs-validate            - Validation method
                                   Applicable to: form input fields
@@ -50,7 +56,7 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                   Value: string
                                     (example: data-fjs-int_error_message="Oops")
 
-2.3. Drag and Drop plugin
+2.4. Drag and Drop plugin
 
    data-fjs-draggable           - Indicates that the item can be dragged
                                   Applicable to: any
@@ -92,7 +98,7 @@ HTML. It uses data-* attributes that are valid in HTML5.
                                     $ev     - jQuery event
                                     $what   - The item dropped
                                     $where  - The container object
-2.4. Facebook integration plugin
+2.5. Facebook integration plugin
 
    data-fjs-fb-appid            - Facebook Application ID
                                   Value: Application ID given by Facebook
@@ -266,7 +272,12 @@ can be extended by plugins. Here are the default set of options:
                                                     'entity' : 'Translation'
                                                   });
 
-3.3.2. Validation plugin interface methods
+3.3.2. Forms plugin interface methods
+
+   ajaxSubmit($form)                            - Performs ajax form submission
+                                                  $form - jQuery object with form
+
+3.3.3. Validation plugin interface methods
 
     add(name, definition, defaultConfig)       - Registers validator
                                                  Every validatior has to be
@@ -298,7 +309,7 @@ can be extended by plugins. Here are the default set of options:
                                                  $input - jQuery object matching
                                                  :input selector
 
-3.3.3. Drag and Drop plugin interface methods
+3.3.4. Drag and Drop plugin interface methods
 
    setDraggable([$object])                    - Initializes object as draggable
                                                 $object - jQuery object to act 
@@ -331,7 +342,7 @@ can be extended by plugins. Here are the default set of options:
                                                 an alias to 
                                                 $$.fjs.dragndrop.setDroppable
 
-3.3.4. Facebook integration plugin interface methods
+3.3.5. Facebook integration plugin interface methods
    
     isLoggedIn()                              - Tells if user is logged in to
                                                 Facebook
@@ -383,8 +394,23 @@ handling it.
                                                 Example:
                                          $$.fjs.fire('org.fjs.testEvent',1,2,3);
                                                 
+4.1. Events from Forms plugin
 
-4.1. Events from Drag and Drop plugin
+    org.fjs.form.submit.success               - Gets fired when form ajax submit
+                                                succeeds
+                                                Parameters:
+                                                $ev         - Event
+                                                $form       - Form jQuery object
+                                                response    - Server response
+
+    org.fjs.form.submit.error                - Gets fired when form ajax submit
+                                                fails because of server error
+                                                Parameters:
+                                                $ev         - Event
+                                                $form       - Form jQuery object
+                                                response    - Server response
+
+4.2. Events from Drag and Drop plugin
     
     org.fjs.dragndrop.drop                    - Gets fired when some object is
                                                 dropped to a container
@@ -406,7 +432,7 @@ handling it.
                                                 $what  - What was dropped
                                                 $ui    - jQuery ui parameter
 
-4.2. Events from Facebook plugin
+4.3. Events from Facebook plugin
 
     org.fjs.facebook.login_status.change      - Gets fired when Facebook login
                                                 status changes
