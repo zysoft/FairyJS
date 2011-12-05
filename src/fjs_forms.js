@@ -49,6 +49,8 @@ $$.fjs.plugin('forms', {
         $$('form').submit(function() {
             var isFormValid = true;
             var $form = $$(this);
+            //Clear all errors
+            $$('*[data-fjs-error_for]').html('');
             $form.find(':input').each(function() {
                 isFormValid = singleFieldValidate($$(this)) && isFormValid;
             });
