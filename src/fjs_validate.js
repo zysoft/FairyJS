@@ -19,15 +19,34 @@
  @licend  The above is the entire license notice for the JavaScript code in this page.
 */
 
-$$.fjs.plugin('validate',{
-    //Stores field errors appeared during validation
-    fieldErrors: {},
-    //Plugin registration handler
+/**
+ * Form field validation plugin
+ */
+$$.fjs.validate = {
+    /**
+     * List of required plugins
+     */
+    requires: ['forms'],
+    /**
+     * Plugin registration handler
+     */
     register: function() {
+        //Stores field errors appeared during validation
+        this.fieldErrors = {};
     },
-    //Registers validator definitions
+    /**
+     * Registers validator definitions
+     * 
+     * @param {String}   name            Validator name
+     * @param {function} definition      Validator runtime funtion
+     * @param {Object}   [defaultConfig] Vaidator default configuration parameters
+     * 
+     * @return {Object] $$.fjs.validate
+     */
     add: function(name, definition, defaultConfig) {
-        defaultConfig = $$.extend({}, defaultConfig, {error_message: ''});
+        defaultConfig = $$.extend({}, defaultConfig, {
+            error_message: ''
+        });
         $$.fjs.validate[name] = {
             'func':definition, 
             'config':defaultConfig
@@ -35,7 +54,13 @@ $$.fjs.plugin('validate',{
         $$.fjs.log('Registered validator "'+name+'"');
         return this;
     },
-    //Validates field ($input is a jQuery object matching :input selector)
+    /**
+     * Validates form field
+     * 
+     * @param {Object} $input jQuery object matching :input selector
+     * 
+     * @return {boolean}       Field validation result
+     */
     field: function($input) {
         //Check if the field is NOT required and empty
         if (!$input.attr('data-fjs-required') && $$.trim($input.val()).length == 0)
@@ -94,11 +119,17 @@ $$.fjs.plugin('validate',{
         }
         return fieldValidationResult;
     },
-    //Returns associated field validation error
+    /**
+     * Returns associated field validation error
+     * 
+     * @param {Object} $input jQuery object matching :input selector
+     * 
+     * @return {String}       Error message, associated with given field.
+     */
     fieldError: function($input) {
         return this.fieldErrors[$input.attr('name')];
     }
-});
+}
 
 // -- DEFAULT VALIDATORS REGISTER --
 

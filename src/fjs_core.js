@@ -40,10 +40,10 @@ if (!Array.prototype.indexOf) {
 }
 
 /**
-* Make sure that Console.method()'s don't trigger errors
-* without firebug in major browsers
-* that don't have 'console' property
-*/
+ * Make sure that Console.method()'s don't trigger errors
+ * without firebug in major browsers
+ * that don't have 'console' property
+ */
 if (!window.console) {
     var names = ["log", "debug", "info", "warn", "error", "assert", "dir",
     "dirxml", "group", "groupEnd", "time", "timeEnd", "count",
@@ -57,43 +57,71 @@ if (!window.console) {
 //Alias for shorthand
 $$=jQuery;
 
-//Plugin base object for further extension
-$$.fjsPlugin = {
-    register: function() {
-        
-    }
-}
-
-//FairyJS Core object
+/**
+ * FairyJS Core object
+ */
 $$.fjs = {
     //Default configuration
     config: {
-          debugMode: false,         //In debug mode you can get some debugging info to console
+        debugMode: false,         //In debug mode you can get some debugging info to console
         verboseMode: false          //Verbose mode activates "log" level output
     },
-    //List of registered plugins
-    plugins:[],
-    //Initializes the core and plugins. Called on page load
+    /**
+     * Initializes the core and plugins. Called on page load
+     */
     init: function() {
-        for (var i=0,c=$$.fjs.plugins.length; i<c; i++) {
-            var plugin = $$.fjs.plugins[i];
-            $$.fjs[plugin].register();
-            $$.fjs.log('Activated plugin "'+$$.fjs.plugins[i]+'"');
+        for (var i in $$.fjs) {
+            if (typeof($$.fjs[i]) == 'object' && $$.fjs[i].register && typeof($$.fjs[i].register) == 'function') {
+                var okToInit = true;
+                if ($$.fjs[i].requires && typeof($$.fjs[i].requires) == 'object') {
+                    for (var p=0,c=$$.fjs[i].requires.length, r=$$.fjs[i].requires; p<c; p++) {
+                        if (!$$.fjs[r[p]]) {
+                            $$.fjs.error('FairyJS plugin "'+i+'" requires plugin "'+r[p]+'" which is not loaded');
+                            okToInit = false;
+                        }
+                    }
+                }
+                if (okToInit) {
+                    $$.fjs[i].register();
+                    $.fjs.log('Activated plugin "'+i+'"');
+                } else {
+                    $.fjs.error('Plugin "'+i+'" falied to intialize due to missing dependencies');
+                }
+            }
         }
         $$.fjs.log('FairyJS core intialized');
     },
-    //Sets configuration options for the core
+    /**
+     * Sets configuration options for the core
+     * 
+     * @param {Object}  newConfig  Configuration options to override
+     * 
+     * @return {Object} $$.fjs
+     */
     configure: function(newConfig) {
         $$.extend(this.config, newConfig);
         return this;
     },
-    //Method to allow extending configuration from plugins
+    /**
+     * Method to allow extending configuration from plugins
+     * 
+     * @parma {Object}  config  Configuration options to add to the main config
+     * 
+     * @return {Object} $$.fjs
+     */
     extendConfiguration: function(config) {
         this.config = $$.extend({}, config, this.config);
         return this;
     },
-    //Logs message according to verboseMode setting
-    //@see $$.fjs.config.verboseMode
+    /** 
+     * Logs message according to verboseMode setting
+     * 
+     * @see $$.fjs.config.verboseMode
+     * 
+     * @param {String|Object} message  Message/Data to log
+     * 
+     * @return {Object} $$.fjs
+     */
     log: function(message) {
         if (this.config.verboseMode) {
             if (typeof(message) == 'string')
@@ -102,8 +130,15 @@ $$.fjs = {
         }
         return this;
     },
-    //Outputs warning according to debugMode setting
-    //@see $$.fjs.config.debugMode
+    /**
+     * Outputs warning according to debugMode setting
+     * 
+     * @see $$.fjs.config.debugMode
+     * 
+     * @param {String|Object} message  Message/Data to log
+     * 
+     * @return {Object} $$.fjs
+     */
     warn: function(message) {
         if (this.config.debugMode) {
             if (typeof(message) == 'string')
@@ -112,8 +147,15 @@ $$.fjs = {
         }
         return this;
     },
-    //Outputs error according to debugMode setting
-    //@see $$.fjs.config.debugMode
+    /**
+     * Outputs error according to debugMode setting
+     * 
+     * @see $$.fjs.config.debugMode
+     * 
+     * @param {String|Object} message  Message/Data to log
+     * 
+     * @return {Object} $$.fjs
+     */
     error: function(message) {
         if (this.config.debugMode) {
             if (typeof(message) == 'string')
@@ -122,34 +164,47 @@ $$.fjs = {
         }
         return this;
     },
-    //Registers plugin
-    plugin: function(name, definition, requiredPlugins) {
-        //If plugin has requirements
-        if (requiredPlugins) {
-            //Check if ALL required plugins loaded
-            for (var i=0,c=requiredPlugins.length; i<c; i++) {
-                if ($$.fjs.plugins.indexOf(requiredPlugins[i]) == -1) {
-                    if ($$.fjs.config.debugMode)
-                        $$.fjs.error('FairyJS plugin "'+name+'" failed to load as it requires the following plugins to be loaded: "'+requiredPlugins.join('", "')+'"');
-                    return this;
-                }
-            }
-        }
-        //Register plugin
-        $$.fjs[name] = $$.extend({}, $$.fjsPlugin, definition);
-        $$.fjs.plugins.push(name);
-        $$.fjs.log('Loaded plugin "'+name+'"');
-        return this;
-    },
-    //Checks if plugin with given name is registered and available
+    /**
+     * Checks if plugin with given name is registered and available
+     * 
+     * @return {boolean} True if plugin is defined, false otherwise
+     */
     hasPlugin: function(name) {
-        return $$.fjs.plugins.indexOf(name) != -1;
+        return typeof($$.fjs[name]) == 'object';
     },
+    /**
+     * Subscribes handler to an event
+     *
+     * @param {String}   event     Event name
+     * @param {function} callback  Handler function
+     * 
+     * @return {Object} $$.fjs
+     */
     subscribe: function(event, callback) {
         $$(document).bind(event, callback);
         $$.fjs.log('Got subscribtion to "'+event+'"');
+        return this;
     },
-    //Fires event with params
+    /**
+     * Unsubscribes handler from an event
+     *
+     * @param {String}   event     Event name
+     * @param {function} callback  Handler function
+     * 
+     * @return {Object} $$.fjs
+     */
+    unsubscribe: function(event, callback) {
+        $$(document).unbind(event, callback);
+        $$.fjs.log('Removed subscribtion to "'+event+'"');
+    },
+    /**
+     * Fires event with params
+     *
+     * @param {String} event   Event name
+     * @param {...*} [args]    List of parameters to pass to handler
+     * 
+     * @return {Object} $$.fjs
+     */
     fire: function(event) {
         var fireArgs = [];
         for (var i=1,c=arguments.length; i<c; i++)

@@ -481,39 +481,53 @@ to $$_('Entity') or other translation methods.
 You can to provide an object defining a set of functions and you're ready to go.
 Default plugin is:
 
-$$.fjsPlugin = {
+$$.fjs.myplugin = {
+    /**
+     * List of other plugins your plugin requires to have
+     * Optional
+     */
+    requires: [],
+    /** 
+     * Plugin intialization handler
+     * Gets executed on page load
+     * Required in order to make it visible
+     */
     register: function() {
         
     }
 }
 
-Your plugins extend this options by default. Let's imagine you need a plugin for
-alerting text on clicks to objects tagged with data-fjs-alert attribute. 
+Let's imagine you need a plugin for alerting text on clicks to objects tagged 
+with data-fjs-alert attribute.
 Here's how you can make it:
 
-$$.fjs.plugin('alertPlugin', {
+$$.fjs.alertPlugin = {
     register: function() {
         $$('data-fjs-alert').click(function() {
             alert($$(this).attr('data-fjs-alert');
         });
     }
-});
+}
 
 Simple, isn't it?
 Method "register" is called on page load for all registered plugins.
 If your plugin needs to provide some methods for outer code, just describe them:
 
-$$.fjs.plugin('alertPlugin', {
+$$.fjs.alertPlugin = {
     register: function() {
         $$('data-fjs-alert').click(function() {
             alert($$(this).attr('data-fjs-alert');
         });
     },
-
+    /**
+     * Alerts message
+     *
+     * @param {String} message Message to alert
+     */
     alert: function(message) {
         alert(message);
     }
-});
+};
 
 Now you can access it via $$.fjs.alertPlugin.alert('Something');
 

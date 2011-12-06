@@ -19,7 +19,7 @@
  @licend  The above is the entire license notice for the JavaScript code in this page.
 */
 
-$$.fjs.plugin('lang', {
+$$.fjs.lang = {
     //Currently activa language
     currentLang : $$.fjs.config.defaultLang,
     //List of all known languages (gets filled at runtime)
@@ -71,11 +71,11 @@ $$.fjs.plugin('lang', {
                 $$(this).html($$_($$(this).attr('data-fjs-localizable')));
         });
     }
-});
+}
 
 $$.fjs.extendConfiguration({
-       langFile: 'fjs_%@.js',   //Filename template
-       langPath: 'lang/',       //Path to lang files
+    langFile: 'fjs_%@.js',   //Filename template
+    langPath: 'lang/',       //Path to lang files
     defaultLang: null          //Default language NULL means no default
 });
 

@@ -19,18 +19,13 @@
  @licend  The above is the entire license notice for the JavaScript code in this page.
 */
 
-/* 
-    Triggers the follownig events:
-  
-    org.fjs.dragndrop.drop  - Item is dropped
-                              Parameters: 
-                              $event, $what, $where
-    
-*/
-
-
-$$.fjs.plugin('dragndrop', {
-    //Plugin registration handler
+/**
+ * Drag&Drop plugin
+ */
+$$.fjs.dragndrop = {
+    /**
+     * Plugin registration handler
+     */
     register: function() {
         if (!$$.ui) {
             $$.fjs.warn('jQuery UI is required to run plugin "dragndrop"');
@@ -41,17 +36,23 @@ $$.fjs.plugin('dragndrop', {
         
         //Adding jQuery plugin to simplify access to drag and drop
         $$.fn.extend({
-           makeDraggable: function() {
-               $$.fjs.dragndrop.setDraggable($$(this));
-               return this;
-           },
-           makeDroppable: function() {
-               $$.fjs.dragndrop.setDroppable($$(this));
-               return this;
-           }
+            makeDraggable: function() {
+                $$.fjs.dragndrop.setDraggable($$(this));
+                return this;
+            },
+            makeDroppable: function() {
+                $$.fjs.dragndrop.setDroppable($$(this));
+                return this;
+            }
         });
     },
-    //Sets up draggable objects to be really draggable
+    /**
+     * Sets up draggable objects to be really draggable
+     * 
+     * @param {Object} [$object] jQuery object to make draggable (all data-fjs-draggable by default)
+     * 
+     * @return {Object} $$.fjs.dragndrop
+     */
     setDraggable: function($object) {
         ($object ? $object : $$('*[data-fjs-draggable]')).each(function() {
             var dragArgs = {};
@@ -70,7 +71,11 @@ $$.fjs.plugin('dragndrop', {
             if (cursor) 
                 dragArgs.cursor = cursor;
             var revertPosition = $$(this).attr('data-fjs-draggable-revert');
-            var availableRevert = {valid:'valid',invalid:'invalid','true':true};
+            var availableRevert = {
+                valid:'valid',
+                invalid:'invalid',
+                'true':true
+            };
             if (revertPosition && availableRevert[revertPosition])
                 dragArgs.revert = availableRevert[revertPosition];
             dragArgs.start = function($ev, $ui) {
@@ -81,12 +86,22 @@ $$.fjs.plugin('dragndrop', {
             };
             var doClone = $$(this).attr('data-fjs-draggable-clone');
             if (doClone) {
-                dragArgs = $$.extend(dragArgs, {opacity: 0.5, helper:'clone'});
+                dragArgs = $$.extend(dragArgs, {
+                    opacity: 0.5, 
+                    helper:'clone'
+                });
             }
             $$(this).draggable(dragArgs);
         });
+        return this;
     },
-    //Sets up droppable containers
+    /**
+     * Sets up droppable objects to be really droppable
+     * 
+     * @param {Object} [$object] jQuery object to make droppable (all data-fjs-droppable by default)
+     * 
+     * @return {Object} $$.fjs.dragndrop
+     */    
     setDroppable: function($object) {
         ($object ? $object : $$('*[data-fjs-droppable]')).each(function() {
             var droppableArgs = {};
@@ -106,21 +121,46 @@ $$.fjs.plugin('dragndrop', {
                 droppableArgs.activeClass = activeClass;
             $$(this).droppable(droppableArgs);
         });
+        return this;
     },
-    //Disable draggable settings for object
+    /**
+     * Disables draggable settings for object
+     * 
+     * @param {Object} $object jQuery object
+     * 
+     * @return {Object} $$.fjs.dragndrop
+     */
     disableDragFor: function($object) {
         $object.draggable("option", "disabled", true);
     },
-    //Enables draggable settings for object
+    /**
+     * Enables draggable settings for object
+     * 
+     * @param {Object} $object jQuery object
+     * 
+     * @return {Object} $$.fjs.dragndrop
+     */
     enableDragFor: function($object) {
         $object.draggable("option", "disabled", false);
     },
-    //Disables droppable settings for object
+    /**
+     * Disables droppable settings for object
+     * 
+     * @param {Object} $object jQuery object
+     * 
+     * @return {Object} $$.fjs.dragndrop
+     */
     disableDropFor: function($object) {
         $object.droppable("option", "disabled", true);
     },
-    //Enables droppable settings for object
+    /**
+     * Enables droppable settings for object
+     * 
+     * @param {Object} $object jQuery object
+     * 
+     * @return {Object} $$.fjs.dragndrop
+     */
     enableDropFor: function($object) {
         $object.droppable("option", "disabled", false);
     }    
-});
+}

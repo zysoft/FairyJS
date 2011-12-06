@@ -19,16 +19,21 @@
  @licend  The above is the entire license notice for the JavaScript code in this page.
  */
 
-$$.fjs.plugin('facebook', {
-    //Hold the user login status
-    userLoggedIn: false,
-    //Holds user FBUUID
-    userId : null,
-    //Registers plugin
+/**
+ * Facebook integration plugin
+ */
+$$.fjs.facebook = {
+    /**
+     * Plugin registration handler
+     */
     register: function() {
         //Loading FB JS SDK
         if ($$('html').attr('data-fjs-fb-appid')) {
-            window.fbAsyncInit = this.initFB;
+            //Hold the user login status
+            this.userLoggedIn = false,
+            //Holds user FBUUID
+            this.userId = null,            
+            
             $$('<div id="fb-root"></div>').prependTo('body');
             var js, id = 'facebook-jssdk';
             if (document.getElementById(id)) {
@@ -59,7 +64,7 @@ $$.fjs.plugin('facebook', {
                     $element.attr('data-fjs-fb-feed-picture'),
                     $element.attr('data-fjs-fb-feed-caption'),
                     $element.attr('data-fjs-fb-feed-description')
-                );
+                    );
                 return false;
             });
             //Registering multifriend selector triggers
@@ -72,75 +77,54 @@ $$.fjs.plugin('facebook', {
                     $$(this).attr('data-fjs-fb-apprequest-max'),
                     $$(this).attr('data-fjs-fb-apprequest-data'),
                     $$(this).attr('data-fjs-fb-apprequest-title')
-                );
+                    );
                 return false;
             });
         }
     },
-    //Initializes Facebook SDK
-    initFB: function() {
-        var $html = $$('html');
-        var initParams = {
-            appId      : $$('html').attr('data-fjs-fb-appid'), // App ID
-            status     : true, // check login status
-            cookie     : true, // enable cookies to allow the server to access the session
-            oauth      : true, // enable OAuth 2.0
-            xfbml      : true  // parse XFBML
-        };
-        
-        if ($html.attr('data-fjs-appid-xd') && $$.browser.msie && $$.browser.version >= 8 && $$.browser.version <= 9) {
-            initParams.channelUrl = $html.attr('data-fjs-fb-xd');
-        }
-        
-        $$.fjs.log('Facebook intialization parameters:');
-        $$.fjs.log(initParams);
-        
-        FB._https = window.location.protocol == 'https:';
-        FB.init(initParams);
-        // Hack to fix http://bugs.developers.facebook.net/show_bug.cgi?id=20168 for IE7/8/9
-        FB.UIServer.setLoadedNode = function (a, b) {
-            FB.UIServer._loadedNodes[a.id] = b;
-        };
-        
-        if ($html.attr('data-fjs-fb-autosize')) {
-            FB.Canvas.setAutoGrow();
-        }
-        
-        //Requesting login status
-        this.userLoggedIn = false;
-        FB.getLoginStatus(function(response) {
-            $$.fjs.facebook.userLoggedIn = response.status == 'connected';
-            if ($$.fjs.facebook.userLoggedIn) {
-                $$.fjs.facebook.userId = response.authResponse.userID;
-            }
-            $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn, false);
-        });
-    },
-    //Returns user login status
-    //
-    //@return bool
+    /**
+     * Returns user login status
+     * 
+     * @return {boolean}
+     */
     isLoggedIn: function() {
         return this.userLoggedIn;
     },
-    //Return user FBUUID
-    //
-    //@return string
+
+    /**
+     * Return user FBUUID
+     * 
+     * @return {String}
+     */
     getUserId: function() {
         return this.userId;
     },
-    //Starts profile request
-    requestProfile: function() {
+    /**
+     * Starts profile request
+     * 
+     * @param {String} [userFbuuid] User to get profile for (default - for current user)
+     * 
+     * @return {Object} $$.fjs.facebook
+     */
+    requestProfile: function(userFbuuid) {
         if (!this.userLoggedIn)
             return this;
-        FB.api('/me', function(response) {
+        var reqStr = '/me';
+        if (userFbuuid)
+            reqStr = '/'+userFbuuid;
+        FB.api(reqStr, function(response) {
             $$.fjs.fire('org.fjs.facebook.profile_request.complete', response);
         });
         return this;
     },
-    //Performs user login
-    //
-    //@param string scope Comma separated list of extended permissions
-    //@see https://developers.facebook.com/docs/reference/api/permissions/
+    /** 
+     * Performs user login
+     * 
+     * @see https://developers.facebook.com/docs/reference/api/permissions/
+     * @param {String} scope Comma separated list of extended permissions
+     * 
+     * @return {Object} $$.fjs.facebook
+     */
     login: function(scope) {
         if (scope == 'basic')
             scope = '';
@@ -155,13 +139,17 @@ $$.fjs.plugin('facebook', {
         });
         return this;
     },
-    //Performs feed publish via dialog
-    //
-    //@param string link        Link to share
-    //@param string name        Link title
-    //@param string picture     Image to associate with the link
-    //@param string caption     Caption for the link
-    //@param string description Description of the link
+    /**
+     * Performs feed publish via dialog
+     * 
+     * @param {String} link        Link to share
+     * @param {String} name        Link title
+     * @param {String} picture     Image to associate with the link
+     * @param {String} caption     Caption for the link
+     * @param {String} description Description of the link
+     * 
+     * @return {Object} $$.fjs.facebook
+     */
     publish: function(link, name, picture, caption, description) {
         FB.ui({
             method: 'feed',
@@ -180,15 +168,19 @@ $$.fjs.plugin('facebook', {
         });
         return this;
     },
-    //Open AppRequest dialog (multifriend selector)
-    //
-    //@param string message     Request message
-    //@param string title       Request dialog title (max 50 chars)
-    //@param string filters     Filters to apply (all | app_users | app_non_users)
-    //@param string data        Any user data, 255 chars long
-    //@param string userIds     Comma separated list of FBUUIDs to restrict list to
-    //@param string excludeIds  Comma separated list of FBUUIDs to exclude
-    //@param int    maxRecpt    Maximum recipients for the request
+    /**
+     * Open AppRequest dialog (multifriend selector)
+     * 
+     * @param {String} message     Request message
+     * @param {String} title       Request dialog title (max 50 chars)
+     * @param {String} filters     Filters to apply (all | app_users | app_non_users)
+     * @param {String} data        Any user data, 255 chars long
+     * @param {String} userIds     Comma separated list of FBUUIDs to restrict list to
+     * @param {String} excludeIds  Comma separated list of FBUUIDs to exclude
+     * @param {int}    maxRecpt    Maximum recipients for the request
+     * 
+     * @return {Object} $$.fjs.facebook
+     */
     sendAppRequest: function(message, userIds, filters, excludeIds, maxRecpt, data, title) {
         var params = {
             message: message,
@@ -211,9 +203,13 @@ $$.fjs.plugin('facebook', {
         }
         this.sendAdvancedAppRequest(params);
     },
-    //Performs AppRequest dialog (multifriend selector) with advanced params
-    //
-    //@param object params Parameters for FB.ui
+    /**
+     * Performs AppRequest dialog (multifriend selector) with advanced params
+     * 
+     * @param object params Parameters for FB.ui
+     * 
+     * @return {Object} $$.fjs.facebook
+     */
     sendAdvancedAppRequest: function(params) {
         params.method = 'apprequests';
         FB.ui(params, function(response) {
@@ -221,7 +217,44 @@ $$.fjs.plugin('facebook', {
         });
         return this;        
     }
-});
+}
 
-
-
+//Adding FB intialization
+window.fbAsyncInit = function() {
+    var $html = $$('html');
+    var initParams = {
+        appId      : $$('html').attr('data-fjs-fb-appid'), // App ID
+        status     : true, // check login status
+        cookie     : true, // enable cookies to allow the server to access the session
+        oauth      : true, // enable OAuth 2.0
+        xfbml      : true  // parse XFBML
+    };
+        
+    if ($html.attr('data-fjs-appid-xd') && $$.browser.msie && $$.browser.version >= 8 && $$.browser.version <= 9) {
+        initParams.channelUrl = $html.attr('data-fjs-fb-xd');
+    }
+        
+    $$.fjs.log('Facebook intialization parameters:');
+    $$.fjs.log(initParams);
+        
+    FB._https = window.location.protocol == 'https:';
+    FB.init(initParams);
+    // Hack to fix http://bugs.developers.facebook.net/show_bug.cgi?id=20168 for IE7/8/9
+    FB.UIServer.setLoadedNode = function (a, b) {
+        FB.UIServer._loadedNodes[a.id] = b;
+    };
+        
+    if ($html.attr('data-fjs-fb-autosize')) {
+        FB.Canvas.setAutoGrow();
+    }
+        
+    //Requesting login status
+    this.userLoggedIn = false;
+    FB.getLoginStatus(function(response) {
+        $$.fjs.facebook.userLoggedIn = response.status == 'connected';
+        if ($$.fjs.facebook.userLoggedIn) {
+            $$.fjs.facebook.userId = response.authResponse.userID;
+        }
+        $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn, false);
+    });
+}

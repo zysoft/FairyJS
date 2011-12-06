@@ -19,8 +19,13 @@
  @licend  The above is the entire license notice for the JavaScript code in this page.
 */
 
-$$.fjs.plugin('forms', {
-    //Plugin registration handler
+/**
+ * Form processing plugin
+ */
+$$.fjs.forms = {
+    /**
+     * Plugin registration handler
+     */
     register: function() {
         //Don't set up validaion hooks if no validation plugin present
         if (!$$.fjs.hasPlugin('validate'))
@@ -40,11 +45,17 @@ $$.fjs.plugin('forms', {
             return true;
         };
         //Assign onBlur validatio
-        $$(':input[data-fjs-validate="blur"]').blur(function() {singleFieldValidate($$(this));});
+        $$(':input[data-fjs-validate="blur"]').blur(function() {
+            singleFieldValidate($$(this));
+        });
         //Assign onKeypress validation (which is onKeyUp)
-        $$(':input[data-fjs-validate="keypress"]').keyup(function() {singleFieldValidate($$(this));});
+        $$(':input[data-fjs-validate="keypress"]').keyup(function() {
+            singleFieldValidate($$(this));
+        });
         //Assign onClick validation
-        $$(':input[data-fjs-validate="click"]').click(function() {singleFieldValidate($$(this));});
+        $$(':input[data-fjs-validate="click"]').click(function() {
+            singleFieldValidate($$(this));
+        });
         //Assign onSubmit handler to all forms
         $$('form').submit(function() {
             var isFormValid = true;
@@ -61,9 +72,13 @@ $$.fjs.plugin('forms', {
             return isFormValid;
         });
     },
-    //Performs Ajax form submission
-    //
-    //@param $form jQuery from object to submit
+    /**
+     * Performs Ajax form submission
+     * 
+     * @param {Object} $form jQuery from object to submit
+     * 
+     * @return {Object}      $$.fjs.forms
+     */
     ajaxSubmit: function($form) {
         var method = $form.attr('method');
         var successFunc = function($form) {
@@ -77,12 +92,12 @@ $$.fjs.plugin('forms', {
             }
         }($form);
         $.ajax({
-           url: $form.attr('action'),
-           type: method ? method : 'get',
-           data: $form.serialize(),
-           success: successFunc,
-           error: failFunc
+            url: $form.attr('action'),
+            type: method ? method : 'get',
+            data: $form.serialize(),
+            success: successFunc,
+            error: failFunc
         });
         return this;
     }
-});
+}
