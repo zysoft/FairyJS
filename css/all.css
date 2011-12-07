@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #300045;
+    color: #DAC6DA;
+    font: 14px Verdana, Helvetica, sans-serif;
+}
+
+.clear {
+    float: none;
+    clear: both;
+    height: 0;
+    font-size: 0;
+}
+
+a, a:visited, a:hover {
+    color: #DAC6DA;
+}
+
+#top {
+    line-height: 128px;
+    color: #CCA8C8;
+    font-size: 78px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #400C53;
+}
+
+#top img {
+    position: absolute;
+    display: block;
+}
+
+#top span {
+    display: block;
+    position: relative;
+    left: 130px;
+    top: 32px;
+    opacity: .05;
+    filter: alpha(opacity=5);
+    white-space: nowrap;
+}
+
+#left {
+    float: left;
+    border-right: 1px solid #400C53;
+    width: 200px;
+}
+
+#left ul {
+    list-style: none;
+    padding: 0;
+}
+
+#left ul li ul li a {
+    padding-left: 20px;
+}
+
+
+#left a, #left a:visited {
+    display: block;
+    width: 150px;
+    padding: 2px;
+}
+
+#left a:hover, #left a.active {
+    background-color: #84408C;
+}
+
+#right {
+    float: right;
+}
+
+#right img {
+    display: block;
+    margin: 10px;
+}
+
+#right iframe {
+    width: 100%;
+    border: 0;
+    padding: 0;
+    marging: 0;
+}
+
+table {
+    border: 0;
+}
+
+table td {
+    border-bottom: 1px solid #400C53;
+    padding: 2px;
+}
+
+.syntaxhighlighter {
+    float:left;
+    margin: 20px 0 ;
+}
+
+.methods .syntaxhighlighter {
+    float: none;
+}
+
+.methods td {
+    vertical-align: top;
+}
+.methods th {
+    background-color: #84408C;
+}
+
+.methods .params {
+    font-style: italic;
+}
+
+.methods .params .type {
+    color: #84408C;
+}
+
+.methods .params .pname, .methods .method span {
+    color: #A4A08C;
+}
+
+.methods .annotation span {
+    color: #A4A08C;
+    font-style: italic;
+}
