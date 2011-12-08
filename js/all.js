@@ -17,8 +17,8 @@ $(function() {
             $('#left a[href="'+document.location.hash+'"]').addClass('active');
             $('#right img').show();
             $('#right .inner').html('').load('inner/'+document.location.hash.substr(1)+'.html', function(response) {
-                $('#right img').hide();
                 SyntaxHighlighter.highlight();
+                $('#right img').hide();
             });
             this.oldhash = document.location.hash;
         }
