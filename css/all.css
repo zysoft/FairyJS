@@ -1,8 +1,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #300045;
-    color: #DAC6DA;
+    background-color: white;
+    color: black;
     font: 14px Verdana, Helvetica, sans-serif;
 }
 
@@ -14,36 +14,27 @@ body {
 }
 
 a, a:visited, a:hover {
-    color: #DAC6DA;
+    color: black;
 }
 
-#top {
-    line-height: 128px;
-    color: #CCA8C8;
-    font-size: 78px;
-    overflow: hidden;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #400C53;
+h1, h2, h3, h4, h5 {
+    color: #84408C;
 }
 
-#top img {
-    position: absolute;
+#left img {
     display: block;
+    margin: 0 auto;
 }
 
-#top span {
-    display: block;
-    position: relative;
-    left: 130px;
-    top: 32px;
-    opacity: .05;
-    filter: alpha(opacity=5);
-    white-space: nowrap;
+#left .caption {
+    color: #84408C;
+    text-align: center;
 }
 
 #left {
     float: left;
-    border-right: 1px solid #400C53;
+    padding-top: 5px;
+    border-right: 1px solid #84408C;
     width: 200px;
 }
 
@@ -64,11 +55,12 @@ a, a:visited, a:hover {
 }
 
 #left a:hover, #left a.active {
-    background-color: #84408C;
+    background-color: #DDDDDD;
 }
 
 #right {
     float: right;
+    overflow: auto;
 }
 
 #right img {
@@ -76,11 +68,7 @@ a, a:visited, a:hover {
     margin: 10px;
 }
 
-#right iframe {
-    width: 100%;
-    border: 0;
-    padding: 0;
-    marging: 0;
+#right .inner {
 }
 
 table {
@@ -88,8 +76,9 @@ table {
 }
 
 table td {
-    border-bottom: 1px solid #400C53;
+    border-bottom: 1px solid #84408C;
     padding: 2px;
+    margin: 0;
 }
 
 .syntaxhighlighter {
@@ -101,10 +90,15 @@ table td {
     float: none;
 }
 
+.syntaxhighlighter td {
+    border: none;
+}
+
 .methods td {
     vertical-align: top;
 }
 .methods th {
+    color: white;
     background-color: #84408C;
 }
 
@@ -112,7 +106,11 @@ table td {
     font-style: italic;
 }
 
-.methods .params .type {
+.methods .params td {
+    border: 0;
+}
+
+.methods .type {
     color: #84408C;
 }
 
@@ -123,4 +121,5 @@ table td {
 .methods .annotation span {
     color: #A4A08C;
     font-style: italic;
+    font-weight: bold;
 }

@@ -1,225 +1,390 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>FairyJS - The JavaScript fairy for the website</title>
-        <link href="../css/all.css" rel="stylesheet" media="screen" type="text/css"/>
-        <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeMidnight.css" rel="stylesheet" type="text/css" />
-        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
-        <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shAutoloader.js" type="text/javascript"></script>        
-        <script type="text/javascript" src="../js/frame.js"></script>
-    </head>
-    <body>
-        <h1>Reference Guide :: fjs_core.js</h1>
-        <h2>Basic information</h2>
-        <p>
-            Core object is named <strong>$$.fjs</strong>. FairyJS depends on jQuery and provides a 
-            shortcut for jQuery object named <strong>$$</strong>. This helps keeping shortcut short in case
-            when jQuery is used in non conflicting mode.
-        </p>
-        <p>
-            Core object is nothing but container for plugins which build the core as of
-            your needs. Every plugin can be added or removed without breaking up things.
-            Except the plugins that are dependant on other plugins.
-        </p>
-        <h2>HTML attributes supported</h2>
-        <p>None</p>
-        <h2>JavaScript interface</h2>
-        <table class="methods">
-            <tr>
-                <th>Method</th>
-                <th>Parameters</th>
-                <th>Return</th>
-                <th>Comments</th>
-            </tr>
-            <!--  $$.fjs.configure  -->
-            <tr>
-                <td class="method">configure(<span>configuration</span>)</td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">configuration</div>
-                                List of options
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">$$.fjs</div>
-                                Self instance
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="annotation">
-                    Sets configuration options
-                    <pre class="brush:js;ruler:true;toolbar:false">
+<h1>Reference Guide :: fjs_core.js</h1>
+<h2>Basic information</h2>
+<p>
+    Core object is named <strong>$$.fjs</strong>. FairyJS depends on jQuery and provides a 
+    shortcut for jQuery object named <strong>$$</strong>. This helps keeping shortcut short in case
+    when jQuery is used in non conflicting mode.
+</p>
+<p>
+    Core object is nothing but container for plugins which build the core as of
+    your needs. Every plugin can be added or removed without breaking up things.
+    Except the plugins that are dependant on other plugins.
+</p>
+<h2>HTML attributes provided</h2>
+<p>None</p>
+<h2>Configuration options</h2>
+<table class="methods">
+    <tr>
+        <th>Option</th>
+        <th>Type</th>
+        <th>Description</th>
+    </tr>
+    <!--  $$.fjs.config.debugMode  -->
+    <tr>
+        <td class="method">debugMode</td>
+        <td class="type">boolean</td>
+        <td class="annotation">
+            Sets FairyJS to debug mode. In debug mode you will see warning and errors that produced
+            by <span>$$.fjs.error</span> and <span>$$.fjs.warn</span>
+        </td>
+    </tr>
+</table>
+<h2>Generated events</h2>
+<p>None</p>
+<h2>JavaScript interface</h2>
+<table class="methods">
+    <tr>
+        <th>Method</th>
+        <th>Parameters</th>
+        <th>Return</th>
+        <th>Description</th>
+    </tr>
+    <!--  $$.fjs.configure  -->
+    <tr>
+        <td class="method">configure(<span>configuration</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">configuration</div>
+                        List of options
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Sets configuration options
+            <pre class="brush:js;ruler:true;toolbar:false">
                         $$.fjs.configure({
                             debugMode: true
                         });
-                    </pre>
-                </td>
-            </tr>
-            <!--  $$.fjs.log  -->
-            <tr>
-                <td class="method">log(<span>message</span>)</td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">message</div>
-                                Message to log
-                                <br/>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">$$.fjs</div>
-                                Self instance
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-                <td class="annotation">
-                    Logs a message to console.
-                    <br/>
-                    Controlled by <span>$$.fjs.config.verboseMode</span> option.
-                    <pre class="brush:js;ruler:true;toolbar:false">
+            </pre>
+        </td>
+    </tr>
+    <!--  $$.fjs.log  -->
+    <tr>
+        <td class="method">log(<span>message</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">message</div>
+                        Message to log
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Logs a message to console.
+            <br/>
+            Controlled by <span>$$.fjs.config.verboseMode</span> option.
+            <pre class="brush:js;ruler:true;toolbar:false">
                         $$.fjs.log('If you see it, then you have verboseMode turned on!');
-                    </pre>
-                </td>
-            </tr>
-            <!--  $$.fjs.warn  -->
-            <tr>
-                <td class="method">warn(<span>message</span>)</td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">message</div>
-                                Message to log
-                                <br/>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">$$.fjs</div>
-                                Self instance
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-                <td class="annotation">
-                    Logs a warning to console.
-                    <br/>
-                    Controlled by <span>$$.fjs.config.debugMode</span> option.
-                    <pre class="brush:js;ruler:true;toolbar:false">
+            </pre>
+        </td>
+    </tr>
+    <!--  $$.fjs.warn  -->
+    <tr>
+        <td class="method">warn(<span>message</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">message</div>
+                        Message to log
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Logs a warning to console.
+            <br/>
+            Controlled by <span>$$.fjs.config.debugMode</span> option.
+            <pre class="brush:js;ruler:true;toolbar:false">
                         $$.fjs.warn('If you see it, then you have debugMode turned on!');
-                    </pre>
-                </td>
-            </tr>            
-            <!--  $$.fjs.error  -->
-            <tr>
-                <td class="method">error(<span>message</span>)</td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">message</div>
-                                Message to log
-                                <br/>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">$$.fjs</div>
-                                Self instance
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-                <td class="annotation">
-                    Logs an error to console.
-                    <br/>
-                    Controller by <span>$$.fjs.config.debugMode</span> option.
-                    <pre class="brush:js;ruler:true;toolbar:false">
+            </pre>
+        </td>
+    </tr>            
+    <!--  $$.fjs.error  -->
+    <tr>
+        <td class="method">error(<span>message</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">message</div>
+                        Message to log
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Logs an error to console.
+            <br/>
+            Controller by <span>$$.fjs.config.debugMode</span> option.
+            <pre class="brush:js;ruler:true;toolbar:false">
                         $$.fjs.error('If you see it, then you have debugMode turned on!');
-                    </pre>
-                </td>
-            </tr>
-            <!--  $$.fjs.hasPlugin  -->
-            <tr>
-                <td class="method">hasPlugin(<span>name</span>)</td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">String</td>
-                            <td>
-                                <div class="pname">name</div>
-                                Plugin name
-                                <br/>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td class="params">
-                    <table>
-                        <tr>
-                            <td class="type">Object</td>
-                            <td>
-                                <div class="pname">$$.fjs</div>
-                                Self instance
-                            </td>
-                        </tr>
-                    </table>
-                </td>                
-                <td class="annotation">
-                    Checks if plugin with given <span>name</span> is known by FairyJS.
-                    <br/>
-                    Most effective after page is loaded (document.ready).
-                    <pre class="brush:js;ruler:true;toolbar:false">
+            </pre>
+        </td>
+    </tr>
+    <!--  $$.fjs.hasPlugin  -->
+    <tr>
+        <td class="method">hasPlugin(<span>name</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">String</td>
+                    <td>
+                        <div class="pname">name</div>
+                        Plugin name
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Checks if plugin with given <span>name</span> is known by FairyJS.
+            <br/>
+            Most effective after page is loaded (document.ready).
+            <pre class="brush:js;ruler:true;toolbar:false">
                         if ($$.fjs.hasPlugin('lang')) {
                             alert('Woohoo! You have lang plugin loaded!');
                         }
-                    </pre>
-                </td>
-            </tr>            
-        </table>
-        
-        <script type="text/javascript">
-            SyntaxHighlighter.autoloader(
-                'js jscript javascript  http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js',
-                'xml xhtml xslt html    http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js'
-            );
-            SyntaxHighlighter.defaults['quick-code'] = false;
-            SyntaxHighlighter.all();
-        </script>        
-    </body>
-</html>
+            </pre>
+        </td>
+    </tr>
+    <!--  $$.fjs.subscribe  -->
+    <tr>
+        <td class="method">subscribe(<span>event</span>, <span>callback</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">String</td>
+                    <td>
+                        <div class="pname">event</div>
+                        Event name
+                        <br/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">function</td>
+                    <td>
+                        <div class="pname">callback</div>
+                        Callback function
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Subscribes <span>callback</span> to receive events of given <span>name</span>
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.form.submit.success');
+            </pre>
+        </td>
+    </tr>            
+    <!--  $$.fjs.unsubscribe  -->
+    <tr>
+        <td class="method">unsubscribe(<span>event</span>, [<span>callback</span>])</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">String</td>
+                    <td>
+                        <div class="pname">event</div>
+                        Event name
+                        <br/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">function</td>
+                    <td>
+                        <div class="pname">callback</div>
+                        Callback function
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Unsubscribes <span>callback</span> (or all callbacks) from receiving events of given <span>name</span>
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.unsubscribe('org.fjs.form.submit.success');
+            </pre>
+        </td>
+    </tr>            
+    <!--  $$.fjs.fire  -->
+    <tr>
+        <td class="method">fire(<span>event</span>, [<span>param1</span>,...])</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">String</td>
+                    <td>
+                        <div class="pname">event</div>
+                        Event name
+                        <br/>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">Any</td>
+                    <td>
+                        <div class="pname">param1,...</div>
+                        Parameters to pass to callback
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Fires event with given <span>name</span> with passing parameters to its assigned callbacks
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.fire('org.fjs.myplugin.event', 1, 2, 3, 4);
+            </pre>
+        </td>
+    </tr>
+    <!--  $$.fjs.extendConfiguration  -->
+    <tr>
+        <td class="method">extendConfiguration(<span>config</span>)</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">config</div>
+                        Configuration options
+                        <br/>
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">$$.fjs</div>
+                        Self instance
+                    </td>
+                </tr>
+            </table>
+        </td>                
+        <td class="annotation">
+            Used by plugins to provide their own <span>config</span> which will become a part of FairyJS configuration.
+            <br/>
+            This gives user an ability to configure FairyJS and all its plugins at once.
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.extendConfiguration({
+                            myOption1: true,
+                            myOption2: 'test string'
+                        });
+            </pre>
+        </td>
+    </tr>
+</table>
