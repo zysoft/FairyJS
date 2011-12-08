@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5 {
     margin-left: 10px;
 }
 
-#left ul li ul li a {
+#left ul li ul li a, #left ul li ul li a:visited {
     padding-left: 20px;
 }
 
