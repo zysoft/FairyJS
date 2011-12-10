@@ -20,11 +20,17 @@
 */
 
 $$.fjs.lang = {
-    //Currently activa language
+    /**
+     * Currently activ language
+     */
     currentLang : $$.fjs.config.defaultLang,
-    //List of all known languages (gets filled at runtime)
+    /**
+     * List of all known languages (gets filled at runtime)
+     */
     knownLangs : [],
-    //Plugin registration handler
+    /**
+     * Plugin registration handler
+     */
     register: function() {
         var lang = $$('html').attr('data-fjs-lang');
         if (!lang)
@@ -32,8 +38,14 @@ $$.fjs.lang = {
         if (lang)
             this.set(lang);
     },
-    //Activate language (by lang code)
-    //Loads appropriate lang file if needed
+    /**
+     * Activates language (by lang code)
+     * Loads appropriate lang file if needed
+     * 
+     * @param {String} lang Language code
+     * 
+     * @return {Object} $$.fjs.lang
+     */
     set: function(lang) {
         this.currentLang = lang;
         if (this.knownLangs.indexOf(lang) != -1) {
@@ -46,7 +58,15 @@ $$.fjs.lang = {
         $$('head')[0].appendChild(script);
         return this;
     },
-    //Adds entity to the translation table for the given language
+    /**
+     * Adds entity to the translation table for the given language
+     * 
+     * @param {String} langName    Language code
+     * @param {String} entity      Text entitiy
+     * @param {String} translation Text entiti translation to target language
+     * 
+     * @return {Object} $$.fjs.lang
+     */
     addEntity: function(langName, entity, translation) {
         var langEntity = {};
         langEntity[entity] = translation;
@@ -54,7 +74,14 @@ $$.fjs.lang = {
         $$.fjs.log('Added custom localization entity for '+langName);
         return this;
     },
-    //Registers language definitions
+    /**
+     * Registers language definition
+     * 
+     * @param {String} langName    Language code
+     * @param {Object} definition  Language entities with translations
+     * 
+     * @return {Object} $$.fjs.lang
+     */
     add: function(langName, definition) {
         this.knownLangs.push(langName);
         $$.fjs.lang[langName] = $$.extend({}, $$.fjs.lang[langName], definition);
@@ -62,7 +89,9 @@ $$.fjs.lang = {
         this.localizePage();
         return this;
     },
-    //Loclizes entry page according to fjs:localizable attribute
+    /**
+     * Loclizes entry page according to fjs:localizable attribute
+     */
     localizePage: function() {
         $$('*[data-fjs-localizable]').each(function() {
             if ($$(this).is(':input'))

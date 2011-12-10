@@ -105,7 +105,7 @@ $$.fjs = {
     /**
      * Method to allow extending configuration from plugins
      * 
-     * @parma {Object}  config  Configuration options to add to the main config
+     * @param {Object}  config  Configuration options to add to the main config
      * 
      * @return {Object} $$.fjs
      */

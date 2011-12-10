@@ -49,7 +49,7 @@ $$.fjs.dragndrop = {
     /**
      * Sets up draggable objects to be really draggable
      * 
-     * @param {Object} [$object] jQuery object to make draggable (all data-fjs-draggable by default)
+     * @param {Object=} $object jQuery object to make draggable (all data-fjs-draggable by default)
      * 
      * @return {Object} $$.fjs.dragndrop
      */
@@ -98,7 +98,7 @@ $$.fjs.dragndrop = {
     /**
      * Sets up droppable objects to be really droppable
      * 
-     * @param {Object} [$object] jQuery object to make droppable (all data-fjs-droppable by default)
+     * @param {Object=} $object jQuery object to make droppable (all data-fjs-droppable by default)
      * 
      * @return {Object} $$.fjs.dragndrop
      */    
