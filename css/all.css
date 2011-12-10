@@ -121,6 +121,10 @@ table td {
     color: #A4A08C;
 }
 
+.methods .method {
+    white-space: nowrap;
+}
+
 .methods .annotation span {
     color: #A4A08C;
     font-style: italic;

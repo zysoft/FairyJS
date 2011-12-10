@@ -17,8 +17,15 @@
     <tr>
         <td class="method">data-fjs-form-ajax</td>
         <td class="params">HTML &lt;form&gt;</td>
-        <td class="params"><span>Any</span></td>
+        <td class="params">Any</td>
         <td class="annotation">Tells to use Ajax for form submission</td>
+    </tr>
+    <!--  data-fjs-error_for  -->
+    <tr>
+        <td class="method">data-fjs-error_for</td>
+        <td class="params">Any</td>
+        <td class="params">HTML input name</td>
+        <td class="annotation">Will get validation error text for the field with given name</td>
     </tr>
 </table>
 <h2>Configuration options</h2>
@@ -119,7 +126,7 @@
         <th>Return</th>
         <th>Description</th>
     </tr>
-    <!--  $$.fjs.configure  -->
+    <!--  $$.fjs.forms.ajaxSubmit  -->
     <tr>
         <td class="method">ajaxSubmit(<span>$form</span>)</td>
         <td class="params">
