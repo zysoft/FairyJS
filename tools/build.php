@@ -39,10 +39,10 @@ while ($file = readdir($d)) {
     
     $f = file_get_contents($path.$file);
     
-    preg_match_all('`(/\*\*.*?\*/)[\r\n]*(.*?)[\r\n]`s', $f, $parts);
+    preg_match_all('`(/\*\*.*?\*/)\s*[\r\n]*(.*?)[\r\n]`s', $f, $parts);
     
     $functions = array();
-    
+    var_dump($parts[2]);
     foreach ($parts[2] as $index => $func) {
         if (!preg_match('/(.*?)\s*:\s*function\s*\((.*?)\)/', $func, $matches)) continue;
         $func = trim($matches[1]);
@@ -64,6 +64,7 @@ while ($file = readdir($d)) {
                 $params[$param] = array('type' => 'undefined', 'description' => '');
             }
             $params[$param]['isOptional'] = (strpos($params[$param]['type'], '=') !== false) || preg_match('/\['.$param.'\]/', $funcDoc);
+            $params[$param]['type'] = str_replace('=', '', $params[$param]['type']);
         }
 
         $funcDoc = preg_replace('/\/?\*+\s+/s', '',$funcDoc);
