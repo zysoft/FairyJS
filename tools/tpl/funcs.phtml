@@ -1,0 +1,64 @@
+<h1>Reference Guide :: <?php echo $this->file?></h1>
+<h2>Basic information</h2>
+<p>
+
+</p>
+<h2>HTML attributes provided</h2>
+<p>None</p>
+<h2>Configuration options</h2>
+<p>None</p>
+<h2>Generated events</h2>
+<p>None</p>
+<h2>JavaScript interface</h2>
+<table class="methods">
+    <tr>
+        <th>Method</th>
+        <th>Parameters</th>
+        <th>Return</th>
+        <th>Description</th>
+    </tr>
+    <?php foreach ($this->functions as $function=>$info):?>
+    <tr>
+        <td class="method"><?php echo $function?>(
+        <?php 
+            $paramsHtml = array();
+            foreach ($info['params'] as $param => $data) {
+                $paramsHtml[] = ($data['isOptional'] ? '[<span>' : '<span>').$param.($data['isOptional'] ? '</span>]' : '</span>');
+            } 
+            echo implode(', ', $paramsHtml);
+        ?>
+        )
+        <td class="params">
+            <table>
+                <?php foreach ($info['params'] as $param => $data):?>
+                <tr>
+                    <td class="type"><?php echo $data['type']?></td>
+                    <td>
+                        <div class="pname"><?php echo $param?></div>
+                        <?php echo $data['description']?>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            </table>
+        </td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type"><?php echo $info['return']['type']?></td>
+                    <td>
+                        <div class="pname"></div>
+                        <?php echo $info['return']['description']?>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            <?php echo $info['description']?>
+            <!--
+            <pre class="brush:js;ruler:true;toolbar:false">
+            </pre>
+            -->
+        </td>
+    </tr>
+    <?php endforeach;?>
+</table>
