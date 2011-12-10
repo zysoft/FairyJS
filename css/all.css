@@ -84,7 +84,8 @@ table td {
 
 .syntaxhighlighter {
     float:left;
-    margin: 20px 0 ;
+    margin: 20px 0;
+    white-space: nowrap;
 }
 
 .methods .syntaxhighlighter {
@@ -113,6 +114,7 @@ table td {
 
 .methods .type {
     color: #84408C;
+    white-space: nowrap;
 }
 
 .methods .params .pname, .methods .method span {
