@@ -206,7 +206,7 @@ $$.fjs.facebook = {
     /**
      * Performs AppRequest dialog (multifriend selector) with advanced params
      * 
-     * @param object params Parameters for FB.ui
+     * @param {Object} params Parameters for FB.ui
      * 
      * @return {Object} $$.fjs.facebook
      */

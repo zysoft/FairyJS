@@ -90,7 +90,7 @@ $$.fjs.lang = {
         return this;
     },
     /**
-     * Loclizes entry page according to fjs:localizable attribute
+     * Localizes entry page according to fjs:localizable attribute
      */
     localizePage: function() {
         $$('*[data-fjs-localizable]').each(function() {
@@ -112,9 +112,9 @@ $$.fjs.extendConfiguration({
 //Handy method to allow runtime translation
 //@example $$_('Some text')
 window.$$_ = function(str) {
-    if ($$.fjs.lang[$$.fjs.lang.currentLang][str])
+    if ($$.fjs.lang[$$.fjs.lang.currentLang] && $$.fjs.lang[$$.fjs.lang.currentLang][str])
         return $$.fjs.lang[$$.fjs.lang.currentLang][str];
     if ($$.fjs.config.debugMode)
-        console.warn('Unlocalized entity: ' + str);
+        $$.fjs.warn('Unlocalized entity: ' + str);
     return str;
 }

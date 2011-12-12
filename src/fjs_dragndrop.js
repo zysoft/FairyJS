@@ -132,6 +132,7 @@ $$.fjs.dragndrop = {
      */
     disableDragFor: function($object) {
         $object.draggable("option", "disabled", true);
+        return this;
     },
     /**
      * Enables draggable settings for object
@@ -142,6 +143,7 @@ $$.fjs.dragndrop = {
      */
     enableDragFor: function($object) {
         $object.draggable("option", "disabled", false);
+        return this;
     },
     /**
      * Disables droppable settings for object
@@ -152,6 +154,7 @@ $$.fjs.dragndrop = {
      */
     disableDropFor: function($object) {
         $object.droppable("option", "disabled", true);
+        return this;
     },
     /**
      * Enables droppable settings for object
@@ -162,5 +165,6 @@ $$.fjs.dragndrop = {
      */
     enableDropFor: function($object) {
         $object.droppable("option", "disabled", false);
+        return this;
     }    
 }
