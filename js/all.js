@@ -45,7 +45,7 @@ $(function() {
                     var output = [];
                     var queue = [$('<div>'+response+'</div>')[0]],curr;
                     while (curr = queue.pop()) {
-                        if (!curr.textContent.match(tokenRegex)) continue;
+                        if (!curr.textContent || !curr.textContent.match(tokenRegex)) continue;
                         for (var i = 0; i < curr.childNodes.length; ++i) {
                             switch (curr.childNodes[i].nodeType) {
                                 case Node.TEXT_NODE : // 3
