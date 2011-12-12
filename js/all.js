@@ -33,14 +33,15 @@ $(function() {
         document.location.hash='#search_'+tokens.replace(' ','_');
         $('#loader').show();
         $('#right .inner').html('<h1>Search results</h1>');
-        var resultsFound = false;
+        window.srchQueue = $('#top ul a').length;
         $('#top ul a').each(function() {
             var $href = $(this);
             $.ajax({
                 url: 'inner/'+$href.attr('href').substr(1)+'.html?r='+Math.random(),
                 type: 'get',
                 success: function(response) {
-                    var tokenRegex = new RegExp(tokens.replace(/([\$\/\^\(\)\[\]])/g, '\\$1').replace(' ', '.*?'), 'gim');
+                    window.srchQueue--;
+                    var tokenRegex = new RegExp(tokens.replace(/([\$\/\^\(\)\[\]\.\-])/g, '\\$1').replace(' ', '.*?'), 'gim');
                     var output = [];
                     var queue = [$('<div>'+response+'</div>')[0]],curr;
                     while (curr = queue.pop()) {
@@ -61,6 +62,14 @@ $(function() {
                             }
                         }
                     }
+                    
+                    if (window.srchQueue <= 0) { 
+                        $('#loader').hide();
+                        if ($('#right .inner h2').length == 0 && output.length == 0 && $('#right .inner .sorry').length == 0) {
+                            $('<div class="sorry">Sorry, no matches found</div>').appendTo('#right .inner');
+                        }
+                    }
+                    
                     if (output.length == 0) {
                         return;
                     }
@@ -68,20 +77,17 @@ $(function() {
                     var tokenWords = tokens.split(' '); 
                     for (var i=0,c=output.length;i<c;i++) {
                         for (var j=0,l=tokenWords.length;j<l;j++) {
-                            output[i] = output[i].replace(new RegExp('('+$.trim(tokenWords[j]).replace(/([\$\/\^\(\)\[\]])/g, '\\$1')+')', 'gim'), '<strong>$1</strong>');
+                            output[i] = output[i].replace(new RegExp('('+$.trim(tokenWords[j]).replace(/([\$\/\^\(\)\[\]\.\-])/g, '\\$1')+')', 'gim'), '<strong>$1</strong>');
                         }
                         outputStr += '<div class="searchblock">'+output[i]+'</div>';
                     }
-                    resultsFound = true;
                     $('<div></div>').append($('<h2></h2>').append($href.clone())).append(outputStr).appendTo('#right .inner');
+
                 }
             });
         });
         
-        $('#loader').hide();
-        if (!resultsFound) {
-            $('<div>Sorry, no matches found</div>').appendTo('#right .inner');
-        }
+        
         return false;
     });
     
