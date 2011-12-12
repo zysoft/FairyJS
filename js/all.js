@@ -41,7 +41,8 @@ $(function() {
                 type: 'get',
                 success: function(response) {
                     window.srchQueue--;
-                    var tokenRegex = new RegExp(tokens.replace(/([\$\/\^\(\)\[\]\.\-])/g, '\\$1').replace(' ', '.*?'), 'gim');
+                    var cleanRegex = /([\$\/\^\(\)\[\]\.\-\*\+])/g;
+                    var tokenRegex = new RegExp(tokens.replace(cleanRegex, '\\$1').replace(' ', '.*?'), 'gim');
                     var output = [];
                     var queue = [$('<div>'+response+'</div>')[0]],curr;
                     while (curr = queue.pop()) {
@@ -49,23 +50,23 @@ $(function() {
                         if (undefined != curr.textContent) 
                             currText = curr.textContent;
                         else 
-                            currText = curr.innerText;
-                        if (!curr.textContent || !curr.textContent.match(tokenRegex)) continue;
+                            currText = curr.nodeValue;
+                        if (!currText.match(tokenRegex)) continue;
                         for (var i = 0; i < curr.childNodes.length; ++i) {
                             switch (curr.childNodes[i].nodeType) {
-                                case Node.TEXT_NODE : // 3
+                                case 3 : // Node.TEXT_NODE
                                     if (curr.tagName == 'PRE' || curr.tagName == 'SCRIPT') {
                                         continue;
                                     }
                                     if (undefined != curr.textContent) 
                                         currText = curr.childNodes[i].textContent;
                                     else 
-                                        currText = curr.childNodes[i].innerText;
-                                    if (currText.match(tokenRegex)) {
+                                        currText = curr.childNodes[i].nodeValue;
+                                    if (currText && currText.match(tokenRegex)) {
                                         output.push(currText);
                                     }
                                     break;
-                                case Node.ELEMENT_NODE : // 1
+                                case 1 : // Node.ELEMENT_NODE
                                     queue.push(curr.childNodes[i]);
                                     break;
                             }
@@ -86,7 +87,7 @@ $(function() {
                     var tokenWords = tokens.split(' '); 
                     for (var i=0,c=output.length;i<c;i++) {
                         for (var j=0,l=tokenWords.length;j<l;j++) {
-                            output[i] = output[i].replace(new RegExp('('+$.trim(tokenWords[j]).replace(/([\$\/\^\(\)\[\]\.\-])/g, '\\$1')+')', 'gim'), '<strong>$1</strong>');
+                            output[i] = output[i].replace(new RegExp('('+$.trim(tokenWords[j]).replace(cleanRegex, '\\$1')+')', 'gim'), '<strong>$1</strong>');
                         }
                         outputStr += '<div class="searchblock">'+output[i]+'</div>';
                     }
