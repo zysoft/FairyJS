@@ -39,7 +39,6 @@ $(function() {
             $.ajax({
                 url: 'inner/'+$href.attr('href').substr(1)+'.html?r='+Math.random(),
                 type: 'get',
-                async: false,
                 success: function(response) {
                     var tokenRegex = new RegExp(tokens.replace(/([\$\/\^\(\)\[\]])/g, '\\$1').replace(' ', '.*?'), 'gim');
                     var output = [];
