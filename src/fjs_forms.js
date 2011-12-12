@@ -45,19 +45,19 @@ $$.fjs.forms = {
             return true;
         };
         //Assign onBlur validatio
-        $$(':input[data-fjs-validate="blur"]').blur(function() {
+        $$(':input[data-fjs-validate="blur"]').live('blur', function() {
             singleFieldValidate($$(this));
         });
         //Assign onKeypress validation (which is onKeyUp)
-        $$(':input[data-fjs-validate="keypress"]').keyup(function() {
+        $$(':input[data-fjs-validate="keypress"]').live('keyup', function() {
             singleFieldValidate($$(this));
         });
         //Assign onClick validation
-        $$(':input[data-fjs-validate="click"]').click(function() {
+        $$(':input[data-fjs-validate="click"]').live('click', function() {
             singleFieldValidate($$(this));
         });
         //Assign onSubmit handler to all forms
-        $$('form').submit(function() {
+        $$('form').live('submit', function() {
             var isFormValid = true;
             var $form = $$(this);
             //Clear all errors
