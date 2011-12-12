@@ -50,7 +50,7 @@ $(function() {
                         if (undefined != curr.textContent) 
                             currText = curr.textContent;
                         else 
-                            currText = curr.nodeValue;
+                            currText = curr.innerText;
                         if (!currText.match(tokenRegex)) continue;
                         for (var i = 0; i < curr.childNodes.length; ++i) {
                             switch (curr.childNodes[i].nodeType) {
