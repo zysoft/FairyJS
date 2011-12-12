@@ -45,6 +45,11 @@ $(function() {
                     var output = [];
                     var queue = [$('<div>'+response+'</div>')[0]],curr;
                     while (curr = queue.pop()) {
+                        var currText;
+                        if (curr.textContent) 
+                            currText = curr.textContent;
+                        else 
+                            currText = curr.innerText;
                         if (!curr.textContent || !curr.textContent.match(tokenRegex)) continue;
                         for (var i = 0; i < curr.childNodes.length; ++i) {
                             switch (curr.childNodes[i].nodeType) {
@@ -52,8 +57,12 @@ $(function() {
                                     if (curr.tagName == 'PRE' || curr.tagName == 'SCRIPT') {
                                         continue;
                                     }
-                                    if (curr.childNodes[i].textContent.match(tokenRegex)) {
-                                        output.push(curr.childNodes[i].textContent);
+                                    if (curr.textContent) 
+                                        currText = curr.childNodes[i].textContent;
+                                    else 
+                                        currText = curr.childNodes[i].innerText;
+                                    if (currText.match(tokenRegex)) {
+                                        output.push(currText);
                                     }
                                     break;
                                 case Node.ELEMENT_NODE : // 1
