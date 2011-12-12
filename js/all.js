@@ -46,7 +46,7 @@ $(function() {
                     var queue = [$('<div>'+response+'</div>')[0]],curr;
                     while (curr = queue.pop()) {
                         var currText;
-                        if (curr.textContent) 
+                        if (undefined != curr.textContent) 
                             currText = curr.textContent;
                         else 
                             currText = curr.innerText;
@@ -57,7 +57,7 @@ $(function() {
                                     if (curr.tagName == 'PRE' || curr.tagName == 'SCRIPT') {
                                         continue;
                                     }
-                                    if (curr.textContent) 
+                                    if (undefined != curr.textContent) 
                                         currText = curr.childNodes[i].textContent;
                                     else 
                                         currText = curr.childNodes[i].innerText;
