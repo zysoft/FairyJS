@@ -21,46 +21,73 @@ h1, h2, h3, h4, h5 {
     color: #84408C;
 }
 
-#left img {
-    display: block;
-    margin: 0 auto;
+h1 a, h2 a, h3 a, h4 a, h5 a,
+h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited {
+color: #84408C;
 }
 
-#left .caption {
-    color: #84408C;
-    text-align: center;
+#top {
+    background-color: #84408C;
+    color: white;
+    font-size: 16px;
 }
 
-#left {
-    float: left;
-    padding-top: 5px;
-    border-right: 1px solid #84408C;
-    width: 200px;
+#top a, #top a:visited, #top a:hover {
+    color: white;
+    text-decoration: none;
 }
 
-#left ul {
+#top li {
+    cursor: pointer;
+}
+
+#top li.active {
+    background-color: #60246E;
+}
+
+#top ul {
     list-style: none;
     padding: 0;
-    margin-left: 10px;
+    margin: 0;
 }
 
-#left ul li ul li a, #left ul li ul li a:visited {
-    padding-left: 20px;
+#top ul li {
+    float: left;
+    padding: 5px;
+    border-right: 1px solid white;
 }
 
-
-#left a, #left a:visited {
-    display: block;
-    width: 150px;
-    padding: 2px;
+#top ul li ul {
+    display: none;
+    float:left;
+    margin: 5px 0 0 -5px;
+    position: absolute;
+    background-color: #84408C;
 }
 
-#left a:hover, #left a.active {
-    background-color: #DDDDDD;
+#top ul li ul li {
+    float: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 0;
+}
+
+#top .searchblock {
+    float: right;
+    margin-right: 10px;
+    line-height: 28px;
+}
+
+#top .searchblock form {
+    display: inline;
+}
+
+#top .searchblock input {
+    border: 1px solid #60246E;
 }
 
 #right {
-    float: right;
+    padding: 0 10px;
     overflow: auto;
 }
 
@@ -86,6 +113,7 @@ table td {
     float:left;
     margin: 20px 0;
     white-space: nowrap;
+    font-size: 14px;
 }
 
 .methods .syntaxhighlighter {
@@ -125,8 +153,24 @@ table td {
     white-space: nowrap;
 }
 
+.attributes .method {
+    color: #84408C;
+}
+
 .methods .annotation span {
     color: #A4A08C;
     font-style: italic;
     font-weight: bold;
+}
+
+
+#right .searchblock {
+    font-size: 12px;
+    color: black;
+    font-style: italic;
+    padding-bottom: 10px;
+}
+
+#right .searchblock strong {
+    font-size: 14px;
 }

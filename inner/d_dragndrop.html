@@ -1,14 +1,206 @@
 <h1>Reference Guide :: fjs_dragndrop.js</h1>
 <h2>Basic information</h2>
 <p>
-
+    Drag&amp;Drop plugin is accessible via <strong>$$.fjs.dragndrop</strong> and enables dragging and dropping items for your website.
+    Of course it won't let you handle this without JavaScript knowledge, but I hope it will
+    simplify your work.
 </p>
 <h2>HTML attributes provided</h2>
-<p>Coming soon</p>
+<table class="methods attributes">
+    <tr>
+        <th>Attribute</th>
+        <th>Applicable to</th>
+        <th>Value</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-draggable</td>
+        <td class="params">Any</td>
+        <td class="params">Dragging containment</td>
+        <td class="annotation">
+            Makes element draggable and sets its dragging containment
+            <br/>
+            See <a href="http://jqueryui.com/demos/draggable/#option-containment" target="_blank">jQuery.ui docs</a>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-draggable-cursor</td>
+        <td class="params">data-fjs-draggable</td>
+        <td class="params">CSS value for "cursor" property</td>
+        <td class="annotation">Sets cursor for object while dragging</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-draggable-revert</td>
+        <td class="params">data-fjs-draggable</td>
+        <td class="params">valid<br/>invalid<br/>true (means "always")</td>
+        <td class="annotation">
+            Sets item to restore its position after it is dragged to droppable container.
+            <br/>
+            See <a href="http://jqueryui.com/demos/draggable/#option-revert" target="_blank">jQuery.ui docs</a>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-draggable-clone</td>
+        <td class="params">data-fjs-draggable</td>
+        <td class="params">Any</td>
+        <td class="annotation">
+            Sets options to clone draggable item on drag and then drag the clone.
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-drop-to</td>
+        <td class="params">data-fjs-draggable</td>
+        <td class="params">Container ID</td>
+        <td class="annotation">
+            Sets the container to drop element to. Should match <span>data-fjs-droppable</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-droppable</td>
+        <td class="params">Any</td>
+        <td class="params">Container ID</td>
+        <td class="annotation">
+            Makes element droppable and sets the container ID to accept drops<br/>
+            Used in conjunction with <span>data-fjs-drop-to</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-highlight-class</td>
+        <td class="params">data-fjs-droppable</td>
+        <td class="params">CSS class name</td>
+        <td class="annotation">
+            Sets the CSS class to highlight container while dragging
+        </td>
+    </tr>
+</table>
 <h2>Configuration options</h2>
 <p>None</p>
 <h2>Generated events</h2>
-<p>Coming soon</p>
+<table class="methods">
+    <tr>
+        <th>Event name</th>
+        <th>Callback parameters</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.dragndrop.drop</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$what</div>
+                        Object that has been dropped
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$where</div>
+                        Container that took the drop (where <span>$what</span> was dropped)
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when some object is dropped to a container
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.dragndrop.drop',
+                                        function($ev, $what, $where){
+                                            $what.appendTo($where);
+                                        }
+                        );
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.dragndrop.drag.start</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$what</div>
+                        Object that is being dragged
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ui</div>
+                        jQuery.ui event parameter
+                        <br/>
+                        See <a href="http://jqueryui.com/demos/draggable/#event-start" target="_blank">jQuery.ui docs</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when dragging starts
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.dragndrop.drag.start',
+                                        function($ev, $what, $ui){
+                                            $$.fjs.log('Dragging started');
+                                        }
+                        );
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.dragndrop.drag.stop</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$what</div>
+                        Object that is being dragged
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ui</div>
+                        jQuery.ui event parameter
+                        <br/>
+                        See <a href="http://jqueryui.com/demos/draggable/#event-stop" target="_blank">jQuery.ui docs</a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when dragging stops.
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.dragndrop.drag.stop',
+                                        function($ev, $what, $ui){
+                                            $$.fjs.log('Dragging stopped');
+                                        }
+                        );
+            </pre>
+        </td>
+    </tr>
+</table>
 <h2>JavaScript interface</h2>
 <table class="methods">
     <tr>
@@ -17,116 +209,133 @@
         <th>Return</th>
         <th>Description</th>
     </tr>
-        <tr>
+    <tr>
         <td class="method">setDraggable(
-        [<span>$object</span>]        )
+            [<span>$object</span>] )
+            <br/>
+            $.fn.makeDraggable()
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">jQuery Object</td>
                     <td>
                         <div class="pname">$object</div>
-                        jQuery object to make draggable (all data-fjs-draggable by default)                    </td>
+                        jQuery object to make draggable (all data-fjs-draggable by default)
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
                 <tr>
                     <td class="type">Object</td>
                     <td>
-                        <div class="pname"></div>
-                        $$.fjs.dragndrop                    </td>
+                        <div class="pname">$$.fjs.dragndrop</div>
+                        Self instance
+                    </td>
                 </tr>
             </table>
         </td>
         <td class="annotation">
-            Sets up draggable objects to be really draggable            <!--
+            Sets up draggable objects to be really draggable.
+            <br/>
+            Also provides jQuery plugin for convenience.
             <pre class="brush:js;ruler:true;toolbar:false">
+                $$.fjs.dragndrop.setDraggable($('#mydraggable'));
+                // - or -
+                $('mydraggable').makeDraggable();
             </pre>
-            -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">setDroppable(
-        [<span>$object</span>]        )
+            [<span>$object</span>] )
+            <br/>
+            $.fn.makeDroppable()
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">jQuery Object</td>
                     <td>
                         <div class="pname">$object</div>
-                        jQuery object to make droppable (all data-fjs-droppable by default)                    </td>
+                        jQuery object to make droppable (all data-fjs-droppable by default)
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
                 <tr>
                     <td class="type">Object</td>
                     <td>
-                        <div class="pname"></div>
-                        $$.fjs.dragndrop                    </td>
+                        <div class="pname">$$.fjs.dragndrop</div>
+                        Self instance
+                    </td>
                 </tr>
             </table>
         </td>
         <td class="annotation">
-            Sets up droppable objects to be really droppable            <!--
+            Sets up droppable objects to be really droppable.
+            <br/>
+            Also provides jQuery plugin for convenience.
             <pre class="brush:js;ruler:true;toolbar:false">
+                $$.fjs.dragndrop.setDroppable($('#mydroppable'));
+                // - or -
+                $('mydroppable').makeDroppable();
             </pre>
-            -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">disableDragFor(
-        <span>$object</span>        )
+            <span>$object</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">jQuery Object</td>
                     <td>
                         <div class="pname">$object</div>
-                        jQuery object                    </td>
+                        jQuery object
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
                 <tr>
-                    <td class="type">Object</td>
+                    <td class="type">void</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.dragndrop                    </td>
+                    </td>
                 </tr>
             </table>
         </td>
         <td class="annotation">
-            Disables draggable settings for <span>$object</span>            <!--
-            <pre class="brush:js;ruler:true;toolbar:false">
-            </pre>
-            -->
+            Disables draggable settings for <span>$object</span>
+            <!-- <pre class="brush:js;ruler:true;toolbar:false">
+            </pre> -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">enableDragFor(
-        <span>$object</span>        )
+            <span>$object</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">jQuery Object</td>
                     <td>
                         <div class="pname">$object</div>
-                        jQuery object                    </td>
+                        jQuery object
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
                 <tr>
-                    <td class="type">Object</td>
+                    <td class="type">void</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.dragndrop                    </td>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -137,26 +346,27 @@
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">disableDropFor(
-        <span>$object</span>        )
+            <span>$object</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">jQuery Object</td>
                     <td>
                         <div class="pname">$object</div>
-                        jQuery object                    </td>
+                        jQuery object
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
                 <tr>
-                    <td class="type">Object</td>
+                    <td class="type">void</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.dragndrop                    </td>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -167,26 +377,27 @@
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">enableDropFor(
-        <span>$object</span>        )
+            <span>$object</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">jQuery Object</td>
                     <td>
                         <div class="pname">$object</div>
-                        jQuery object                    </td>
+                        jQuery object
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
                 <tr>
-                    <td class="type">Object</td>
+                    <td class="type">void</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.dragndrop                    </td>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -197,4 +408,4 @@
             -->
         </td>
     </tr>
-    </table>
+</table>

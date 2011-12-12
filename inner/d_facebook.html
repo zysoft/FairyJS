@@ -1,14 +1,254 @@
 <h1>Reference Guide :: fjs_facebook.js</h1>
 <h2>Basic information</h2>
 <p>
-
+    Facebook plugin is accessible as <strong>$$.fjs.facebook</strong> and gives you
+    Facebook integration by enabling Facebook JavaScript SDK and seamlessly adding it to your webpage.
 </p>
 <h2>HTML attributes provided</h2>
-<p>Coming soon</p>
+<table class="methods attributes">
+    <tr>
+        <th>Attribute</th>
+        <th>Applicable to</th>
+        <th>Value</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-appid</td>
+        <td class="params">&lt;html&gt;</td>
+        <td class="params">Facebook Application ID</td>
+        <td class="annotation">Enables Facebook integration and specifies Application ID</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-xd</td>
+        <td class="params">&lt;html&gt;</td>
+        <td class="params">Fully qualified URL to xd_receiver.html</td>
+        <td class="annotation">Path to Cross-Domain receiver script</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-autosize</td>
+        <td class="params">&lt;html&gt;</td>
+        <td class="params">Any</td>
+        <td class="annotation">Tells FairyJS to autosize Facebook Canvas to fit your app page as much as possible</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-login</td>
+        <td class="params">Any</td>
+        <td class="params">"basic" or comma separated list of extended permissions</td>
+        <td class="annotation">
+            Makes element triggering Facebook Login and requesting permissions.
+            <br/>
+            For extended permissions list, see <a href="https://developers.facebook.com/docs/reference/api/permissions/" target="_blank">Facebook docs</a>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-feed-link</td>
+        <td class="params">Any</td>
+        <td class="params">Fully qualified URL</td>
+        <td class="annotation">Makes element triggering Feed publishing dialog and specifies the link to be shared.</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-feed-name</td>
+        <td class="params">data-fjs-fb-feed-link</td>
+        <td class="params">Any</td>
+        <td class="annotation">Sets the name for Feed dialog</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-feed-picture</td>
+        <td class="params">data-fjs-fb-feed-link</td>
+        <td class="params">Fully qualified URL</td>
+        <td class="annotation">Sets the image for Feed dialog</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-feed-caption</td>
+        <td class="params">data-fjs-fb-feed-link</td>
+        <td class="params">Any</td>
+        <td class="annotation">Sets the caption for the link in Feed dialog</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-feed-description</td>
+        <td class="params">data-fjs-fb-feed-link</td>
+        <td class="params">Any</td>
+        <td class="annotation">Sets the description for the link in Feed dialog</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-message</td>
+        <td class="params">Any</td>
+        <td class="params">Any</td>
+        <td class="annotation">Makes element triggering AppRequest dialog and specifies a message for request</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-title</td>
+        <td class="params">data-fjs-fb-apprequest-message</td>
+        <td class="params">Any, 50 chars max</td>
+        <td class="annotation">Sets title for the request popup</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-to</td>
+        <td class="params">data-fjs-fb-apprequest-message</td>
+        <td class="params">Comma separated list of FBUUIDs</td>
+        <td class="annotation">
+            Sets target Facebook User IDs (FBUUIDs) to send AppRequest to. 
+            Used in addition to <span>data-fjs-fb-apprequest-message</span>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-filters</td>
+        <td class="params">data-fjs-fb-apprequest-message</td>
+        <td class="params">
+            all<br/>app_users<br/>app_non_users
+        </td>
+        <td class="annotation">Sets filters for AppRequest dialog</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-exclude</td>
+        <td class="params">data-fjs-fb-apprequest-message</td>
+        <td class="params">Comma separated list of FBUUIDs</td>
+        <td class="annotation">Sets list of FBUUIDs to exlude from selector</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-max</td>
+        <td class="params">data-fjs-fb-apprequest-message</td>
+        <td class="params">Integer</td>
+        <td class="annotation">Sets maximum available recipients for the request</td>
+    </tr>
+    <tr>
+        <td class="method">data-fjs-fb-apprequest-data</td>
+        <td class="params">data-fjs-fb-apprequest-message</td>
+        <td class="params">Any, 255 chars max</td>
+        <td class="annotation">Sets user data to AppRequest for further track</td>
+    </tr>
+</table>
 <h2>Configuration options</h2>
 <p>None</p>
 <h2>Generated events</h2>
-<p>Coming soon</p>
+<table class="methods">
+    <tr>
+        <th>Event name</th>
+        <th>Callback parameters</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.facebook.login_status.change</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">boolean</td>
+                    <td>
+                        <div class="pname">isLoggedIn</div>
+                        User login status
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">boolean</td>
+                    <td>
+                        <div class="pname">isUser</div>
+                        Specifies if login has been explicitly triggered by user. 
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when Facebook login status changes
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.facebook.login_status.change',
+                                        function($ev, isLoggedIn, isUser){
+                                            $$.fjs.log('User is ' + (isLoggedIn ? 'logged in' : 'NOT logged in'));
+                                        }
+                        );
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.facebook.profile_request.complete</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">profile</div>
+                        FB.api('/me') response with user profile
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when Facebook user profile request is finished
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.facebook.profile_request.complete',
+                                        function($ev, profile){
+                                            $$.fjs.log('User name is ' + profile.name);
+                                        }
+                        );
+            </pre>
+        </td>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.facebook.publish.complete</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">response</div>
+                        Facebook response
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when Facebook Feed dialog completes
+            <!-- <pre class="brush:js;ruler:true;toolbar:false">
+            </pre> -->
+        </td>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.facebook.apprequest.complete</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+                <tr>
+                    <td class="type">Object</td>
+                    <td>
+                        <div class="pname">response</div>
+                        Facebook response
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when Facebook AppRequest dialog completes
+            <!-- <pre class="brush:js;ruler:true;toolbar:false">
+            </pre> -->
+        </td>
+    </tr>
+</table>
 <h2>JavaScript interface</h2>
 <table class="methods">
     <tr>
@@ -17,12 +257,11 @@
         <th>Return</th>
         <th>Description</th>
     </tr>
-        <tr>
+    <tr>
         <td class="method">isLoggedIn(
-                )
+            )
         <td class="params">
-            <table>
-                            </table>
+            None
         </td>
         <td class="params">
             <table>
@@ -30,7 +269,7 @@
                     <td class="type">boolean</td>
                     <td>
                         <div class="pname"></div>
-                                            </td>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -41,12 +280,11 @@
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">getUserId(
-                )
+            )
         <td class="params">
-            <table>
-                            </table>
+            None
         </td>
         <td class="params">
             <table>
@@ -54,7 +292,7 @@
                     <td class="type">String</td>
                     <td>
                         <div class="pname"></div>
-                                            </td>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -65,18 +303,19 @@
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">requestProfile(
-        [<span>userFbuuid</span>]        )
+            [<span>userFbuuid</span>]        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">userFbuuid</div>
-                        User to get profile for (default - for current user)                    </td>
+                        User to get profile for (default - for current user) 
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
@@ -84,29 +323,33 @@
                     <td class="type">Object</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.facebook                    </td>
+                        $$.fjs.facebook 
+                    </td>
                 </tr>
             </table>
         </td>
         <td class="annotation">
-            Starts profile request            <!--
+            Starts profile request. Result will be returned asynchronously via 
+            <span>org.fjs.facebook.profile_request.complete</span>
+            <!--
             <pre class="brush:js;ruler:true;toolbar:false">
             </pre>
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">login(
-        <span>scope</span>        )
+            <span>scope</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">scope</div>
-                        Comma separated list of extended permissions                    </td>
+                        Comma separated list of extended permissions
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
@@ -114,53 +357,61 @@
                     <td class="type">Object</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.facebook                    </td>
+                        $$.fjs.facebook 
+                    </td>
                 </tr>
             </table>
         </td>
         <td class="annotation">
-            Performs user login            <!--
+            Performs user login and permissions request.
+            <br/>
+            For extended permissions list, see <a href="https://developers.facebook.com/docs/reference/api/permissions/" target="_blank">Facebook docs</a>.
             <pre class="brush:js;ruler:true;toolbar:false">
+                $$.fjs.facebook.login('user_birthday,user_likes,user_online_presence');
             </pre>
-            -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">publish(
-        <span>link</span>, <span>name</span>, <span>picture</span>, <span>caption</span>, <span>description</span>        )
+            <span>link</span>, <span>name</span>, <span>picture</span>, <span>caption</span>, <span>description</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">link</div>
-                        Link to share                    </td>
+                        Link to share
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">name</div>
-                        Link title                    </td>
+                        Link title
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">picture</div>
-                        Image to associate with the link                    </td>
+                        Image to associate with the link 
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">caption</div>
-                        Caption for the link                    </td>
+                        Caption for the link
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">description</div>
-                        Description of the link                    </td>
+                        Description of the link
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
@@ -168,7 +419,8 @@
                     <td class="type">Object</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.facebook                    </td>
+                        $$.fjs.facebook
+                    </td>
                 </tr>
             </table>
         </td>
@@ -179,54 +431,61 @@
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">sendAppRequest(
-        <span>message</span>, <span>userIds</span>, <span>filters</span>, <span>excludeIds</span>, <span>maxRecpt</span>, <span>data</span>, <span>title</span>        )
+            <span>message</span>, <span>userIds</span>, <span>filters</span>, <span>excludeIds</span>,<br/><span>maxRecpt</span>, <span>data</span>, <span>title</span>        )
         <td class="params">
             <table>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">message</div>
-                        Request message                    </td>
+                        Request message
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">userIds</div>
-                        Comma separated list of FBUUIDs to restrict list to                    </td>
+                        Comma separated list of FBUUIDs to restrict list to
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">filters</div>
-                        Filters to apply (all | app_users | app_non_users)                    </td>
+                        Filters to apply (<br/>all<br/>app_users<br/>app_non_users<br/>)
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">excludeIds</div>
-                        Comma separated list of FBUUIDs to exclude                    </td>
+                        Comma separated list of FBUUIDs to exclude
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">int</td>
                     <td>
                         <div class="pname">maxRecpt</div>
-                        Maximum recipients for the request                    </td>
+                        Maximum recipients for the request
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">data</div>
-                        Any user data, 255 chars long                    </td>
+                        Any user data, 255 chars long
+                    </td>
                 </tr>
-                                <tr>
+                <tr>
                     <td class="type">String</td>
                     <td>
                         <div class="pname">title</div>
-                        Request dialog title (max 50 chars)                    </td>
+                        Request dialog title (max 50 chars)
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
@@ -234,7 +493,8 @@
                     <td class="type">Object</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.facebook                    </td>
+                        $$.fjs.facebook
+                    </td>
                 </tr>
             </table>
         </td>
@@ -245,18 +505,19 @@
             -->
         </td>
     </tr>
-        <tr>
+    <tr>
         <td class="method">sendAdvancedAppRequest(
-        <span>params</span>        )
+            <span>params</span>        )
         <td class="params">
             <table>
-                                <tr>
-                    <td class="type">object</td>
+                <tr>
+                    <td class="type">Object</td>
                     <td>
                         <div class="pname">params</div>
-                        Parameters for FB.ui                    </td>
+                        Parameters for FB.ui 
+                    </td>
                 </tr>
-                            </table>
+            </table>
         </td>
         <td class="params">
             <table>
@@ -264,15 +525,19 @@
                     <td class="type">Object</td>
                     <td>
                         <div class="pname"></div>
-                        $$.fjs.facebook                    </td>
+                        $$.fjs.facebook
+                    </td>
                 </tr>
             </table>
         </td>
         <td class="annotation">
-            Performs AppRequest dialog (multifriend selector) with advanced params            <!--
+            Performs AppRequest dialog (multifriend selector) with advanced params.
+            <br/>
+            See <a href="https://developers.facebook.com/docs/reference/dialogs/requests/" target="_blank">Facebook docs</a> for details.
+            <!--
             <pre class="brush:js;ruler:true;toolbar:false">
             </pre>
             -->
         </td>
     </tr>
-    </table>
+</table>
