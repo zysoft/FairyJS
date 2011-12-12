@@ -174,3 +174,7 @@ table td {
 #right .searchblock strong {
     font-size: 14px;
 }
+
+.hidden {
+    display: none;
+}

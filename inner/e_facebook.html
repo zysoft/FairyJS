@@ -1,1 +1,47 @@
 <h1>Code samples :: Facebook</h1>
+<h2>Example</h2>
+<div id="example1">
+    <h3>Step 1 - Login</h3>
+    <a href="#" data-fjs-fb-login="basic">Login with Facebook</a>
+
+    <h3>Step 2 - Share a story!</h3>
+    <a href="#" 
+       data-fjs-fb-feed-name="FairyJS on Github"
+       data-fjs-fb-feed-link="http://github.com/zysoft/FairyJS"
+       data-fjs-fb-feed-picture="http://a248.e.akamai.net/assets.github.com/images/modules/header/logov6.png"
+       data-fjs-fb-feed-caption="Javascript fairy for the website"
+       data-fjs-fb-feed-description="FairyJS is kind of framework helping you to serve rich features to your website visitors easily and with no hassle!"
+       >Share a story</a>
+    
+    <h3>Step 3 - Invite to the app!</h3>
+    <a href="#" 
+       data-fjs-fb-apprequest-message="Go see FairyJS demo!"
+       data-fjs-fb-apprequest-filter="app_non_users"
+       data-fjs-fb-apprequest-title="Tell your friends about FairyJS!"
+       >Share the app</a>
+    
+    <h3>Step 4 - JavaScript</h3>
+    <div id="userInfo">
+        <a href="#" data-fjs-fb-login="basic">Login with Facebook</a>
+    </div>
+    <script type="text/javascript">
+        //Subscibing to Facebook events
+        $$.fjs.subscribe('org.fjs.facebook.login_status.change', function($ev, isLoggedIn) {
+            if (isLoggedIn) {
+                $('#userInfo').html('Getting profile for user '+$$.fjs.facebook.getUserId());
+                $$.fjs.facebook.requestProfile();
+            } else {
+                $('#userInfo').html('Not logged in');
+            }
+        });
+            
+        $$.fjs.subscribe('org.fjs.facebook.profile_request.complete', function($ev, response) {
+            $('#userInfo').html('Welcome, '+response.name+'!');
+        });
+    </script>
+</div>
+
+<h2>Example source</h2>
+<pre id="example1_src" class="brush:html;ruler:true;toolbar:false">
+</pre>
+<div class="clear"></div>

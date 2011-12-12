@@ -1,1 +1,85 @@
 <h1>Code samples :: Forms&amp;Validation</h1>
+<h2>Example</h2>
+<div id="example1">
+    <form action="#e_forms" method="post">
+        <div>
+            <label>Digits only:</label>
+        </div>
+        <div>
+            <input type="text" name="digits" value=""
+                   data-fjs-required="true"
+                   data-fjs-validate="blur"
+                   data-fjs-validator="int"
+                   data-fjs-int_error_message="Please enter digits only!"
+                   />
+            <span style="color:red" data-fjs-error_for="digits"></span>
+        </div>
+        <div>
+            <label>Email:</label>
+        </div>
+        <div>
+            <input type="text" name="email" value=""
+                   data-fjs-required="true"
+                   data-fjs-validate="blur"
+                   data-fjs-validator="email"
+                   data-fjs-email_error_message="Please enter valid email!"
+                   />
+            <span style="color:red" data-fjs-error_for="email"></span>
+        </div>
+        <div>
+            <label>Email again:</label>
+        </div>
+        <div>
+            <input type="text" name="email2" value=""
+                   data-fjs-required="true"
+                   data-fjs-validator="match_field"
+                   data-fjs-match_field_selector="input[name='email']"
+                   data-fjs-match_field_error_message="Email doesn't match"
+                   />
+            <span style="color:red" data-fjs-error_for="email2"></span>
+        </div>
+        <div>
+            <label>
+             Custom validator (see code).<br/>
+             Not required.<br/>
+             Enter "cool":
+            </label>
+        </div>
+        <div>
+            <input type="text" name="foo" value=""
+                   data-fjs-validate="blur"
+                   data-fjs-validator="foo"
+                   data-fjs-foo_bar="cool"
+                   data-fjs-foo_error_message="Please enter word 'cool'!"
+                   />
+            <span style="color:red" data-fjs-error_for="foo"></span>
+        </div>
+        <div>
+            <input type="submit" value="Submit"/>
+        </div>
+    </form>
+    <script type="text/javascript">
+        //Custom validator "foo" which takes parameter "bar"
+        //and checks value to be equal given parameter
+        $$.fjs.validate.add('foo', function(value, params) {
+            return value == params.bar;
+        },
+        {
+            bar : 'bar'
+        });
+    </script>
+</div>
+
+<h2>Example source</h2>
+<pre id="example1_src" class="brush:html;ruler:true;toolbar:false">
+</pre>
+<div class="clear"></div>
+<h2>How does it work</h2>
+<p>
+    FairyJS automatically binds to forms. So you don't have to write any JavaScript code unless
+    you need to add your custom validator.
+</p>
+<p>
+    Please see <a href="#d_forms">fjs_forms.js</a> 
+    and <a href="#d_validate">fjs_validate.js</a> reference for further details.
+</p>

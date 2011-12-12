@@ -1,1 +1,57 @@
 <h1>Code samples :: Localization</h1>
+<h2>Example</h2>
+<div id="example1">
+    <span class="hidden">
+        &lt;html data-fjs-lang="en-us"&gt;
+        &lt;body&gt;
+    </span>
+    <!-- h3 text is used as fallback if fjs_lang did not start or present -->
+    <!-- If you fjs_lang does not work, you will see it, but no other texts -->
+    <h3 data-fjs-localizable="Select language">Select language</h3>
+    <div>
+        <select id="lang">
+            <option value="en-us">English</option>
+            <option value="ru-ru">Russian</option>
+        </select>
+    </div>
+    <h3 data-fjs-localizable="Localization test"></h3>
+    <div data-fjs-localizable="This string translates immediately"></div>
+    <h3 data-fjs-localizable="Runtime localization"></h3>
+    <a href="#" data-fjs-localizable="Click me" onclick="alert($$_('This is a test'));return false;"></a>
+    <script type="text/javascript">
+        $('#lang').change(function() {
+            $$.fjs.lang.set($(this).val());
+        });
+    </script>
+    <span class="hidden">
+        &lt;/body&gt;
+        &lt;/html&gt;
+    </span>
+</div>
+<h2>Example source</h2>
+<pre id="example1_src" class="brush:html;ruler:true;toolbar:false">
+</pre>
+<div class="clear"></div>
+<h2>How does it work</h2>
+<p>
+    When you specify language in your HTML tag by adding <strong>data-fjs-lang</strong>, you set it as the default language.
+    At this stage your language file is loaded (if you didn't load it by yourself).
+    Then each <strong>data-fjs-localizable</strong> entity is translated.
+</p>
+<p>
+    All translations are made from a "basic" language which you can choose by your own.
+    This means all language files should be built accordingly to your choice. If you choose
+    English as a basic language - you should perform all translations from English.
+</p>
+<p>
+    For further overview of features, please see <a href="#d_lang">fjs_lang.js</a> documentation.
+</p>
+<h3>Language file example (lang/fjs_ru-ru.js)</h3>
+<pre id="langExample">
+</pre>
+<script data-hidden="true" type="text/javascript">
+    $('#langExample').load('lang/fjs_ru-ru.js', function() {
+        //$('#langExample').attr('class', 'brush:js;ruler:true;toolbar:false;');
+        SyntaxHighlighter.highlight();
+    });
+</script>
