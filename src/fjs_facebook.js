@@ -151,6 +151,8 @@ $$.fjs.facebook = {
      * @return {Object} $$.fjs.facebook
      */
     publish: function(link, name, picture, caption, description) {
+        if ($$.trim(link).length == 0)
+            link = document.location.href;
         FB.ui({
             method: 'feed',
             name: name,
@@ -257,4 +259,5 @@ window.fbAsyncInit = function() {
         }
         $$.fjs.fire('org.fjs.facebook.login_status.change', $$.fjs.facebook.userLoggedIn, false);
     });
+    $$.fjs.fire('org.fjs.facebook.init.complete');
 }
