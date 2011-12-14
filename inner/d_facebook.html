@@ -42,7 +42,7 @@
     </tr>
     <tr>
         <td class="method">data-fjs-fb-feed-link</td>
-        <td class="params">Any</td>
+        <td class="params">Any or empty for current document URL</td>
         <td class="params">Fully qualified URL</td>
         <td class="annotation">Makes element triggering Feed publishing dialog and specifies the link to be shared.</td>
     </tr>
@@ -126,6 +126,28 @@
         <th>Event name</th>
         <th>Callback parameters</th>
         <th>Description</th>
+    </tr>
+    <tr>
+        <td class="method">org.fjs.facebook.init.complete</td>
+        <td class="params">
+            <table>
+                <tr>
+                    <td class="type">jQuery Object</td>
+                    <td>
+                        <div class="pname">$ev</div>
+                        Event
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td class="annotation">
+            Gets fired when Facebook intialization is done
+            <pre class="brush:js;ruler:true;toolbar:false">
+                        $$.fjs.subscribe('org.fjs.facebook.init.complete', function() {
+                            $$.fjs.log('Now I have Facebook JavaScript SDK loaded!');
+                        });
+            </pre>
+        </td>
     </tr>
     <tr>
         <td class="method">org.fjs.facebook.login_status.change</td>
