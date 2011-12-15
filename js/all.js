@@ -100,7 +100,7 @@ $(function() {
                     if (output.length > MAXRES) {
                         var diff = (output.length - MAXRES).toString();
                         outputStr += '<div class="searchblock-count">'+diff+' more result';
-                        if (diff[diff.length-1] != '1') {
+                        if (diff[diff.length-1] != '1' || diff == '11') {
                             outputStr += 's';
                         }
                         outputStr += '</div>';
