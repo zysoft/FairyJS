@@ -8,6 +8,11 @@ echo "under certain conditions."
 
 echo
 
+LIC="/* FairyJS zysoft.github.com/FairyJS | github.com/zysoft/FairyJS/blob/master/LICENSE */"
+LICE=${LIC////'\/'}
+LICE=${LICE//'*'/'\*'}
+LICE=${LICE//'|'/'\|'}
+
 echo -ne "Bulding separate minified files..."
 
 if [ ! -d "../min" ];
@@ -22,9 +27,14 @@ echo -ne "Bulding All-In-One module...."
 
 mv ../src/*-min.js ../min/
 
-rm ../min/fjs-min.js
+echo "$LIC" >../min/fjs-min.js
+cat ../min/fjs_core-min.js >> ../min/fjs-min.js
+find ../min -type f ! -name 'fjs_core-min.js' ! -name 'fjs-min.js' -exec cat {} \; >> ../min/fjs-min.js
 
-cat ../min/* >> ../min/fjs-min.js
+find ../min -type f ! -name 'fjs-min.js' -exec sed -e "1s/^/$LICE\\
+/" -i.bak {} \; 
+
+rm ../min/*.bak
 
 echo "Done"
 echo
