@@ -90,11 +90,20 @@ $(function() {
                     }
                     var outputStr = '';
                     var tokenWords = tokens.split(' '); 
-                    for (var i=0,c=output.length;i<c;i++) {
+                    var MAXRES = 5;
+                    for (var i=0,c=output.length;i<c&&i<MAXRES;i++) {
                         for (var j=0,l=tokenWords.length;j<l;j++) {
                             output[i] = output[i].replace(new RegExp('('+$.trim(tokenWords[j]).replace(cleanRegex, '\\$1')+')', 'gim'), '<strong>$1</strong>');
                         }
                         outputStr += '<div class="searchblock">'+output[i]+'</div>';
+                    }
+                    if (output.length > MAXRES) {
+                        var diff = (output.length - MAXRES).toString();
+                        outputStr += '<div class="searchblock-count">'+diff+' more result';
+                        if (diff[diff.length-1] != '1') {
+                            outputStr += 's';
+                        }
+                        outputStr += '</div>';
                     }
                     $('<div></div>').append($('<h2></h2>').append($href.clone())).append(outputStr).appendTo('#right .inner');
 
