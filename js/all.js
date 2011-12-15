@@ -27,6 +27,10 @@ $(function() {
     });
 
     $('input[name="search"]').parents('form').submit(function() {
+        if (window.isInSearch)
+            return false;
+        
+        window.isInSearch = true;
         var tokens = $.trim($('input[name="search"]').val());
         if (tokens.length == 0)
             return false;
@@ -75,6 +79,7 @@ $(function() {
                     
                     if (window.srchQueue <= 0) { 
                         $('#loader').hide();
+                        window.isInSearch = false;
                         if ($('#right .inner h2').length == 0 && output.length == 0 && $('#right .inner .sorry').length == 0) {
                             $('<div class="sorry">Sorry, no matches found</div>').appendTo('#right .inner');
                         }
