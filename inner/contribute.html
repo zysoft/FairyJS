@@ -1,0 +1,193 @@
+<h1>Contribute to FairyJS</h1>
+<p>
+   FairyJS is open to community. Of course we can't build stuff that fits
+   all possible needs and completely understand that there could be a situation 
+   when you need something specific that others might also need. 
+   If so, then we appreciate if you can implement this and share your work with us!
+</p>
+<p>
+    Let's learn how to extend FairyJS.
+</p>
+<h2>Writing plugins</h2>
+<p>
+    FairyJS is a set of plugins. Writing plugin is easy as never!
+    To build plugin you just need to provide an object defining a set of functions 
+    and you're ready to go.
+</p>
+<p>
+    Let's imagine you need a plugin for alerting text on clicks to objects tagged 
+    with data-fjs-alert attribute.
+</p>
+<p>
+    Here's how you can make it:
+</p>
+<pre class="brush:js;ruler:true;toolbar:false">
+$$.fjs.alertPlugin = {
+    /**
+     * Registers plugin handlers
+     */
+    register: function() {
+        $$('*[data-fjs-alert]').live('click', function() {
+            alert($$(this).attr('data-fjs-alert'));
+            return false;
+        });
+    }
+}
+</pre>
+<div class="clear"></div>
+<p>
+    Method <strong>register</strong> is automatically called on page load for all declared plugins.
+    This method is used to initialize your plugin and/or bind to DOM elements and events.
+</p>
+<p>
+    Now you can use it in your HTML as follows:
+</p>
+<script type="syntaxhighlighter" class="brush:html;ruler:true;toolbar:false">
+<!DOCTYPE html>
+<html>
+    <head>
+        &lt;script type="text/javascript" src="fjs_core.js"&gt;&lt;/script&gt;
+        <!-- Your plugin -->
+        &lt;script type="text/javascript" src="fjs_alert.js"&gt;&lt;/script&gt;
+    </head>
+    <body>
+        <a href="#" data-fjs-alert="Woohoo!">Click me</a>
+    </body>
+</html>
+</script>
+<div class="clear"></div>
+<p>
+    Simple, isn't it?
+</p>
+<p>
+If your plugin needs to provide some methods for outer code, just describe them.
+Let's change the plugin code above to provide <strong>alert</strong> method to the outer code:
+</p>
+<pre class="brush:js;ruler:true;toolbar:false">
+$$.fjs.alertPlugin = {
+    /**
+     * Registers plugin handlers
+     */
+    register: function() {
+        $$('*[data-fjs-alert]').live('click', function() {
+            $$.fjs.alertPlugin.alert($$(this).attr('data-fjs-alert'));
+            return false;
+        });
+    },
+    /**
+     * Alerts given message
+     *
+     * @param {String} message Message to alert
+     * @return {Object} $$.fjs.alertPlugin
+     */
+    alert: function(message) {
+        alert(message);
+        return this;
+    }
+}
+</pre>
+<div class="clear"></div>
+<p>
+    So now you can call the <strong>alert</strong> method directly from outer code (in the
+    exact way we call it in <strong>register</strong> method).
+</p>
+<h2>Some guidelines</h2>
+<p>
+    If you want to contribute your code to FairyJS, please follow the next few guidelines:
+</p>
+<ul>
+    <li>Code should not duplicate any existing functionality.</li>
+    <li>Code should be tested.</li>
+    <li>Always use inline documentation (in JsDoc format). This helps supporting good IDE integration.</li>
+    <li>Try following the "data-fjs-PLUGIN-ATTR" attribute naming scheme.</li>
+    <li>Follow the "org.fjs.PLUGIN.EVENT" event naming scheme.</li>
+    <li>Never use <strong>console</strong> for logging. Use <strong>$$.fjs.log</strong>, <strong>$$.fjs.warn</strong> or <strong>$$.fjs.error</strong>.</li>
+    <li>Provide code samples describing how your code can be used.</li>
+    <li>Provide some textual description about how your code works, what can it do, which options it has (or make HTML mans in gh-pages branch).</li>
+</ul>
+
+<h2>Plugin dependencies</h2>
+<p>
+    We don't want to make any code duplication. Thus we made it possible having plugin dependencies.
+</p>
+<p>
+    If you need some other plugin functionality, you can implement two types of dependency - <i>soft</i> and <i>hard</i>.
+</p>
+<h3>Hard dependency</h3>
+<p>
+    With <i>hard</i> dependency your <strong>register</strong> method will not be called until all your dependencies are met.
+    To implement this you should just add <strong>requires</strong> array to your plugin definition as shown on example below.
+</p>
+<pre class="brush:js;ruler:true;toolbar:false;highlight:[5]">
+$$.fjs.alertPlugin = {
+    /**
+     * List of required plugins
+     */
+    requires: ['forms'],    
+    /**
+     * Registers plugin handlers
+     */
+    register: function() {
+        $$('*[data-fjs-alert]').live('click', function() {
+            $$.fjs.alertPlugin.alert($$(this).attr('data-fjs-alert'));
+            return false;
+        });
+    },
+    /**
+     * Alerts given message
+     *
+     * @param {String} message Message to alert
+     * @return {Object} $$.fjs.alertPlugin
+     */
+    alert: function(message) {
+        alert(message);
+        return this;
+    }
+}
+</pre>
+<div class="clear"></div>
+<p>
+    Each array element is the name of plugin you need to have. Plugin dependencies check is performed on page load which
+    doesn't require you to have any plugins load order.
+    Hard dependency example is <a href="https://github.com/zysoft/FairyJS/blob/master/src/fjs_validate.js" target="_blank">fjs_validate.js</a>.
+</p>
+
+<h3>Soft dependency</h3>
+<p>
+    With <i>soft</i> dependency you can check if plugin is loaded and decide whether or not to enable some dependent functionality.
+</p>
+<pre class="brush:js;ruler:true;toolbar:false;highlight:[6]">
+$$.fjs.alertPlugin = {
+    /**
+     * Registers plugin handlers
+     */
+    register: function() {
+        if ($$.fjs.hasPlugin('forms')) {
+            $$('*[data-fjs-alert]').live('click', function() {
+                $$.fjs.alertPlugin.alert($$(this).attr('data-fjs-alert'));
+                return false;
+            });
+        }
+    },
+    /**
+     * Alerts given message
+     *
+     * @param {String} message Message to alert
+     * @return {Object} $$.fjs.alertPlugin
+     */
+    alert: function(message) {
+        alert(message);
+        return this;
+    }
+}
+</pre>
+<div class="clear"></div>
+<p>
+    Soft dependency example is <a href="https://github.com/zysoft/FairyJS/blob/master/src/fjs_forms.js" target="_blank">fjs_forms.js</a>.
+</p>
+<h2>Send you code</h2>
+If you still want to contribute and have something you can suggest us, just <a href="https://github.com/zysoft/FairyJS/" target="_blank">for FairyJS on Github</a>, 
+make a branch with your changes and create <a href="http://help.github.com/send-pull-requests/" target="_blank">pull request</a>. 
+<p>
+    Then we will review your changes.
+</p>
