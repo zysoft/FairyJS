@@ -117,27 +117,12 @@ $(function() {
     var wtm;
     (function(){
         clearTimeout(wtm);
-        if (!this.oldhash || this.oldhash != document.location.hash) {
+        if (document.location.hash!='' && (!this.oldhash || this.oldhash != document.location.hash)) {
             $('#top li').removeClass('active')
             $('#top a[href="'+document.location.hash+'"]').parent().addClass('active').parents('li').addClass('active');
             if (!/#search_.*/.test(document.location.hash)) {
                 $('#loader').show();
                 $('#right .inner').html('').load('inner/'+document.location.hash.substr(1)+'.html?r='+Math.random(), function(response) {
-                    $('*[id$="_src"]').each(function(){
-                        var id = $(this).attr('id').replace('_src', '');
-                        var scripts = response.replace(/\s*<script data-hidden(.|\n)*?>(.|\n)*?<\/script>/gi, '').match(/\s*<script (.|\n)*?>(.|\n)*?<\/script>/gi);
-                        var $html = $('#'+id).clone();
-                        $html.find('.hidden').each(function() {
-                            $(this).replaceWith($(this).html().replace(/[ ]+/gm,' ').replace(/[\r\n]+/, "\r\n"));
-                        });
-                        
-                        $(this).text($html.html());
-                        if (scripts) {
-                            scripts = scripts.join("\n").replace(/</g,'&lt;').replace(/>/g,'&gt');
-                        } else 
-                            scripts = '';
-                        $(this).html($(this).text().replace(/</g,'&lt;').replace(/>/g,'&gt') + scripts);
-                    });
                     SyntaxHighlighter.highlight();
                     $('#loader').hide();
                     cpdt();

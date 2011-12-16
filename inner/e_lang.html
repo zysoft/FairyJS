@@ -1,4 +1,4 @@
-<h1>Code samples :: Localization</h1>
+<h1>Localization Demo</h1>
 <h2>Example</h2>
 <div id="example1">
     <span class="hidden">
@@ -29,8 +29,34 @@
     </span>
 </div>
 <h2>Example source</h2>
-<pre id="example1_src" class="brush:html;ruler:true;toolbar:false">
-</pre>
+<script type="syntaxhighlighter" class="brush:html;ruler:true;toolbar:false">
+    <span class="hidden">
+        &lt;html data-fjs-lang="en-us"&gt;
+        &lt;body&gt;
+    </span>
+    <!-- h3 text is used as fallback if fjs_lang did not start or present -->
+    <!-- If you fjs_lang does not work, you will see it, but no other texts -->
+    <h3 data-fjs-localizable="Select language">Select language</h3>
+    <div>
+        <select id="lang">
+            <option value="en-us">English</option>
+            <option value="ru-ru">Russian</option>
+        </select>
+    </div>
+    <h3 data-fjs-localizable="Localization test"></h3>
+    <div data-fjs-localizable="This string translates immediately"></div>
+    <h3 data-fjs-localizable="Runtime localization"></h3>
+    <a href="#" data-fjs-localizable="Click me" onclick="alert($$_('This is a test'));return false;"></a>
+    &lt;script type="text/javascript"&gt;
+        $('#lang').change(function() {
+            $$.fjs.lang.set($(this).val());
+        });
+    &lt;/script&gt;
+    <span class="hidden">
+        &lt;/body&gt;
+        &lt;/html&gt;
+    </span>
+</script>
 <div class="clear"></div>
 <h2>How does it work</h2>
 <p>
@@ -44,14 +70,13 @@
     English as a basic language - you should perform all translations from English.
 </p>
 <p>
-    For further overview of features, please see <a href="#d_lang">fjs_lang.js</a> documentation.
+    For further overview of features, please see <a href="http://github.com/zysoft/FairyJS/wiki/fjs_lang.js">fjs_lang.js</a> documentation.
 </p>
 <h3>Language file example (lang/fjs_ru-ru.js)</h3>
 <pre id="langExample">
 </pre>
 <script data-hidden="true" type="text/javascript">
     $('#langExample').load('lang/fjs_ru-ru.js', function() {
-        //$('#langExample').attr('class', 'brush:js;ruler:true;toolbar:false;');
         SyntaxHighlighter.highlight();
     });
 </script>
