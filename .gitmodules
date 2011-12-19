@@ -4,3 +4,6 @@
 [submodule "tools/qunit"]
 	path = tools/qunit
 	url = git://github.com/jquery/qunit.git
+[submodule "docs"]
+	path = docs
+	url = git://github.com/zysoft/FairyJS.wiki.git
