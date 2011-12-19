@@ -1,4 +1,5 @@
-FairyJS. Javascript fairy for the website.
+# FairyJS 
+### Javascript fairy for the website.
 
 FairyJS is kind of framework helping you to serve rich features to your website
 visitors easily and with no hassle. By default it doesn't require you to even
