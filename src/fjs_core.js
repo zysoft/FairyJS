@@ -196,6 +196,7 @@ $$.fjs = {
     unsubscribe: function(event, callback) {
         $$(document).unbind(event, callback);
         $$.fjs.log('Removed subscribtion to "'+event+'"');
+        return this;
     },
     /**
      * Fires event with params
@@ -211,6 +212,7 @@ $$.fjs = {
             fireArgs.push(arguments[i]);
         $$.fjs.log('Firing "'+event+'"');
         $$(document).trigger(event, fireArgs);
+        return this;
     }
 };
 

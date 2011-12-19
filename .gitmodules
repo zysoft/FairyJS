@@ -1,3 +1,6 @@
 [submodule "tools/yuicompressor"]
 	path = tools/yuicompressor
 	url = git://github.com/yui/yuicompressor.git
+[submodule "tools/qunit"]
+	path = tools/qunit
+	url = git://github.com/jquery/qunit.git
