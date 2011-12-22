@@ -5,3 +5,4 @@ visitors easily and with no hassle. By default it doesn't require you to even
 know JavaScript in order to make it working.
 
 For full docs, please refer to http://github.com/zysoft/FairyJS/wiki
+For demos, please see http://zysoft.github.com/FairyJS/
