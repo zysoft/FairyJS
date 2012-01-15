@@ -20,7 +20,14 @@
 
 $(function(){
     module("fjs_core.js");
-
+    test("Javascript extensions", function() {
+        equal("test string with %1, %2, %3".withVals(1, 2, 3), "test string with 1, 2, 3", "Placeholders replacing is correct");
+        equal("test string with %2, %3, %1".withVals(1, 2, 3), "test string with 2, 3, 1", "Placeholders replacing is correct");
+        var test = [1, 2, 3, 4, 6, 5, 'test', 'test2'];
+        equal(test.indexOf(3), 2, "Array.prototype.indexOf works correctly");
+        equal(test.indexOf(6), 4, "Array.prototype.indexOf works correctly");
+        equal(test.indexOf('test2'), 7, "Array.prototype.indexOf works correctly");
+    });
     test("Plugin subsystem", function () {
         equal($$.fjs.hasPlugin('samplePlugin'), true, "Plugin should be known by core");
         notEqual($$.fjs.samplePlugin.testVar, null, "Plugin test var should not be null");

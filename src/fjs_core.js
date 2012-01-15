@@ -23,8 +23,24 @@
 //Returns string with next placeholder replaced to value
 //Example: ("Some string with number %@ !").withVal(10) will produce "Some string with number 10 !"
 //Can also be used in one-line: str.withVal(10).withVal('some')
+//Left here for compatibility. Will be removed later
+//@deprecated
 String.prototype.withVal = function(value) {
+    $$.fjs.warn("String.prototype.withVal is obsolete. Please consider using String.prototype.withVals");
     return this.replace(/%@/, value);
+}
+
+//Returns string with placeholders %X replaced to arguments X
+//@example "test for %1, %3, %2".withVals(1,2,3); //Result is "test for 1, 3, 2"
+//@param {...*} [args] Argument list
+//@return {String}
+String.prototype.withVals = function() {
+    console.log(this, arguments);
+    var string = this;
+    for (var i=0,c=arguments.length; i<c; i++) {
+        string = string.replace(RegExp('%'+(i+1), 'g'), arguments[i]);
+    }
+    return string;
 }
 
 //Extends Array prototype to add indexOf method

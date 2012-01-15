@@ -112,8 +112,12 @@ $$.fjs.extendConfiguration({
 //Handy method to allow runtime translation
 //@example $$_('Some text')
 window.$$_ = function(str) {
-    if ($$.fjs.lang[$$.fjs.lang.currentLang] && $$.fjs.lang[$$.fjs.lang.currentLang][str])
-        return $$.fjs.lang[$$.fjs.lang.currentLang][str];
+    if ($$.fjs.lang[$$.fjs.lang.currentLang] && $$.fjs.lang[$$.fjs.lang.currentLang][str]) {
+        var argList = [];
+        for (var i=1, c=arguments.length; i<c; i++)
+            argList.push(arguments[i]);
+        return String.prototype.withVals.apply($$.fjs.lang[$$.fjs.lang.currentLang][str], argList);
+    }
     if ($$.fjs.config.debugMode)
         $$.fjs.warn('Unlocalized entity: ' + str);
     return str;
