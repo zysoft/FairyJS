@@ -113,6 +113,10 @@ $$.fjs.extendConfiguration({
 //@example $$_('Some text')
 window.$$_ = function(str) {
     if ($$.fjs.lang[$$.fjs.lang.currentLang] && $$.fjs.lang[$$.fjs.lang.currentLang][str]) {
+        if (arguments.length == 1) {
+            //No need to replace placeholders
+            return $$.fjs.lang[$$.fjs.lang.currentLang][str];
+        } 
         var argList = [];
         for (var i=1, c=arguments.length; i<c; i++)
             argList.push(arguments[i]);
