@@ -35,7 +35,6 @@ String.prototype.withVal = function(value) {
 //@param {...*} [args] Argument list
 //@return {String}
 String.prototype.withVals = function() {
-    console.log(this, arguments);
     var string = this;
     for (var i=0,c=arguments.length; i<c; i++) {
         string = string.replace(RegExp('%'+(i+1), 'g'), arguments[i]);
