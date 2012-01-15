@@ -1,10 +1,6 @@
 <h1>Localization Demo</h1>
 <h2>Example</h2>
 <div id="example1">
-    <span class="hidden">
-        &lt;html data-fjs-lang="en-us"&gt;
-        &lt;body&gt;
-    </span>
     <!-- h3 text is used as fallback if fjs_lang did not start or present -->
     <!-- If you fjs_lang does not work, you will see it, but no other texts -->
     <h3 data-fjs-localizable="Select language">Select language</h3>
@@ -23,17 +19,12 @@
             $$.fjs.lang.set($(this).val());
         });
     </script>
-    <span class="hidden">
-        &lt;/body&gt;
-        &lt;/html&gt;
-    </span>
 </div>
 <h2>Example source</h2>
 <script type="syntaxhighlighter" class="brush:html;ruler:true;toolbar:false">
-    <span class="hidden">
-        &lt;html data-fjs-lang="en-us"&gt;
-        &lt;body&gt;
-    </span>
+ &lt;html data-fjs-lang="en-us"&gt;
+ <head></head>
+ &lt;body&gt;
     <!-- h3 text is used as fallback if fjs_lang did not start or present -->
     <!-- If you fjs_lang does not work, you will see it, but no other texts -->
     <h3 data-fjs-localizable="Select language">Select language</h3>
@@ -52,10 +43,8 @@
             $$.fjs.lang.set($(this).val());
         });
     &lt;/script&gt;
-    <span class="hidden">
-        &lt;/body&gt;
-        &lt;/html&gt;
-    </span>
+ &lt;/body&gt;
+ &lt;/html&gt;
 </script>
 <div class="clear"></div>
 <h2>How does it work</h2>
