@@ -232,7 +232,7 @@ window.fbAsyncInit = function() {
         xfbml      : true  // parse XFBML
     };
         
-    if ($html.attr('data-fjs-appid-xd') && $$.browser.msie && $$.browser.version >= 8 && $$.browser.version <= 9) {
+    if ($html.attr('data-fjs-fb-xd')) {
         initParams.channelUrl = $html.attr('data-fjs-fb-xd');
     }
         
@@ -241,11 +241,14 @@ window.fbAsyncInit = function() {
         
     FB._https = window.location.protocol == 'https:';
     FB.init(initParams);
-    // Hack to fix http://bugs.developers.facebook.net/show_bug.cgi?id=20168 for IE7/8/9
-    FB.UIServer.setLoadedNode = function (a, b) {
-        FB.UIServer._loadedNodes[a.id] = b;
-    };
-        
+    
+//    if ($$.browser.msie) {
+//        // Hack to fix http://bugs.developers.facebook.net/show_bug.cgi?id=20168 for IE7/8/9
+//        FB.UIServer.setLoadedNode = function (a, b) {
+//            FB.UIServer._loadedNodes[a.id] = b;
+//        };
+//    }
+    
     if ($html.attr('data-fjs-fb-autosize')) {
         FB.Canvas.setAutoGrow();
     }
