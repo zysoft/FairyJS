@@ -47,7 +47,9 @@ $$.fjs.facebook = {
             if (document.location.protocol == 'file:') {
                 proto = 'http:'
             }
-            js.src = proto+"//connect.facebook.net/en_US/all.js";
+            //Checking lang specification
+            var fbLocale = $$('html').attr('data-fjs-fb-lang');
+            js.src = proto+"//connect.facebook.net/"+(fbLocale ? fbLocale : 'en_US')+"/all.js";
             document.getElementsByTagName('head')[0].appendChild(js);
             
             //Registering login triggers
