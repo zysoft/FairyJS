@@ -98,9 +98,9 @@ $$.fjs = {
                 }
                 if (okToInit) {
                     $$.fjs[i].register();
-                    $.fjs.log('Activated plugin "'+i+'"');
+                    $$.fjs.log('Activated plugin "'+i+'"');
                 } else {
-                    $.fjs.error('Plugin "'+i+'" falied to intialize due to missing dependencies');
+                    $$.fjs.error('Plugin "'+i+'" falied to intialize due to missing dependencies');
                 }
             }
         }
