@@ -109,7 +109,7 @@ $$.fjs.validate = {
                 }
             });
             //Do validation (call validation func)
-            var validatorResult = validatorInfo.func($input.val(), validatorConfig);
+            var validatorResult = validatorInfo.func($input.val(), validatorConfig, $input);
             if (!validatorResult) {
                 this.fieldErrors[$input.attr('name')] = validatorConfig.error_message ? validatorConfig.error_message : validatorName;
             }
