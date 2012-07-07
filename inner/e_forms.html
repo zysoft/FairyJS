@@ -3,13 +3,14 @@
 <div id="example1">
     <form action="#e_forms" method="post">
         <div>
-            <label>Digits only:</label>
+            <label data-fjs-highlight_error_for="digits">Digits only:</label>
         </div>
         <div>
             <input type="text" name="digits" value=""
                    data-fjs-required="true"
                    data-fjs-validate="blur"
                    data-fjs-validator="int"
+                   data-fjs-error_class="error"
                    data-fjs-int_error_message="Please enter digits only!"
                    />
             <span style="color:red" data-fjs-error_for="digits"></span>
@@ -22,6 +23,7 @@
                    data-fjs-required="true"
                    data-fjs-validate="blur"
                    data-fjs-validator="email"
+                   data-fjs-error_class="error"
                    data-fjs-email_error_message="Please enter valid email!"
                    />
             <span style="color:red" data-fjs-error_for="email"></span>
@@ -35,6 +37,7 @@
                    data-fjs-validator="match_field"
                    data-fjs-match_field_selector="input[name='email']"
                    data-fjs-match_field_error_message="Email doesn't match"
+                   data-fjs-error_class="error"
                    />
             <span style="color:red" data-fjs-error_for="email2"></span>
         </div>
@@ -50,12 +53,13 @@
                    data-fjs-validate="blur"
                    data-fjs-validator="foo"
                    data-fjs-foo_bar="cool"
+                   data-fjs-error_class="error"
                    data-fjs-foo_error_message="Please enter word 'cool'!"
                    />
             <span style="color:red" data-fjs-error_for="foo"></span>
         </div>
         <div>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" data-fjs-highlight_error_for="digits,email,email2,foo"/>
         </div>
     </form>
     <script type="text/javascript">
@@ -74,13 +78,14 @@
 <script type="syntaxhighlighter" class="brush:html;ruler:true;toolbar:false">
     <form action="#e_forms" method="post">
         <div>
-            <label>Digits only:</label>
+            <label data-fjs-highlight_error_for="digits">Digits only:</label>
         </div>
         <div>
             <input type="text" name="digits" value=""
                    data-fjs-required="true"
                    data-fjs-validate="blur"
                    data-fjs-validator="int"
+                   data-fjs-error_class="error"
                    data-fjs-int_error_message="Please enter digits only!"
                    />
             <span style="color:red" data-fjs-error_for="digits"></span>
@@ -93,6 +98,7 @@
                    data-fjs-required="true"
                    data-fjs-validate="blur"
                    data-fjs-validator="email"
+                   data-fjs-error_class="error"
                    data-fjs-email_error_message="Please enter valid email!"
                    />
             <span style="color:red" data-fjs-error_for="email"></span>
@@ -106,6 +112,7 @@
                    data-fjs-validator="match_field"
                    data-fjs-match_field_selector="input[name='email']"
                    data-fjs-match_field_error_message="Email doesn't match"
+                   data-fjs-error_class="error"
                    />
             <span style="color:red" data-fjs-error_for="email2"></span>
         </div>
@@ -121,12 +128,13 @@
                    data-fjs-validate="blur"
                    data-fjs-validator="foo"
                    data-fjs-foo_bar="cool"
+                   data-fjs-error_class="error"
                    data-fjs-foo_error_message="Please enter word 'cool'!"
                    />
             <span style="color:red" data-fjs-error_for="foo"></span>
         </div>
         <div>
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Submit" data-fjs-highlight_error_for="digits,email,email2,foo"/>
         </div>
     </form>
     &lt;script type="text/javascript"&gt;

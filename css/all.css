@@ -177,3 +177,12 @@ table td {
 .hidden {
     display: none;
 }
+
+.error {
+    color: red;
+}
+input.error {
+    color: black;
+    border: 1px solid red;
+    background-color: #FFAAAA;
+}
