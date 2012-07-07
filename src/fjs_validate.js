@@ -62,6 +62,8 @@ $$.fjs.validate = {
      * @return {boolean}       Field validation result
      */
     field: function($input) {
+        //Reset field errors
+        this.fieldErrors = [];
         //Check if the field is NOT required and empty
         if (!$input.attr('data-fjs-required') && $$.trim($input.val()).length == 0)
             return true;
