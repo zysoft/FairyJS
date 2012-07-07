@@ -75,7 +75,8 @@ $$.fjs.validate = {
                 isOk = $$.trim($input.val()).length != 0;
             }
             if (!isOk) {
-                this.fieldErrors[$input.attr('name')] = 'This field is required';
+                var errorMessage = $input.attr('data-fjs-required_error_message');
+                this.fieldErrors[$input.attr('name')] = errorMessage ? errorMessage : 'This field is required';
                 return false;
             }
         }
