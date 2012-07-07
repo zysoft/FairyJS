@@ -140,8 +140,7 @@ $$.fjs.forms = {
                 $input.addClass(errorClass);
                 $$('*[data-fjs-highlight_error_for*="'+$input.attr('name')+'"]').addClass(errorClass);
             }
-            return false;
         }
-        return true;        
+        return this;
     }
 }
