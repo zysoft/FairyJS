@@ -53,12 +53,12 @@ $$.fjs.facebook = {
             document.getElementsByTagName('head')[0].appendChild(js);
             
             //Registering login triggers
-            $$('*[data-fjs-fb-login]').live('click', function() {
+            $$(document).on('click', '*[data-fjs-fb-login]', function() {
                 $$.fjs.facebook.login($$(this).attr('data-fjs-fb-login'));
                 return false;
             });
             //Registering feed triggers
-            $$('*[data-fjs-fb-feed-link]').live('click', function() {
+            $$(document).on('click', '*[data-fjs-fb-feed-link]', function() {
                 var $element = $$(this);
                 $$.fjs.facebook.publish(
                     $element.attr('data-fjs-fb-feed-link'),
@@ -70,7 +70,7 @@ $$.fjs.facebook = {
                 return false;
             });
             //Registering multifriend selector triggers
-            $$('*[data-fjs-fb-apprequest-message]').live('click', function() {
+            $$(document).on('click', '*[data-fjs-fb-apprequest-message]', function() {
                 $$.fjs.facebook.sendAppRequest(
                     $$(this).attr('data-fjs-fb-apprequest-message'),
                     $$(this).attr('data-fjs-fb-apprequest-to'),

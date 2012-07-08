@@ -36,20 +36,21 @@ $$.fjs.forms = {
             $$.fjs.forms.highlightFieldError($input);
             return res;
         };
-        //Assign onBlur validatio
-        $$(':input[data-fjs-validate="blur"]').live('blur', function() {
+        $$(document)
+        //Assign onBlur validation
+        .on('blur', ':input[data-fjs-validate="blur"]', function() {
             singleFieldValidate($$(this));
-        });
+        })
         //Assign onKeypress validation (which is onKeyUp)
-        $$(':input[data-fjs-validate="keypress"]').live('keyup', function() {
+        .on('keyup', ':input[data-fjs-validate="keypress"]', function() {
             singleFieldValidate($$(this));
-        });
+        })
         //Assign onClick validation
-        $$(':input[data-fjs-validate="click"]').live('click', function() {
+        .on('click', ':input[data-fjs-validate="click"]', function() {
             singleFieldValidate($$(this));
-        });
+        })
         //Assign onSubmit handler to all forms
-        $$('form').live('submit', function() {
+        .on('submit', 'form', function() {
             var isFormValid = true;
             var $form = $$(this);
             //Clear all errors

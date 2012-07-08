@@ -196,7 +196,7 @@ $$.fjs = {
      * @return {Object} $$.fjs
      */
     subscribe: function(event, callback) {
-        $$(document).bind(event, callback);
+        $$(document).on(event, callback);
         $$.fjs.log('Got subscribtion to "'+event+'"');
         return this;
     },
@@ -209,7 +209,7 @@ $$.fjs = {
      * @return {Object} $$.fjs
      */
     unsubscribe: function(event, callback) {
-        $$(document).unbind(event, callback);
+        $$(document).off(event, callback);
         $$.fjs.log('Removed subscribtion to "'+event+'"');
         return this;
     },
@@ -231,5 +231,13 @@ $$.fjs = {
     }
 };
 
-//Attach handler for page onLoad
-$$($$.fjs.init);
+
+//Check appropriate jQuery version
+var jqVersion = $$.fn.jquery.split('.');
+jqVersion = parseFloat(jqVersion[0]+'.'+jqVersion[1]);
+if (jqVersion < 1.7) {
+    console.error('jQuery 1.7+ required for FairyJS to work, but you have '+$$.fn.jquery+' version loaded. Please upgrade.');
+} else {
+    //Attach handler for page onLoad
+    $$($$.fjs.init);
+}
