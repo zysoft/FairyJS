@@ -186,3 +186,23 @@ input.error {
     border: 1px solid red;
     background-color: #FFAAAA;
 }
+
+.message {
+    position: fixed;
+    width: 200px;
+    text-align: center;
+    padding: 20px;
+    display: none;
+}
+.message.success {
+    background-color: green;
+    color: white;
+}
+.message.warning {
+    background-color: yellow;
+    color: black;
+}
+.message.error {
+    background-color: red;
+    color: white;
+}

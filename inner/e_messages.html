@@ -1,0 +1,81 @@
+<script>
+    $$.fjs.configure({
+        debugMode: true,
+        verboseMode: true
+    });
+</script>
+<h1>Messages Demo</h1>
+<h2>Example</h2>
+<div id="example1">
+    <div class="message" data-fjs-message="success,warning" data-fjs-message-animation="popup" data-fjs-message-positioner="window-center"></div>
+    <a href="#" onclick="$$.fjs.message.show('success', 'Success message');return false;">Show success</a>
+    <a href="#" onclick="$$.fjs.message.show('warning', 'Warning message');return false;">Show warning</a>
+    <a href="#" onclick="$$.fjs.message.show('error', 'Error message');return false;">Show error</a>
+    <a href="#" onclick="$$.fjs.message.hide('error');return false;">Hide error</a>
+    <a href="#" onclick="$$.fjs.message.show('mytype');return false;">Show custom</a>
+    <div class="message" data-fjs-message="error" data-fjs-message-animation="slide-top" data-fjs-message-positioner="window-center" data-fjs-message-visible="0"></div>
+    <div class="message success" data-fjs-message="mytype" data-fjs-message-animation="foo" data-fjs-message-positioner="bar" data-fjs-message-visible="3">Some custom message prepared in advance</div>
+    <script type="text/javascript">
+        $$.fjs.message.animations.foo = {
+            'in': {
+                'before': {display: 'block', opacity: 0},
+                'animate': {opacity: .8, left: 10, top: '%height%'},
+                'after': {},
+                'speed': 1500
+            },
+            'out': {
+                'before': {},
+                'animate': {top: '%window_height%', opacity: 0},
+                'after': {},
+                'speed': 1500
+            }
+        }
+        $$.fjs.message.positioners.bar = function() {
+            return {
+                'x': 300,
+                'y': 500
+            }
+        }
+    </script>
+</div>
+<h2>Example source</h2>
+<script type="syntaxhighlighter" class="brush:html;ruler:true;toolbar:false">
+    <div class="message" data-fjs-message="success,warning" data-fjs-message-animation="popup" data-fjs-message-positioner="window-center"></div>
+    <a href="#" onclick="$$.fjs.message.show('success', 'Success message');return false;">Show success</a>
+    <a href="#" onclick="$$.fjs.message.show('warning', 'Warning message');return false;">Show warning</a>
+    <a href="#" onclick="$$.fjs.message.show('error', 'Error message');return false;">Show error</a>
+    <a href="#" onclick="$$.fjs.message.hide('error');return false;">Hide error</a>
+    <a href="#" onclick="$$.fjs.message.show('mytype');return false;">Show custom</a>
+    <div class="message" data-fjs-message="error" data-fjs-message-animation="slide-top" data-fjs-message-positioner="window-center" data-fjs-message-visible="0"></div>
+    <div class="message success" data-fjs-message="mytype" data-fjs-message-animation="foo" data-fjs-message-positioner="bar" data-fjs-message-visible="3">Some custom message prepared in advance</div>
+    &lt;script type="text/javascript"&gt;
+        $$.fjs.message.animations.foo = {
+            'in': {
+                'before': {display: 'block', opacity: 0},
+                'animate': {opacity: .8, left: 10, top: '%height%'},
+                'after': {},
+                'speed': 1500
+            },
+            'out': {
+                'before': {},
+                'animate': {top: '%window_height%', opacity: 0},
+                'after': {},
+                'speed': 1500
+            }
+        }
+        $$.fjs.message.positioners.bar = function() {
+            return {
+                'x': 300,
+                'y': 500
+            }
+        }
+    &lt;/script&gt;
+</script>
+<div class="clear"></div>
+<h2>How does it work</h2>
+<p>
+    FairyJS automatically finds message containers and binds to them. All you have to do is just execute one line of JavaScript to show desired message and FairyJS will do all magic.
+</p>
+<p>
+    Please see <a href="http://github.com/zysoft/FairyJS/wiki/fjs_message.js">fjs_message.js</a> reference for further details.
+</p>
