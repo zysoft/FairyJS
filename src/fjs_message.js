@@ -161,7 +161,7 @@ $$.fjs.message = {
     },
     /**
      * Replaces placeholders in animaiton CSS to real values
-     * Supported placholders: %left% %top% %height% %width% %window_height% %window_width%
+     * Supported placholders: %left% %top% %height% %width% %window_height% %window_width% %centerX% %centerY%
      * 
      * @param {Object}   $container  jQuery object corresponding to container which data goed to placeholders
      * @param {Object}   css         Object with CSS definitions
@@ -175,10 +175,12 @@ $$.fjs.message = {
             css[i] = css[i]
                         .replace(/%window_height%/gi, $(window).height())
                         .replace(/%window_width%/gi,  $(window).width())
-                        .replace(/%left%/gi,   $container.position().left)
-                        .replace(/%top%/gi,    $container.position().top)
-                        .replace(/%height%/gi, $container.outerHeight())
-                        .replace(/%width%/gi,  $container.outerWidth());
+                        .replace(/%left%/gi,          $container.position().left)
+                        .replace(/%top%/gi,           $container.position().top)
+                        .replace(/%centerX%/gi,       Math.round($container.position().left + $container.outerWidth()/2))
+                        .replace(/%centerY%/gi,       Math.round($container.position().top + $container.outerHeight()/2))
+                        .replace(/%height%/gi,        $container.outerHeight())
+                        .replace(/%width%/gi,         $container.outerWidth());
             //Make int from result value
             var intVal = parseInt(css[i]);
             if (intVal)
@@ -227,8 +229,8 @@ $$.fjs.message = {
     positioners: {
         'none': function() {
             return {
-                'x': '%left%',
-                'y': '%top%'
+                'x': '%centerX%',
+                'y': '%centerY%'
             }
         },
         'window-center': function() {
