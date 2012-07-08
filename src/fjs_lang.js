@@ -53,7 +53,7 @@ $$.fjs.lang = {
             return this;
         }
         var script = document.createElement('SCRIPT');
-        script.src = $$.fjs.config.langPath+$$.fjs.config.langFile.withVal(this.currentLang)+'?r='+Math.random();
+        script.src = $$.fjs.config.langPath+$$.fjs.config.langFile.withVals(this.currentLang)+'?r='+Math.random();
         script.type = 'text/javascript';
         $$('head')[0].appendChild(script);
         return this;
@@ -103,7 +103,7 @@ $$.fjs.lang = {
 }
 
 $$.fjs.extendConfiguration({
-    langFile: 'fjs_%@.js',   //Filename template
+    langFile: 'fjs_%1.js',   //Filename template
     langPath: 'lang/',       //Path to lang files
     defaultLang: null          //Default language NULL means no default
 });
