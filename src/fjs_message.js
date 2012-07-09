@@ -28,7 +28,7 @@ $$.fjs.message = {
      */
     register: function() {
         //Assign global Ajax handlers if any containers are detected
-        if ($('*[data-fjs-message*="ajax"]').length) {
+        if ($$('*[data-fjs-message*="ajax"]').length) {
             $$(document).ajaxStart(function() {
                 $$.fjs.message.show('ajax');
             });
@@ -36,6 +36,12 @@ $$.fjs.message = {
                 $$.fjs.message.hide('ajax');
             });
         }
+        $$(document).on('click', '*[data-fjs-message]', function() {
+            if ($$(this).hasClass('ajax')) //Don't allow hiding ajax messages
+                return false;
+            $$.fjs.message.hide($$(this));
+            return false;
+        });
     },
     /**
      * Shows a message with given type
@@ -135,12 +141,17 @@ $$.fjs.message = {
     /**
      * Hides messages by type or all at once
      * 
-     * @param {String}   [type]          Message type (keyword). Hides all if no type specified
+     * @param {String|Object}   [type]      Message type (keyword). Hides all if no type specified. Direct container object can be used instead of string type
      * 
      * @return {Object] $$.fjs.message
      */
     hide: function(type) {
-        var $container = type ? $('*[data-fjs-message*="'+type+'"]') : $$('*[data-fjs-message]:visible');
+        var $container;
+        if (typeof(type) == 'object') {
+            $container = type;
+        } else {
+            $container = type ? $('*[data-fjs-message*="'+type+'"]') : $$('*[data-fjs-message]:visible');
+        }
         if (!$container.length) {
             return $$.fjs.message;
         }
