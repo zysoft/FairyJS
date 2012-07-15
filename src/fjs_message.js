@@ -1,7 +1,7 @@
 /**
  @licstart  The following is the entire license notice for the JavaScript code in this page.
     FairyJS. Your personal Javascript fairy for the website
-    Data validation plugin
+    Various messages display plugin
     Copyright (C) 2012  Yuriy Zisin
 
     This program is free software: you can redistribute it and/or modify
