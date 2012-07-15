@@ -1,0 +1,79 @@
+<h1>Twitter Integration Demo</h1>
+<h2>Example</h2>
+<div id="example1">
+    <style type="text/css">
+        a.sample {color: red;}
+    </style>
+    <p><span data-fjs-twitter-login-button=""></span> or <a href="#" data-fjs-twitter-login="">use custom login button</a></p>
+    <div data-fjs-twitter-linkify-users="">Here Twitter usernames will be just linked @zysoft</div>
+    <div data-fjs-twitter-linkify-users="sample" data-fjs-twitter-hovercards="simple">Here Twitter usernames will also have hovercards @zysoft</div>
+    <div data-fjs-twitter-hovercards="expanded">Here Twitter usernames will have expanded hovercards @zysoft</div>
+    <p id="tw_status">Awaiting status update...</p>
+    <p>
+        <span data-fjs-twitter-follow="zysoft"></span>
+        <a href="#" data-fjs-twitter-share="FairyJS - your personal JavaScript fairy for the website! #FairyJS" data-fjs-twitter-share-link="http://github.com/zysoft/FairyJS">Tweet about FairyJS!</a>
+    </p>
+    <p>
+        <a href="#" data-fjs-twitter-logout="">Sign out from Twitter</a>
+    </p>
+    <script type="text/javascript">
+        //Subscibing to Facebook events
+        $$.fjs.subscribe('org.fjs.twitter.login_status.change', function($ev, isLoggedIn, user) {
+            if (!isLoggedIn) {
+                $('#tw_status').text('Not logged in');
+            } else {
+                $('#tw_status').text('Welcome '+user.name+' aka @'+user.screenName).linkifyUsers().hovercards('expanded');
+            }
+        });
+    </script>
+</div>
+
+<h2>Example source</h2>
+<script type="syntaxhighlighter" class="brush:html;ruler:true;toolbar:false">
+    <!DOCTYPE html>
+    <html data-fjs-twitter-consumer-key="u3LtWbWlrurOVscmrscEw">
+        <head>
+            <title>Twitter demo</title>
+            &lt;script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;&lt;/script&gt;
+            &lt;script type="text/javascript" src="js/fjs-min.js"&gt;&lt;/script&gt;
+            <style type="text/css">
+                a.sample {
+                    color: red;
+                }
+            </style>
+        </head>
+        <body>
+            <p><span data-fjs-twitter-login-button=""></span> or <a href="#" data-fjs-twitter-login="">use custom login button</a></p>
+            <div data-fjs-twitter-linkify-users="">Here Twitter usernames will be just linked @zysoft</div>
+            <div data-fjs-twitter-linkify-users="sample" data-fjs-twitter-hovercards="simple">Here Twitter usernames will also have hovercards @zysoft</div>
+            <div data-fjs-twitter-linkify-users="" data-fjs-twitter-hovercards="expanded">Here Twitter usernames will have expanded hovercards @zysoft</div>
+            <p id="tw_status" data-fjs-twitter-linkify="" data-fjs-twitter-hovercards="">Awaiting status update...</p>
+            <p>
+                <span data-fjs-twitter-follow="zysoft"></span>
+                <a href="#" data-fjs-twitter-share="FairyJS - your personal JavaScript fairy for the website! #FairyJS" data-fjs-twitter-share-link="http://github.com/zysoft/FairyJS">Tweet about FairyJS!</a>
+            </p>
+            <p>
+                <a href="#" data-fjs-twitter-logout="">Sign out from Twitter</a>
+            </p>
+            &lt;script type="text/javascript"&gt;
+                //Subscibing to Facebook events
+                $$.fjs.subscribe('org.fjs.twitter.login_status.change', function($ev, isLoggedIn, user) {
+                    if (!isLoggedIn) {
+                        $('#tw_status').text('Not logged in');
+                    } else {
+                        $('#tw_status').text('Welcome '+user.name+' aka @'+user.screenName).linkifyUsers().hovercards('expanded');
+                    }
+                });
+            &lt;/script&gt;
+
+        </body>
+    </html>
+</script>
+<div class="clear"></div>
+<h2>How does it work</h2>
+<p>
+    FairyJS integrates with <a href="https://dev.twitter.com/docs/anywhere/welcome" target="_blank">@Anywhere</a> Twitter library and wraps it up so you don't need to write a lot of JavaScript code and most of things are done without JavaScript needed at all!
+</p>
+<p>
+    Please see <a href="http://github.com/zysoft/FairyJS/wiki/fjs_twitter.js">fjs_twitter.js</a> reference for further details.
+</p>

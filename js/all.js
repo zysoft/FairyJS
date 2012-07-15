@@ -127,6 +127,7 @@ $(function() {
                     $('#loader').hide();
                     cpdt();
                     $$.fjs.lang.set('en-us');
+                    $$.fjs.twitter.enableAnywhere();
                 });
             } else {
                 $('input[name="search"]').val(document.location.hash.replace(/#search_(.*)/, '$1').replace('_', ' '));
