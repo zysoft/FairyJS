@@ -54,7 +54,7 @@ $$.fjs.forms = {
             var isFormValid = true;
             var $form = $$(this);
             //Clear all errors
-            $$('*[data-fjs-error_for]').html('');
+            $form.find('*[data-fjs-error_for]').html('');
             $form.find(':input').each(function() {
                 isFormValid = singleFieldValidate($$(this)) && isFormValid;
             });
@@ -101,12 +101,13 @@ $$.fjs.forms = {
      * @return {Object}      $$.fjs.forms
      */
     highlightFieldError: function($input) {
+        var $form = $input.parents('form');
         //Getting CSS params
         var errorClass = $input.attr('data-fjs-error_class');
         if (errorClass) {
             $input.removeClass(errorClass);
             //Gently removing error class from related objects
-            $$('*[data-fjs-highlight_error_for*="'+$input.attr('name')+'"]').each(function() {
+            $form.find('*[data-fjs-highlight_error_for*="'+$input.attr('name')+'"]').each(function() {
                 var currAttr = $$(this).attr('data-fjs-highlight_error_for');
                 //If only one field specified - just remove class
                 if (currAttr == $input.attr('name')) {
@@ -120,7 +121,7 @@ $$.fjs.forms = {
                 for (var i=0,c=relatedFields.length; i<c; i++) {
                     if (relatedFields[i] == $input.attr('name'))
                         continue;
-                    if ($$('*[name="'+relatedFields[i]+'"]').hasClass(errorClass)) {
+                    if ($form.find('*[name="'+relatedFields[i]+'"]').hasClass(errorClass)) {
                         needClassRemove = false;
                         break;
                     }
@@ -130,16 +131,16 @@ $$.fjs.forms = {
             });
         }
         //Clear error
-        $$('*[data-fjs-error_for="'+$input.attr('name')+'"]').html('');
+        $form.find('*[data-fjs-error_for="'+$input.attr('name')+'"]').html('');
         //If validation failed
         if ($$.fjs.validate.fieldError($input)) {
             //Highlight error
             var error = $$.fjs.validate.fieldError($input);
             var errorText = $$.fjs.hasPlugin('lang') ? $$_(error) : error;
-            $$('*[data-fjs-error_for="'+$input.attr('name')+'"]').html(errorText).attr('data-fjs-localizable', error);
+            $form.find('*[data-fjs-error_for="'+$input.attr('name')+'"]').html(errorText).attr('data-fjs-localizable', error);
             if (errorClass) {
                 $input.addClass(errorClass);
-                $$('*[data-fjs-highlight_error_for*="'+$input.attr('name')+'"]').addClass(errorClass);
+                $form.find('*[data-fjs-highlight_error_for*="'+$input.attr('name')+'"]').addClass(errorClass);
             }
         }
         return this;
