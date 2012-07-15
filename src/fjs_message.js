@@ -36,7 +36,7 @@ $$.fjs.message = {
                 $$.fjs.message.hide('ajax');
             });
         }
-        $$(document).on('click', '*[data-fjs-message]', function() {
+        $$(document).on('click', '*[data-fjs-message]:not(*[data-fjs-message-control="manual"])', function() {
             if ($$(this).hasClass('ajax')) //Don't allow hiding ajax messages
                 return false;
             $$.fjs.message.hide($$(this));
