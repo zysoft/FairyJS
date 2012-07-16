@@ -144,5 +144,21 @@ $$.fjs.forms = {
             }
         }
         return this;
+    },
+    /**
+     * Resets all form inputs in given container
+     * 
+     * @param {Object}  $container   Container to reset form inputs in
+     * @param {boolean} onlyErrors   Tells to reset only errors state and don't return fields to default values
+     * 
+     * @return {Object} $$.fjs.forms
+     */
+    reset: function($container, onlyErrors) {
+        $container.find(':input').each(function() {
+            if (!onlyErrors)
+                this.value = this.defaultValue;
+            $$.fjs.forms.highlightFieldError($(this));
+        });
+        return $$.fjs.forms;
     }
 }
