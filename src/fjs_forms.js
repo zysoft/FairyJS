@@ -155,10 +155,15 @@ $$.fjs.forms = {
      */
     reset: function($container, onlyErrors) {
         $container.find(':input').each(function() {
-            if (!onlyErrors)
-                this.value = this.defaultValue;
             $$.fjs.forms.highlightFieldError($(this));
         });
+        if (!onlyErrors) {
+            $container.find('form').each(function() {
+                this.reset();
+            });
+            if ($container.is('form'))
+                $container[0].reset();
+        }
         return $$.fjs.forms;
     }
 }
