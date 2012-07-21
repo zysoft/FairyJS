@@ -106,6 +106,7 @@ $$.fjs.twitter = {
                 $$.fjs.twitter.user = null;
                 $$.fjs.fire('org.fjs.twitter.login_status.change', false, true);
             });
+            $$.fjs.twitter.user = null;
             if (T.isConnected()) {
               $$.fjs.twitter.user = T.currentUser;
             }
@@ -131,7 +132,7 @@ $$.fjs.twitter = {
             return false;
         twttr.anywhere(function(T) {
             //Check if we already have profile and just fire event in this case without showing annoying popup
-            if ($$.fjs.twitter.user) {
+            if ($$.fjs.twitter.user != null) {
                 $$.fjs.fire('org.fjs.twitter.login_status.change', true, true, $$.fjs.twitter.user);
                 return true;
             }
