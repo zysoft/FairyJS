@@ -99,16 +99,17 @@ $$.fjs.twitter = {
             });
             T.bind("authComplete", function (e, user) {
                 $$.fjs.twitter.user = user;
-                $$.fjs.fire('org.fjs.twitter.login_status.change', true, $$.fjs.twitter.user);
+                $$.fjs.fire('org.fjs.twitter.login_status.change', true, true, $$.fjs.twitter.user);
             });
  
             T.bind("signOut", function (e) {
-                $$.fjs.fire('org.fjs.twitter.login_status.change', false);
+                $$.fjs.twitter.user = null;
+                $$.fjs.fire('org.fjs.twitter.login_status.change', false, true);
             });
             if (T.isConnected()) {
               $$.fjs.twitter.user = T.currentUser;
             }
-            $$.fjs.fire('org.fjs.twitter.login_status.change', T.isConnected(), $$.fjs.twitter.user);
+            $$.fjs.fire('org.fjs.twitter.login_status.change', T.isConnected(), false, $$.fjs.twitter.user);
         });
         return $$.fjs.twitter;
     },
@@ -129,6 +130,11 @@ $$.fjs.twitter = {
         if (!$$.fjs.twitter.isAnywherePresent)
             return false;
         twttr.anywhere(function(T) {
+            //Check if we already have profile and just fire event in this case without showing annoying popup
+            if ($$.fjs.twitter.user) {
+                $$.fjs.fire('org.fjs.twitter.login_status.change', true, true, $$.fjs.twitter.user);
+                return true;
+            }
             T.signIn();
         });
         return true;
