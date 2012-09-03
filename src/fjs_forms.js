@@ -27,6 +27,25 @@ $$.fjs.forms = {
      * Plugin registration handler
      */
     register: function() {
+        //Assign onSubmit handler to all forms
+        $$(document)
+        .on('submit', 'form', function() {
+            var isFormValid = true;
+            var $form = $$(this);
+            //Clear all errors
+            $$.fjs.forms.reset($form, true);
+            if ($$.fjs.hasPlugin('validate')) { //If validation plugin enabled - validate
+                $form.find(':input').each(function() {
+                    isFormValid = singleFieldValidate($$(this)) && isFormValid;
+                });
+            }
+            if (isFormValid && $form.attr('data-fjs-form-ajax')) {
+                $$.fjs.forms.ajaxSubmit($form);
+                return false;
+            }
+            return isFormValid;
+        });
+        
         //Don't set up validaion hooks if no validation plugin present
         if (!$$.fjs.hasPlugin('validate'))
             return;
@@ -48,21 +67,6 @@ $$.fjs.forms = {
         //Assign onClick validation
         .on('click', ':input[data-fjs-validate="click"]', function() {
             singleFieldValidate($$(this));
-        })
-        //Assign onSubmit handler to all forms
-        .on('submit', 'form', function() {
-            var isFormValid = true;
-            var $form = $$(this);
-            //Clear all errors
-            $form.find('*[data-fjs-error_for]').html('');
-            $form.find(':input').each(function() {
-                isFormValid = singleFieldValidate($$(this)) && isFormValid;
-            });
-            if (isFormValid && $form.attr('data-fjs-form-ajax')) {
-                $$.fjs.forms.ajaxSubmit($form);
-                return false;
-            }
-            return isFormValid;
         });
     },
     /**
@@ -133,7 +137,7 @@ $$.fjs.forms = {
         //Clear error
         $form.find('*[data-fjs-error_for="'+$input.attr('name')+'"]').html('');
         //If validation failed
-        if ($$.fjs.validate.fieldError($input)) {
+        if ($$.fjs.hasPlugin('validate') && $$.fjs.validate.fieldError($input)) {
             //Highlight error
             var error = $$.fjs.validate.fieldError($input);
             var errorText = $$.fjs.hasPlugin('lang') ? $$_(error) : error;
@@ -154,6 +158,8 @@ $$.fjs.forms = {
      * @return {Object} $$.fjs.forms
      */
     reset: function($container, onlyErrors) {
+        if ($$.fjs.hasPlugin('validate'))
+            $$.fjs.validate.reset();
         $container.find(':input').each(function() {
             $$.fjs.forms.highlightFieldError($(this));
         });
