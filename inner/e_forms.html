@@ -1,7 +1,7 @@
 <h1>Forms&amp;Validation Demo</h1>
 <h2>Example</h2>
 <div id="example1">
-    <form action="#e_forms" method="post">
+    <form action="#e_forms" method="post" data-fjs-form-ajax="true">
         <div>
             <label data-fjs-highlight_error_for="digits">Digits only:</label>
         </div>
@@ -65,12 +65,14 @@
     <script type="text/javascript">
         //Custom validator "foo" which takes parameter "bar"
         //and checks value to be equal given parameter
-        $$.fjs.validate.add('foo', function(value, params) {
-            return value == params.bar;
-        },
-        {
-            bar : 'bar'
-        });
+        if ($$.fjs.hasPlugin('validate')) {
+            $$.fjs.validate.add('foo', function(value, params) {
+                return value == params.bar;
+            },
+            {
+                bar : 'bar'
+            });
+        }
     </script>
 </div>
 
@@ -140,12 +142,14 @@
     &lt;script type="text/javascript"&gt;
         //Custom validator "foo" which takes parameter "bar"
         //and checks value to be equal given parameter
-        $$.fjs.validate.add('foo', function(value, params) {
-            return value == params.bar;
-        },
-        {
-            bar : 'bar'
-        });
+        if ($$.fjs.hasPlugin('validate')) {
+            $$.fjs.validate.add('foo', function(value, params) {
+                return value == params.bar;
+            },
+            {
+                bar : 'bar'
+            });
+        }
     &lt;/script&gt;
 </script>
 <div class="clear"></div>
