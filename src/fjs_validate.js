@@ -111,6 +111,7 @@ $$.fjs.validate = {
             });
             //Do validation (call validation func)
             var validatorResult = validatorInfo.func($input.val(), validatorConfig, $input);
+            this.fieldErrors[$input.attr('name')] = null; //Resetting field error
             if (!validatorResult) {
                 this.fieldErrors[$input.attr('name')] = validatorConfig.error_message ? validatorConfig.error_message : validatorName;
             }
