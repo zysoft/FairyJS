@@ -39,6 +39,8 @@ $$.fjs.forms = {
                     isFormValid = singleFieldValidate($$(this)) && isFormValid;
                 });
             }
+            if (!isFormValid)
+                $$.fjs.fire('org.fjs.form.validation.error', $form);
             if (isFormValid && $form.attr('data-fjs-form-ajax')) {
                 $$.fjs.forms.ajaxSubmit($form);
                 return false;
